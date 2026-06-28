@@ -1,0 +1,13 @@
+:root {
+  --primary: #2563eb;
+  --secondary: #1e293b;
+  --background: #fdf7ef;
+  --white:  #ffffff;
+  --texto-primary:var(--font-cinzel);
+  --texto-secundary: var(--font-inter);
+  --border-low: #0f172a;
+  --background-strong-button: #373737;
+  --color-strong-button: var(--white);
+  --background-strong-button-mk: #ffb433;
+  --color-strong-button-ml: var(--background-strong-button);
+}

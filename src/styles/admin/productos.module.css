@@ -1,0 +1,355 @@
+/* ==========================================================================
+   1. CONTENEDOR GENERAL Y NUEVO LAYOUT SPLIT (PC)
+   ========================================================================== */
+.contentProducto {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+/* El nuevo contenedor maestro que divide Sidebar de Catálogo */
+.storeLayoutContainer {
+    display: flex;
+    gap: 2.5rem;
+    width: 100%;
+    align-items: flex-start;
+}
+
+/* ==========================================================================
+   2. NUEVO SIDEBAR IZQUIERDO (FILTROS Y CATEGORÍAS)
+   ========================================================================== */
+.sidebarFilters {
+    width: 280px;
+    flex-shrink: 0;
+    /* Evita que el menú se deforme o encoja */
+}
+
+/* Mantiene los filtros quietos en la pantalla mientras haces scroll */
+.sidebarSticky {
+    position: sticky;
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid #f0f0ed;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+}
+
+.sidebarHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #111111;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+}
+
+.sidebarHeader h2 {
+    font-family: var(--font-cinzel), serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* Bloques internos de filtros (Categorías / Precios) */
+.filterSection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.filterSection h3 {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin: 0;
+}
+
+/* Lista Interactiva de Categorías */
+.categoriesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.categoryLink {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    border-width: 0;
+    border-radius: 10px;
+    color: #475569;
+    font-size: 0.9rem;
+    text-decoration: none;
+    background: transparent;
+    transition: all 0.2s ease;
+}
+
+.categoryLink:hover {
+    background-color: #f8fafc;
+    color: #111111;
+}
+
+/* Estado seleccionado de la categoría de la URL */
+.categoryActive {
+    background-color: #434343;
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.categoryArrow {
+    opacity: 0.4;
+    transition: transform 0.2s;
+}
+
+.categoryLink:hover .categoryArrow {
+    transform: translateX(3px);
+    opacity: 1;
+}
+
+/* selectores circulares de Orden de Precio */
+.orderOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.radioLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #334155;
+    cursor: pointer;
+    padding: 0.2rem 0;
+    user-select: none;
+}
+
+.radioLabel input {
+    accent-color: #111111;
+    /* Selector negro para estética refinada */
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   3. BLOQUE DERECHO (BUSCADOR + CATÁLOGO)
+   ========================================================================== */
+.mainCatalogContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* Tu barra de búsqueda original adaptada al ancho flotante */
+.actionsProducto {
+    width: 100%;
+    background: white;
+    padding: 16px;
+    /* Ajustado para que no quede un borde gigante alrededor */
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f0f0ed;
+    margin-bottom: 35px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+
+.inputSection {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    /* Forzamos a que ocupe todo el ancho de la caja blanca */
+}
+
+/* El contenedor ahora se expande por completo */
+.searchContainer {
+    position: relative;
+    width: 100%;
+}
+
+/* La lupa ahora se posiciona de forma exacta dentro del input */
+.searchIcon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    pointer-events: none;
+    /* Evita que interfiera al hacer clic en el borde izquierdo del input */
+    z-index: 2;
+}
+
+.searchContainer input {
+    width: 100%;
+    /* Toma todo el espacio disponible */
+    height: 52px;
+    /* Un poquito más alto para que sea más premium y cómodo de leer */
+
+    padding-left: 48px;
+    /* Espacio exacto para que el texto no pise la lupa */
+    padding-right: 20px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-family: var(--font-inter), sans-serif;
+    color: #1a1a1a;
+    background-color: #fbfbfa;
+
+    box-sizing: border-box;
+    transition: all .25s ease;
+}
+
+.searchContainer input:focus {
+    outline: none;
+    border-color: #111111;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   4. SECCIÓN DE PRODUCTOS (GRID DE TARJETAS ORIGINAL)
+   ========================================================================== */
+.productsSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.productsGrid {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2.5rem 1.75rem;
+    margin-bottom: 4rem;
+}
+
+.noProducts {
+    text-align: center;
+    padding: 5rem 1rem;
+    color: #64748b;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1rem;
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    border: 1px solid #eaeaea;
+    box-sizing: border-box;
+}
+
+/* ==========================================================================
+   5. RESPONSIVE DESIGN TOTAL (Media Query 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .contentProducto {
+        padding: 15px 10px;
+    }
+
+    /* Transformamos el Layout en un bloque vertical */
+    .storeLayoutContainer {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    /* El Sidebar pasa arriba del catálogo de manera ultra compacta */
+    .sidebarFilters {
+        width: 100%;
+    }
+
+    .sidebarSticky {
+        position: static;
+        /* Eliminamos el pegajoso en móviles */
+        padding: 16px;
+        gap: 1.25rem;
+        border-radius: 12px;
+    }
+
+    /* Las categorías ahora se deslizan de lado a lado con el dedo */
+    .categoriesList {
+        flex-direction: row;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.5rem;
+    }
+
+    /* Ocultamos barras de scroll feas en Chrome/Safari/Firefox para las categorías móviles */
+    .categoriesList::-webkit-scrollbar {
+        display: none;
+    }
+
+    .categoriesList {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .categoryLink {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e2e8f0;
+        display: inline-flex;
+    }
+
+    .categoryArrow {
+        display: none;
+        /* Quitamos la flecha en móvil para salvar espacio */
+    }
+
+    /* Los botones de ordenar por precio se alinean horizontalmente */
+    .orderOptions {
+        flex-direction: row;
+        gap: 1.5rem;
+    }
+
+    /* Adaptación del Buscador */
+    .actionsProducto {
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 12px;
+    }
+
+    .inputSection {
+        width: 100%;
+    }
+
+    .searchContainer {
+        width: 100%;
+    }
+
+    .searchContainer input {
+        height: 44px;
+        font-size: 14px;
+    }
+
+    .categoryActive {
+        background-color: #434343 !important;
+        color: #ffffff !important;
+        font-weight: 600;
+    }
+    /* Tu grid original intacto con 2 columnas elegantes en cel */
+    .productsGrid {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1.5rem 1rem;
+        margin-bottom: 2.5rem;
+    }
+}

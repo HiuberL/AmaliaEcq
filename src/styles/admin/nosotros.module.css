@@ -1,0 +1,207 @@
+/* ================= VARIABLES Y GENERALES ================= */
+.pageWrapper {
+  width: 100%;
+  overflow-x: hidden; /* Blindaje total horizontal */
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* ================= 1. HERO SECTION ================= */
+.heroSection {
+  background-color: #ffffff; /* Un tono sutil y claro */
+  border-radius: 50px;
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.heroContent {
+  max-width: 650px;
+  margin: 0 auto;
+}
+.h2
+.h1{
+ font-weight: 800;
+}
+.heroTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 3rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #1a1a1a;
+  margin-bottom: 1.5rem;
+}
+
+.heroSubtitle {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* ================= 2 y 3. SECCIONES DE HISTORIA (Grilla fluidas) ================= */
+.storySection,
+.storySectionAlt {
+  margin-top: 15px;
+  padding: 6rem 0;
+  border-radius: 50px;
+  background-color: #ffffff;
+
+}
+
+
+/* Grilla base (Móvil: una columna) */
+.gridTwoCols,
+.gridTwoColsReverse {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Columna de Texto */
+.textContent {
+  flex: 1;
+  text-align: center;
+}
+
+.sectionTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+}
+
+.paragraph {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  color: #555555;
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
+/* Columna de Imagen */
+.imageContent {
+  flex: 1;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+}
+
+.featuredImage {
+  width: 300px;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ================= 4. SECCIÓN VALORES ================= */
+.valuesSection {
+  padding: 6rem 0;
+  margin-top: 15px;
+  background-color: #fcfcfc;
+}
+
+.sectionTitleCenter {
+  composes: sectionTitle;
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+/* Grilla de Valores (Móvil: una columna, PC: tres) */
+.gridThreeCols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  width: 100%;
+}
+
+.valueCard {
+  background-color: #ffffff;
+  padding: 3rem;
+  text-align: center;
+  border: 1px solid #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.valueCard:hover {
+  border-color: #e0e0e0;
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+}
+
+.iconWrapper {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconWrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.valueTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.valueDescription {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: #666666;
+  line-height: 1.7;
+}
+
+/* ================= RESPONSIVE (ESCRITORIO) ================= */
+@media (min-width: 768px) {
+  
+  /* Ajustes Hero PC */
+  .heroSection {
+    padding: 8rem 1.5rem;
+  }
+  
+  .heroTitle {
+    font-size: 4rem;
+    font-weight: 600;
+  }
+
+  /* Ajustes Grilla Historias PC */
+  .gridTwoCols,
+  .gridTwoColsReverse {
+    flex-direction: row; /* Lado a lado */
+    gap: 5rem;
+  }
+
+  .textContent {
+    text-align: left; /* Justificado a la izquierda */
+  }
+
+  /* La grilla invertida (Misión 2) pone la imagen a la izquierda */
+  .gridTwoColsReverse {
+    flex-direction: row-reverse;
+  }
+
+  /* Ajustes Grilla Valores PC */
+  .gridThreeCols {
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+  }
+}

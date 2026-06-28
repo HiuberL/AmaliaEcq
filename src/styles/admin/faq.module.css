@@ -1,0 +1,224 @@
+/* ================= CONTENEDOR GENERAL ================= */
+.pageWrapper {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #ffffff;
+  padding-bottom: 6rem;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+/* ================= HERO & BUSCADOR ================= */
+.heroSection {
+  background-color: #f9f9f9;
+  padding: 5rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroSection h1 {
+  font-family: var(--font-cinzel), serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+}
+
+.heroSection p {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  color: #666666;
+  margin: 0 0 2.5rem 0;
+  max-width: 550px;
+  line-height: 1.6;
+}
+
+/* Caja del Buscador */
+.searchContainer {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.searchInput {
+  width: 100%;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  padding: 14px 45px 14px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 15px; /* Estilo minimalista cuadrado */
+  background-color: #ffffff;
+  color: #1a1a1a;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+
+.searchIcon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ================= GRUPOS Y SECCIONES ================= */
+.faqGroup {
+  margin-top: 4.5rem;
+}
+
+.faqGroup h2 {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Grid de Cards */
+.cardsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+/* ================= DISEÑO DE CARDS (COLAPSABLE) ================= */
+.faqCard {
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faqCard:hover {
+  border-color: #cbcbcb;
+}
+
+/* Cabecera/Pregunta dentro de la Card */
+.cardHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 1.5rem;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.cardHeader h3 {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1a1a1a;
+  margin: 0;
+  padding-right: 1.5rem;
+  line-height: 1.4;
+}
+
+.arrowIcon {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: #1a1a1a;
+  transition: transform 0.3s ease;
+}
+
+/* Cuerpo colapsable (Manejo de animación de altura pura) */
+.cardBody {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.cardContent {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.cardContent p {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: #555555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Estado de la Card Abierta */
+.cardOpen {
+  border-color: #1a1a1a !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.cardOpen .cardBody {
+  max-height: 500px; /* Un valor alto seguro para que la respuesta fluya sin cortarse */
+  opacity: 1;
+}
+
+/* ================= ESTADOS VACÍOS ================= */
+.emptyState {
+  text-align: center;
+  padding: 6rem 1.5rem;
+  font-family: var(--font-inter), sans-serif;
+  color: #666666;
+}
+
+.cardContent strong {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.cardContent ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0 0 0;
+}
+
+.cardContent li {
+  margin-bottom: 0.4rem;
+  color: #555555;
+}
+/* ================= RESPONSIVE ESCRITORIO ================= */
+@media (min-width: 768px) {
+  .heroSection {
+    padding: 7rem 1.5rem;
+  }
+
+  .heroSection h1 {
+    font-size: 3.4rem;
+    letter-spacing: 6px;
+  }
+
+  .faqGroup h2 {
+    font-size: 1.6rem;
+  }
+
+  .cardHeader {
+    padding: 1.8rem 2rem;
+  }
+
+  .cardContent {
+    padding: 0 2rem 1.8rem 2rem;
+  }
+}

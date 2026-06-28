@@ -1,0 +1,121 @@
+/* ================= CONTENEDOR PRINCIPAL ================= */
+.heroContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  color:white;
+  overflow-x: hidden; /* Evita radicalmente cualquier desborde horizontal (scroll en X) */
+}
+
+/* ================= GRID DE CONTENIDO ================= */
+.contentGrid {
+  display: flex;
+  flex-direction: column; /* Celular por defecto: una columna bien centrada */
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Columna de la Imagen */
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 380px; /* Tamaño ideal y controlado para que no rompa en pantallas chicas */
+  box-sizing: border-box;
+}
+
+.presentationImage {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Columna de Textos */
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; /* Centrado horizontal total en móvil */
+  text-align: center; /* Centra los párrafos y títulos en móvil */
+  width: 100%;
+  max-width: 540px;
+  box-sizing: border-box;
+}
+
+/* ================= ELEMENTOS INTERNOS ================= */
+.mainTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.8rem; /* Tamaño optimizado para que no desborde en pantallas de móvil pequeñas */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1.3;
+  color: #1a1a1a;
+  margin-top: 0;
+  margin-bottom: 1.2rem;
+}
+
+.description {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #555555;
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+/* Botón de acción premium */
+.ctaButton {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  border-radius: 10px;
+  letter-spacing: 2px;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  padding: 14px 36px;
+  border: 1px solid #1a1a1a;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.ctaButton:hover {
+  background-color: transparent;
+  color: #1a1a1a;
+  transform: translateY(-2px);
+}
+
+/* ================= RESPONSIVE (ESCRITORIO) ================= */
+@media (min-width: 768px) {
+  .contentGrid {
+    flex-direction: row; /* Cambia a dos columnas lado a lado en PC */
+    justify-content: space-between;
+    gap: 4rem;
+  }
+
+  .imageWrapper {
+    max-width: 440px; /* Crece un poco más en escritorio donde hay espacio */
+  }
+
+  .textWrapper {
+    align-items: flex-start; /* Alinea los textos e botón a la izquierda en PC */
+    text-align: left; /* Justifica el texto a la izquierda en PC para estilo editorial */
+  }
+
+  .mainTitle {
+    font-size: 2.6rem; /* Título más imponente en pantallas grandes */
+    letter-spacing: 3px;
+  }
+}

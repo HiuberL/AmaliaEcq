@@ -1,0 +1,62 @@
+.notFoundContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh; /* Se ajusta bien dentro de tu MainContent debajo del Header */
+  width: 100%;
+  color:#ffffff;
+  padding: 2rem;
+  text-align: center;
+}
+
+.contentBox {
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.errorCode {
+  font-family: var(--font-cinzel), serif;
+  font-size: 6rem;
+  font-weight: 300;
+  color: #1a1a1a;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  letter-spacing: 4px;
+}
+
+.title {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+}
+
+.description {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  color: #5e5e5e;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.backButton {
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  background-color: #1a1a1a; /* Tu color oscuro principal */
+  padding: 12px 32px;
+  border: 1px solid #1a1a1a;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.backButton:hover {
+  background-color: transparent;
+  color: #1a1a1a;
+}

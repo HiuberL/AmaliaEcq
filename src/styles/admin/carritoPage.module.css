@@ -1,0 +1,304 @@
+.pageWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px; /* Reducido para móviles */
+  font-family: var(--font-inter), sans-serif;
+  background-color: white;
+  border-radius: 20px;
+}
+
+@media (min-width: 768px) {
+  .pageWrapper {
+    padding: 50px; /* Recupera el espacio en escritorio */
+  }
+}
+
+.headerSection {
+  margin-bottom: 30px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #666;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.backLink:hover {
+  color: #000;
+}
+
+.pageTitle {
+  font-family: var(--font-cinzel), serif;
+  font-size: 26px; /* Más pequeño en móvil */
+  margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+  .pageTitle {
+    font-size: 32px;
+  }
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+}
+
+@media (min-width: 968px) {
+  .mainGrid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* --- LISTADO DE PRODUCTOS (REDISEÑO MÓVIL) --- */
+
+/* Ocultamos la cabecera de la tabla por completo en móviles */
+.tableHeader {
+  display: none; 
+}
+
+@media (min-width: 768px) {
+  .tableHeader {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eaeaea;
+    font-weight: 600;
+    color: #444;
+    font-size: 14px;
+  }
+}
+
+/* En móvil, cada fila se comporta como un bloque/tarjeta flexible */
+.cartRow {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eaeaea;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .cartRow {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
+    align-items: center;
+    flex-direction: row;
+    gap: 0;
+  }
+}
+
+.productCell {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.productImage {
+  width: 80px; /* Ligeramente más grande en móvil para que luzca bien */
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.productName {
+  font-size: 16px;
+  margin: 0 0 4px 0;
+  font-weight: 500;
+  padding-right: 30px; /* Evita que el texto pise el botón de borrar */
+}
+
+.productSku {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+}
+
+.decantBadge {
+  display: inline-block;
+  background: #f0e6ff;
+  color: #6200ee;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-top: 5px;
+  font-weight: 500;
+}
+
+/* Contenedor para alinear cantidad y precio en la misma línea en móvil */
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  width: max-content;
+  background: #fff;
+}
+
+.quantitySelector button {
+  background: none;
+  border: none;
+  padding: 8px 14px; /* Botones más grandes para dedos en móvil */
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.quantitySelector span {
+  padding: 0 10px;
+  min-width: 24px;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Ajuste del precio total por producto */
+.totalCell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* En móvil, mandamos el botón de borrar a la esquina superior derecha */
+.deleteRowBtn {
+  background: none;
+  border: none;
+  color: #cc0000;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 5px;
+  transition: background 0.2s;
+  position: absolute;
+  top: 15px;
+  right: 0;
+}
+
+.deleteRowBtn:hover {
+  background: #fff0f0;
+}
+
+@media (min-width: 768px) {
+  .deleteRowBtn {
+    position: static; /* Vuelve a su lugar en escritorio */
+  }
+}
+
+/* --- RESUMEN DE COMPRA --- */
+.summaryCard {
+  background: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px; /* Menos padding en móvil */
+  position: static; /* No se queda pegado en móvil para no romper el scroll */
+}
+
+@media (min-width: 968px) {
+  .summaryCard {
+    padding: 25px;
+    position: sticky;
+    top: 20px;
+  }
+}
+
+.summaryTitle {
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 10px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 15px;
+  color: #555;
+}
+
+.totalRow {
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+  margin-top: 15px;
+}
+
+.shippingNotice {
+  font-size: 12px;
+  color: #2e7d32;
+  background: #edf7ed;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 20px 0;
+}
+
+.checkoutButton {
+  width: 100%;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 16px; /* Más cómodo para pulsar en móvil */
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s;
+  -webkit-appearance: none; /* Evita estilos nativos raros en iOS */
+}
+
+.checkoutButton:hover {
+  background: #222;
+}
+
+/* --- ESTADOS DE CARGA Y VACÍO --- */
+.loadingContainer, .emptyContainer {
+  text-align: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 60px 20px; /* Reducido en móvil */
+}
+
+@media (min-width: 768px) {
+  .loadingContainer, .emptyContainer {
+    padding: 100px 20px;
+  }
+}
+
+.emptyIcon {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.continueShoppingBtn {
+  display: inline-block;
+  background: #000;
+  color:white;
+  padding: 12px 30px;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-top: 20px;
+  font-weight: 500;
+}
+.continueShoppingBtn p{
+  color:white;
+}
+
+/* Clases utilitarias móviles */
+@media (max-width: 767px) {
+  .hideMobile {
+    display: none !important;
+  }
+}

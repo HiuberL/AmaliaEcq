@@ -1,0 +1,531 @@
+/* ==========================================================================
+   1. CONTENEDOR PRINCIPAL Y LAYOUT GENERAL
+   ========================================================================== */
+.principalContainer {
+display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #fcfbf7;
+  color: #1a1a1a;
+  font-family: var(--font-inter), sans-serif;  
+  position: relative;
+}
+.principalContainerBackground{
+  position: relative;
+  z-index: 1;
+}
+.principalContainerBackground::before {
+  content: '';
+  background-image: linear-gradient(rgba(255, 243, 229, 0.845), rgba(255, 243, 229, 0.845)), url('/assets/background-flower.jpg'); /* Ajusta la ruta si la tienes en otra carpeta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  position: fixed; /* Cubre toda la pantalla de forma fija */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(3px);
+  z-index: -1; /* Se coloca detrás de todo el contenido, pero frente a la imagen base */
+}
+
+/* Redirige los links globales dentro del layout */
+.principalContainer a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+/* ==========================================================================
+   2. HEADER (Navegación Principal)
+   ========================================================================== */
+.mainHeader {
+  display: flex;
+  justify-content: space-between;
+  vertical-align:middle;
+  align-items: center;
+  padding: 1.25rem 5%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+/* Logo con la fuente serif elegante */
+.headerLogo {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Menú de Navegación */
+.mainNav {
+  display: flex;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.navList>li>a {
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+/* Efecto hover de línea minimalista */
+.navList>li>a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #1a1a1a;
+  transition: width 0.3s ease;
+}
+
+.navList>li>a:hover::after {
+  width: 100%;
+}
+
+/* ==========================================================================
+   3. SUBMENÚ DESPLEGABLE (Tienda -> Perfumes, Maquillajes)
+   ========================================================================== */
+.hasSubmenu {
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.submenuTrigger {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Flechita sutil simulada con CSS */
+.submenuTrigger::after {
+  content: '▾';
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.hasSubmenu:hover .submenuTrigger::after {
+  transform: rotate(180deg);
+}
+
+/* Contenedor del Submenú */
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eaeaea;
+  padding: 0.75rem 0;
+  list-style: none;
+  min-width: 160px;
+  border-radius: 4px;
+  padding-top: 0.5rem;
+}
+
+/* Mostrar al hacer Hover */
+.hasSubmenu:hover .submenu {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.submenu li a {
+  display: block;
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+  color: #555555;
+}
+
+.submenu li a:hover {
+  background-color: #f9f9f6;
+  color: #000000;
+}
+
+/* ==========================================================================
+   4. ACCIONES DEL HEADER Y CONTENIDO
+   ========================================================================== */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.headerBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.headerBtn:hover {
+  transform: scale(1.05);
+}
+
+/* Área de contenido que crece dinámicamente */
+.mainContent {
+  flex: 1;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 5%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   5. FOOTER (Pie de Página)
+   ========================================================================== */
+.mainFooter {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 4rem 5% 2rem 5%;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-bottom: 1px solid #222222;
+  padding-bottom: 3rem;
+}
+
+.footerSection h3 {
+  font-family: var(--font-cinzel), serif;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 1.5rem;
+  color: #fcfbf7;
+}
+
+.footerSection p {
+  color: #aaaaaa;
+  line-height: 1.6;
+}
+
+.footerSection ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerSection ul li {
+  margin-bottom: 0.75rem;
+}
+
+.footerSection ul li a {
+  color: #aaaaaa;
+}
+
+.footerSection ul li a:hover {
+  color: #ffffff;
+  padding-left: 4px;
+  /* Un pequeño efecto de empuje al hover */
+}
+
+/* Copyright */
+.footerBottom {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  text-align: center;
+  color: #666666;
+  font-size: 0.8rem;
+}
+.headerTransparent {
+  background-color: transparent !important;
+}
+/* ==========================================================================
+   6. ANIMACIONES Y RESPONSIVE SUTIL
+   ========================================================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.footerDivider {
+  border: 0;
+  height: 1px;
+  background-color: #222222;
+  /* Gris oscuro que contrasta suave con el fondo #111 */
+  margin: 1.5rem 0;
+  /* Espaciado arriba y abajo de la línea */
+  width: 100%;
+}
+
+/* Estilo para los datos de contacto (Texto fijo) */
+.contactList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: #aaaaaa;
+  /* Color gris suave */
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Estilo para las políticas (Links más pequeños y discretos) */
+.policyList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.85rem;
+  /* Un poco más pequeña que el contacto */
+}
+
+.policyList li {
+  margin-bottom: 0.6rem;
+}
+
+.policyList li a {
+  color: #888888;
+  /* Un tono un poco más apagado para que sea secundario */
+}
+
+.policyList li a:hover {
+  color: #ffffff;
+  /* Brilla al pasar el mouse */
+}
+
+.mobileMenuBtn {
+  display: none;
+}
+
+.closeMenuBtn {
+  display: none;
+}
+
+.menuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 998;
+}
+  .socialContainer {
+    display: flex;
+    gap: 1.25rem;
+    /* Espacio entre cada icono */
+    margin-top: 1.25rem;
+    /* Separación respecto al texto de contacto */
+  }
+
+  /* Estilo para cada enlace de red social */
+  .socialLink {
+    color: #aaaaaa;
+    /* Color gris suave a juego con el texto de contacto */
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    justify-content: center;
+    transition: color 0.3s ease, transform 0.2s ease;
+  }
+
+  /* Efecto al pasar el mouse por encima */
+  .socialLink:hover {
+    color: #ffffff;
+    /* Se ilumina en blanco */
+    transform: translateY(-3px);
+    /* Pequeño salto hacia arriba muy elegante */
+  }
+/* 1. Contenedor padre relativo para que el menú flote justo debajo */
+.userMenuContainer {
+  position: relative;
+  display: inline-block;
+}
+
+/* 2. El submenú oculto por defecto */
+.dropdownMenu {
+  position: absolute;
+  top: 100%;            /* Se posiciona justo al ras de abajo del botón */
+  right: 0;             /* Se alinea al borde derecho para que no se desborde */
+  width: 180px;
+  background-color: #ffffff;
+  border: 1px solid #eaeaea;
+  padding: 0.5rem 0;
+  margin-top: 8px;      /* Separación sutil del header */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  z-index: 110;
+  
+  /* 🪄 Estado inicial para la transición suave */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 🚀 LA MAGIA: Cuando el mouse entra al contenedor, se despliega con suavidad */
+.userMenuContainer:hover .dropdownMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* 3. Estilos para los botones/enlaces internos del menú */
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  font-family: var(--font-inter), sans-serif; /* Tu tipografía secundaria limpia */
+  font-size: 0.85rem;
+  color: #555555;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+/* 💄 Efecto hover premium para las opciones */
+.dropdownItem:hover {
+  background-color: #f7f7f7;
+  color: #1a1a1a;
+}
+
+/* Ajuste opcional para el botón del ícono principal si es necesario */
+.headerBtnL {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #1a1a1a;
+  padding: 8px;
+}  
+/* Responsive básico para tablets/celulares (Oculta menú horizontal si es muy pequeño) */
+@media (max-width: 768px) {
+  .mobileMenuBtn {
+    display: flex;
+    order: -1;
+    /* Lo posiciona a la izquierda si lo deseas */
+  }
+
+  /* Transformar el nav clásico en una barra deslizable desde la derecha */
+  .mainNav {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    /* Escondido completamente a la izquierda */
+    width: 280px;
+    height: 100vh;
+    background-color: #ffffff;
+    /* Cambiamos la sombra para que se proyecte hacia la derecha */
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    /* Controlamos la transición usando 'left' */
+    transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+
+
+  /* Clase activa que empuja el menú a la pantalla */
+  .navActive {
+    left: 0;
+  }
+
+  /* Mostrar botón de cerrar X dentro del menú */
+  .closeMenuBtn {
+    display: flex;
+    background: none;
+    border: none;
+    align-self: flex-end;
+    cursor: pointer;
+    color: #1a1a1a;
+    padding: 0.5rem;
+  }
+
+  /* Ajustar los enlaces para que vayan en lista vertical */
+  .navList {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+    font-size: 1.1rem;
+  }
+
+  .navList>li {
+    width: 100%;
+  }
+
+  /* Ajuste del Submenú de Tienda en Móvil */
+  .hasSubmenu {
+    width: 100%;
+  }
+
+  .submenu {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-left: 2px solid #eaeaea;
+    margin-top: 0.5rem;
+    padding: 0 0 0 1rem;
+    display: block;
+    /* En móviles dejamos visibles las categorías fijas */
+    min-width: unset;
+  }
+
+  .submenu li a {
+    padding: 0.4rem 0;
+  }
+
+  /* Flecha del trigger de Tienda fija en móviles */
+  .submenuTrigger::after {
+    transform: rotate(180deg);
+  }
+
+  /* Ajustes del Footer para pantallas pequeñas */
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}

@@ -1,0 +1,464 @@
+.checkoutContainer {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 40px 40px;
+  border-radius: 20px;
+
+}
+
+.checkoutLayout {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+.metodoDetallesBox {
+  background-color: #f3f4f6;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: -5px;
+  margin-bottom: 20px;
+  border-left: 4px solid #111111; /* O el color de tu marca */
+}
+
+.detalleItem {
+  font-size: 13px;
+  color: #4b5563;
+  margin: 5px 0;
+  line-height: 1.4;
+}
+
+.detalleLink {
+  color: #2563eb;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+@media (min-width: 992px) {
+  .checkoutLayout {
+    grid-template-columns: 7fr 5fr;
+  }
+}
+
+.checkoutFormCard {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* BARRA DE PROGRESO */
+.progressContainer {
+  margin-bottom: 35px;
+}
+
+.puntosRewardsBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fdf8f2; /* Un tono cálido sutil (crema/oro) */
+  border: 1px solid #f3e8d6;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  transition: all 0.3s ease;
+}
+
+.puntosActivos {
+  border-color: #d97706; /* Cambia a color dorado/ámbar al activarse */
+  background-color: #fef3c7;
+}
+
+.puntosInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.puntosIcon {
+  font-size: 24px;
+}
+
+.puntosTitle {
+  font-size: 14px;
+  color: #1f2937;
+  margin: 0;
+}
+
+.puntosSubtitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 2px 0 0 0;
+}
+
+/* Estilo para la fila del carrito */
+.puntosDescuentoRow {
+  color: #b45309 !important;
+  font-weight: 600;
+}
+
+/* --- ESTILO SWITCH (CONTROL DESLIZANTE) --- */
+.switchContainer {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.switchContainer input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switchSlider {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.switchSlider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+.switchContainer input:checked + .switchSlider {
+  background-color: #d97706; /* Color dorado al encender */
+}
+
+.switchContainer input:checked + .switchSlider:before {
+  transform: translateX(20px);
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+.progressLabels .activeStep {
+  color: #111111;
+}
+
+.progressBarBackground {
+  width: 100%;
+  background-color: #e5e7eb;
+  height: 8px;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  background-color: #111111;
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+}
+
+/* COMPONENTES DEL FORMULARIO */
+.stepTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1f2937;
+}
+
+.subtitleForm {
+  font-size: 15px;
+  font-weight: 600;
+  color: #4b5563;
+  margin-top: 10px;
+}
+
+.formGrid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+@media (min-width: 576px) {
+  .formGrid2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  .fullWidthColumn {
+    grid-column: span 2;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: #111111;
+}
+
+/* SELECCIÓN RADIO PASO 3 */
+.radioOptionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radioCardOption {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.radioCardOption.selected {
+  border-color: #111111;
+  background-color: #fafafa;
+}
+
+.radioCardOption input[type="radio"] {
+  margin-top: 3px;
+  margin-right: 12px;
+  accent-color: #111111;
+}
+
+.radioTextContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.radioTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.radioDescription {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* BOTONES */
+.navigationButtons {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnBack {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  color: #4b5563;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btnBack:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+
+.btnNext, .btnSubmit {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btnNext {
+  background-color: #111111;
+  color: #ffffff;
+}
+
+.btnNext:hover {
+  background-color: #222222;
+}
+
+.btnSubmit {
+  background-color: #10b981;
+  color: #ffffff;
+}
+
+.btnSubmit:hover {
+  background-color: #059669;
+}
+
+/* SECCIÓN CARRITO */
+.checkoutCartCard {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+@media (min-width: 992px) {
+  .checkoutCartCard {
+    position: sticky;
+    top: 30px;
+    height: fit-content;
+  }
+}
+
+.cartCardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.cartItemsWrapper {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.cartItemSample {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #f9fafb;
+}
+
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.itemThumb {
+  width: 50px;
+  height: 50px;
+  background-color: #f3f4f6;
+  border-radius: 6px;
+}
+
+.itemName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.itemQty {
+  font-size: 12px;
+  color: #9ca3af;
+  margin: 2px 0 0 0;
+}
+
+.itemPrice {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cartTotalsSection {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 15px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 8px;
+}
+
+.grandTotal {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111111;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #e5e7eb;
+}
+
+/* ANIMACIÓN */
+.dynamicFade {
+  animation: fadeIn 0.3s ease-in-out;
+}
+/* Para que la imagen del perfume se renderice bien y conserve proporciones */
+.itemThumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #f3f4f6;
+}
+
+/* Contenedor de precios a la derecha del item */
+.itemPriceContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Precio antiguo / original tachado si tiene descuento */
+.itemOldPrice {
+  font-size: 11px;
+  color: #9ca3af;
+  text-decoration: line-through;
+  margin-top: 2px;
+}
+
+/* Etiqueta pequeña de descuento bajo la cantidad */
+.itemDiscountTag {
+  font-size: 11px;
+  color: #10b981;
+  font-weight: 600;
+  margin: 2px 0 0 0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

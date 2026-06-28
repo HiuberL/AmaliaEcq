@@ -1,0 +1,72 @@
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  vertical-align: middle;
+  align-items: center;
+  min-height: 60vh; /* Ocupa un buen espacio vertical dentro de mainContent */
+  width: 100%;
+}
+
+.spinnerWrapper {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* El círculo exterior (Grande) */
+.spinnerOuter {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-top-color: #1a1a1a; /* Color principal (puedes cambiarlo por tu tono de marca) */
+  border-bottom-color: #1a1a1a;
+  border-radius: 50%;
+  animation: spinOuter 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+/* El círculo interior (Pequeño y veloz) */
+.spinnerInner {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 2px solid transparent;
+  border-left-color: rgba(94, 94, 94, 0.5); /* Tono grisáceo translúcido */
+  border-right-color: rgba(94, 94, 94, 0.5);
+  border-radius: 50%;
+  animation: spinInner 1s linear infinite;
+}
+
+/* Texto inferior elegante */
+.loadingText {
+  margin-top: 1.5rem;
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.3em; /* Espaciado premium entre letras */
+  color: #1a1a1a;
+  text-transform: uppercase;
+  opacity: 0.8;
+  animation: pulseText 2s ease-in-out infinite;
+}
+
+/* =======================================================
+   ANIMACIONES (KEYFRAMES)
+   ======================================================= */
+@keyframes spinOuter {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spinInner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); } /* Gira en sentido contrario */
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}

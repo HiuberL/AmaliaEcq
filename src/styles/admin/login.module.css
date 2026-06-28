@@ -1,0 +1,113 @@
+.pageWrapper {
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 3rem 0;
+}
+
+.container {
+  max-width: 500px; /* Caja compacta y sofisticada */
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1.5rem;
+  box-sizing: border-box;
+}
+
+.authBox {
+  background-color: #fafafa;
+  border: 1px solid #eaeaea;
+  padding: 2.5rem 2rem;
+  margin-top: 1rem;
+}
+
+.tabHeader {
+  display: flex;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 2rem;
+}
+
+.tabButton {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 0;
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: #999999;
+  transition: all 0.2s ease;
+}
+
+.activeTab {
+  color: #1a1a1a;
+  border-bottom: 2px solid #1a1a1a;
+  font-weight: 500;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inputGroup label {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #444444;
+  letter-spacing: 1px;
+}
+
+.inputGroup input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 0px; /* Bordes ortogonales */
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.inputGroup input:focus {
+  border-color: #1a1a1a;
+  outline: none;
+}
+
+.btnSubmit {
+  width: 100%;
+  font-family: var(--font-cinzel), serif;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  background-color: #1a1a1a;
+  padding: 14px;
+  border: 1px solid #1a1a1a;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btnSubmit:hover {
+  background-color: transparent;
+  color: #1a1a1a;
+}
+
+.errorAlert {
+  padding: 10px;
+  background-color: #fffafb;
+  border: 1px solid #f6cfd4;
+  color: #8b2834;
+  font-family: var(--font-inter), sans-serif;
+  font-size: 0.85rem;
+}

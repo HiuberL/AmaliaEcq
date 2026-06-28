@@ -1,0 +1,236 @@
+.pageWrapper {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: #ffffff;
+    padding: 4rem 0;
+    border-radius: 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+}
+
+.formLayoutGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+    margin-top: 1rem;
+}
+
+/* ================= COLUMNA INFORMATIVA ================= */
+.infoColumn {
+    flex: 1;
+}
+
+.subtitle {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #888888;
+    letter-spacing: 2px;
+}
+
+.title {
+    font-family: var(--font-cinzel), serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: #1a1a1a;
+    margin: 0.5rem 0 1.5rem 0;
+    line-height: 1.2;
+}
+
+.description {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.98rem;
+    color: #555555;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.contactDetails p {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.9rem;
+    color: #666666;
+    margin: 0.5rem 0;
+}
+
+/* ================= COLUMNA FORMULARIO ================= */
+.formColumn {
+    flex: 1.2;
+}
+
+.solicitudForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #fafafa;
+    border: 1px solid #eaeaea;
+    padding: 2.5rem 2rem;
+    box-sizing: border-box;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.inputGroup label {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #444444;
+    letter-spacing: 1px;
+}
+
+.formInput,
+.formTextarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #dcdcdc;
+    border-radius: 0px;
+    /* Bordes rectos minimalistas */
+    background-color: #ffffff;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+    border-color: #1a1a1a;
+    outline: none;
+}
+
+/* Botón de envío */
+.btnSubmit {
+    width: 100%;
+    font-family: var(--font-cinzel), serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff;
+    background-color: #1a1a1a;
+    padding: 16px;
+    border: 1px solid #1a1a1a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btnSubmit:hover:not(:disabled) {
+    background-color: transparent;
+    color: #1a1a1a;
+}
+
+.btnSubmit:disabled {
+    background-color: #cccccc;
+    border-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Alertas de Feedback */
+.alertMessage {
+    padding: 12px;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.alertSuccess {
+    background-color: #f4fbf7;
+    border: 1px solid #cae6d5;
+    color: #275e3c;
+}
+
+.alertError {
+    background-color: #fffafb;
+    border: 1px solid #f6cfd4;
+    color: #8b2834;
+}
+
+/* Contenedor general de Quill */
+.quillWrapper {
+    background-color: #ffffff;
+    font-family: var(--font-inter), sans-serif;
+}
+
+/* Forzar esquinas rectas y colores sutiles en la barra de herramientas */
+.quillWrapper :global(.ql-toolbar.ql-snow) {
+    border: 1px solid #dcdcdc;
+    border-bottom: none;
+    border-radius: 0px;
+    background-color: #fcfcfc;
+    padding: 8px;
+}
+
+/* Área de escritura del editor */
+.quillWrapper :global(.ql-container.ql-snow) {
+    border: 1px solid #dcdcdc;
+    border-radius: 0px;
+    min-height: 200px;
+    /* Le da una altura inicial elegante de caja de mensaje */
+    font-size: 0.95rem;
+}
+
+/* Estilo al enfocar el editor */
+.quillWrapper :global(.ql-container.ql-snow):focus-within {
+    border-color: #1a1a1a;
+}
+
+/* 🚨 BLINDAJE DE IMÁGENES DENTRO DEL PROPIO EDITOR CLASIFICADO */
+.quillWrapper :global(.ql-editor img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1rem 0;
+    border: 1px dashed #cccccc;
+}
+
+/* Placeholder texto gris suave */
+.quillWrapper :global(.ql-editor.ql-blank::before) {
+    color: #a0a0a0;
+    font-style: normal;
+}
+
+/* Cargador previo */
+.editorLoader {
+    width: 100%;
+    height: 245px;
+    border: 1px solid #dcdcdc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-inter), sans-serif;
+    font-size: 0.85rem;
+    color: #888888;
+    background-color: #fafafa;
+}
+
+/* Agrega esto a tu solicitudes.module.css si prefieres quitar el estilo en línea */
+.dateTimeRow {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+}
+
+/* ================= COMPUTADORAS / DESKTOPS ================= */
+@media (min-width: 768px) {
+    .formLayoutGrid {
+        flex-direction: row;
+        gap: 4.5rem;
+        align-items: flex-start;
+    }
+
+    .dateTimeRow {
+        flex-direction: column;
+        /* Se apilan verticalmente en celulares pequeños */
+        gap: 0;
+    }
+
+}

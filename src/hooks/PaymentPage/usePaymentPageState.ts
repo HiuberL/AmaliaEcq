@@ -19,7 +19,9 @@ interface FormData {
 
 export const usePaymentPageState = () => {
   const [paso, setPaso] = useState<number>(1);
+  const [carrito, setCarrito] = useState<string>('');
   const [metodoEnvio, setMetodoEnvio] = useState<any>(null);
+  const [payPhoneReady, setPayPhoneReady] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     idCliente: '',
     usarPuntos:false,
@@ -35,12 +37,14 @@ export const usePaymentPageState = () => {
     direccion: '',
     referencia: '',
     urlMapa: '',
-    metodoPago: 'tarjeta',
+    metodoPago: 'transferencia'
   });
 
   return {
     paso, setPaso,
     formData, setFormData,
-    metodoEnvio,setMetodoEnvio
+    metodoEnvio,setMetodoEnvio,
+    payPhoneReady, setPayPhoneReady,
+    carrito, setCarrito
   }
 }

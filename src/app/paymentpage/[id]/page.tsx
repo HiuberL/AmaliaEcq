@@ -43,5 +43,6 @@ async function SuspenseData({ id }: { id: string }) {
 
     notFound();
   }
-  return <PaymentCliente carrito={info} />;
+
+  return <PaymentCliente carrito={info} id={id} />;
 }

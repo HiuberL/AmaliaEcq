@@ -8,7 +8,8 @@ export const usePaymentPageHandler = (
     const {
         setFormData,
         formData,
-        setMetodoEnvio
+        setMetodoEnvio,
+        setPayPhoneReady
     } = state
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
@@ -25,10 +26,19 @@ export const usePaymentPageHandler = (
                 metodoEnvio: respuesta[0].id
             }));
         }
+    }
 
+    const onFinishForm = async() => {
+        // LLAMAR A FUNCION DE GUARDADO DE PEDIDO
+        if(formData.metodoPago === "tarjeta"){
+            setPayPhoneReady(true);
+        }else{
+            setPayPhoneReady(false);
+        }
     }
     return {
         handleChange,
-        handleConsultMetodoEnvio
+        handleConsultMetodoEnvio,
+        onFinishForm
     }
 }

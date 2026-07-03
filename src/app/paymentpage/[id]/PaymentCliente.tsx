@@ -6,6 +6,7 @@ import { usePaymentPage } from '@/hooks/PaymentPage/usePaymentPage';
 import Loading from '@/app/loading';
 import BotonRegresar from '@/components/returnButton';
 import Script from 'next/script';
+import Link from 'next/link';
 
 
 // Interfaces basadas en tu JSON exacto
@@ -49,7 +50,6 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
     setFormData,
     payPhoneReady,
     onFinishForm,
-    setTotalPagar,
     setCarrito,
     porcentajeProgreso,
     metodoSeleccionado,
@@ -60,14 +60,18 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
     subtotalCompleto,
     costoEnvio,
     descuentoPuntos,
-    totalPagar
-  } = usePaymentPage(id,carrito);
+    totalPagar,
+    provincia,
+    ciudad,
+    sector,
+    valorUnPunto,
+    onLostFocusCell,
+    formRef
+  } = usePaymentPage(id, carrito);
 
-  if (!metodoEnvio) {
+  if (!metodoEnvio && !provincia && !ciudad && !sector) {
     return <Loading />
   }
-
-
 
   return (
     <>
@@ -106,12 +110,20 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                 </div>
 
                 {/* FORMULARIO */}
-                <form onSubmit={(e) => e.preventDefault()} className={styles.stepForm}>
+                <form ref={formRef} onSubmit={(e) => e.preventDefault()} className={styles.stepForm}>
 
                   {/* PASO 1: Datos Personales */}
                   {paso === 1 && (
                     <div className={`${styles.formStepContent} ${styles.dynamicFade}`}>
                       <h2 className={styles.stepTitle}>Datos Personales</h2>
+                      <p>
+                        ¿Ya has comprado con nosotros? Ingresa tu número de celular y completaremos
+                        automáticamente tus datos si los encontramos. Si ya tienes una cuenta,
+                        también puedes{" "}
+                        <Link href="/login">iniciar sesión</Link>{" "}
+                        para continuar más rápido.
+                      </p>                     
+                      <br />
 
                       <div className={styles.formGrid2}>
                         <div className={styles.formGroup}>
@@ -121,7 +133,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
 
                         <div className={styles.formGroup}>
                           <label>Celular</label>
-                          <input type="tel" name="celular" value={formData.celular} onChange={onChangeData} required />
+                          <input type="tel" name="celular" value={formData.celular} onChange={onChangeData} onBlur={onLostFocusCell} required />
                         </div>
                       </div>
                       <div className={styles.formGrid2}>
@@ -184,29 +196,33 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                           <div className={styles.formGroup}>
                             <label>Provincia</label>
                             <select name="provincia" value={formData.provincia} onChange={onChangeData}>
-                              <option value="">Selecciona...</option>
-                              <option value="pichincha">Pichincha</option>
-                              <option value="guayas">Guayas</option>
+                              {provincia.map((p: any) => (
+                                <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                  {p.valor}
+                                </option>
+                              ))}
                             </select>
                           </div>
 
                           <div className={styles.formGroup}>
                             <label>Ciudad</label>
                             <select name="ciudad" value={formData.ciudad} onChange={onChangeData}>
-                              <option value="">Selecciona...</option>
-                              <option value="quito">Quito</option>
-                              <option value="guayaquil">Guayaquil</option>
+                              {ciudad.map((p: any) => (
+                                <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                  {p.valor}
+                                </option>
+                              ))}
                             </select>
                           </div>
 
                           <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
                             <label>Sector</label>
                             <select name="sector" value={formData.sector} onChange={onChangeData}>
-                              <option value="">Selecciona...</option>
-                              <option value="norte">Norte</option>
-                              <option value="centro">Centro</option>
-                              <option value="sur">Sur</option>
-                              <option value="valles">Valles</option>
+                              {sector.map((p: any) => (
+                                <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                  {p.valor}
+                                </option>
+                              ))}
                             </select>
                           </div>
 
@@ -234,23 +250,82 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                     <div className={`${styles.formStepContent} ${styles.dynamicFade}`}>
                       <h2 className={styles.stepTitle}>Método de Pago</h2>
                       {puntosDisponibles > 0 && (
-                        <div className={`${styles.puntosRewardsBox} ${formData.usarPuntos ? styles.puntosActivos : ''}`}>
+                        <div
+                          className={`${styles.puntosRewardsBox} ${formData.usarPuntos ? styles.puntosActivos : ""
+                            }`}
+                        >
                           <div className={styles.puntosInfo}>
                             <span className={styles.puntosIcon}>✨</span>
                             <div>
-                              <p className={styles.puntosTitle}>Tienes <strong>{puntosDisponibles} puntos</strong> de recompensa</p>
-                              <p className={styles.puntosSubtitle}>Equivalen a un descuento de <strong>${dineroPuntos.toFixed(2)}</strong></p>
+                              <p className={styles.puntosTitle}>
+                                Tienes <strong>{puntosDisponibles} puntos</strong> de recompensa
+                              </p>
+                              <p className={styles.puntosSubtitle}>
+                                Equivalen a un descuento de{" "}
+                                <strong>${dineroPuntos.toFixed(2)}</strong>
+                              </p>
                             </div>
                           </div>
+
                           <label className={styles.switchContainer}>
                             <input
                               type="checkbox"
                               name="usarPuntos"
                               checked={formData.usarPuntos}
-                              onChange={(e) => setFormData(prev => ({ ...prev, usarPuntos: e.target.checked }))}
+                              onChange={(e) =>
+                                setFormData((prev) => ({
+                                  ...prev,
+                                  usarPuntos: e.target.checked,
+                                }))
+                              }
                             />
                             <span className={styles.switchSlider}></span>
                           </label>
+
+                          {formData.usarPuntos && (
+                            <div className={styles.puntosRangeContainer}>
+                              <div className={styles.puntosRangeHeader}>
+                                <span>
+                                  Utilizar <strong>{formData.puntosUsados}</strong> puntos
+                                </span>
+
+                                <button
+                                  type="button"
+                                  className={styles.usarTodosBtn}
+                                  onClick={() =>
+                                    setFormData((prev) => ({
+                                      ...prev,
+                                      puntosUsados: puntosDisponibles,
+                                    }))
+                                  }
+                                >
+                                  Usar todos
+                                </button>
+                              </div>
+
+                              <input
+                                type="range"
+                                className={styles.rangeSlider}
+                                min={0}
+                                max={puntosDisponibles}
+                                step={1}
+                                value={formData.puntosUsados}
+                                onChange={(e) =>
+                                  setFormData((prev) => ({
+                                    ...prev,
+                                    puntosUsados: Number(e.target.value),
+                                  }))
+                                }
+                              />
+
+                              <div className={styles.puntosRangeInfo}>
+                                <span>Descuento:</span>
+                                <strong>
+                                  ${(formData.puntosUsados * valorUnPunto).toFixed(2)}
+                                </strong>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       )}
 
@@ -324,7 +399,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
             <h2 className={styles.cartCardTitle}>Resumen de Compra</h2>
 
             <div className={styles.cartItemsWrapper}>
-              {detalles.map((item) => {
+              {detalles.map((item: any) => {
                 const precioOriginal = parseFloat(item.variante_id.precio);
                 const descProd = item.variante_id.producto_id.descuento;
                 const descVar = item.variante_id.descuento;
@@ -375,15 +450,15 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
               </div>
               <div className={styles.totalRow}>
                 <span>Envío</span>
-                <span>{costoEnvio !== 0 ? `${costoEnvio.toFixed(2)}` : 'Gratis'}</span>
+                <span>{costoEnvio !== 0 ? `${costoEnvio?.toFixed(2)}` : 'Gratis'}</span>
               </div>
               <div className={styles.totalRow}>
                 <span>Descuento</span>
-                <span>{descuentoPuntos !== 0 ? `-${descuentoPuntos.toFixed(2)}` : '0.00'}</span>
+                <span>{descuentoPuntos !== 0 ? `-${descuentoPuntos?.toFixed(2)}` : '0.00'}</span>
               </div>
               <div className={`${styles.totalRow} ${styles.grandTotal}`}>
                 <span>Total a pagar</span>
-                <span>${totalPagar.toFixed(2)}</span>
+                <span>${totalPagar?.toFixed(2)}</span>
               </div>
             </div>
           </div>

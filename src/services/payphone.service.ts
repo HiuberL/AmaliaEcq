@@ -1,12 +1,14 @@
 'use server'
 
+import { uuidToNumberFecha } from "@/utils/cryptoInfo.utils";
+
 const TOKEN_PAYPHONE = process.env.API_PAYPHONE_TOKEN;
 const STOREID_PAYPHONE = process.env.API_PAYPHONE_STOREID;
 
-const bodyPayphonePay = (totalPagar:number, reference:string) => {
+export const bodyPayphonePay = async (totalPagar:number,carrito:string, reference:string) => {
     return {
             token: TOKEN_PAYPHONE,
-            clientTransactionId: crypto.randomUUID(),
+            clientTransactionId: uuidToNumberFecha(carrito),
             amount: totalPagar * 100,
             amountWithoutTax: totalPagar * 100,
             amountWithTax: 0,

@@ -3,6 +3,7 @@ import { authentication, createDirectus, rest, staticToken, withToken } from '@d
 const API_URL = process.env.DIRECTUS_URL || "";
 const TOKEN = process.env.DIRECTUS_STATIC_TOKEN || "";
 
+
 export const directusPublic = createDirectus(API_URL).with(rest());
 
 // Instancia Privada: Usa un token estático (solo si el frontend tiene servidor o es para tareas internas)
@@ -16,3 +17,4 @@ export const directusAuth = createDirectus(API_URL)
 
 export const directusAuthUser =  createDirectus(API_URL)
   .with(rest());
+

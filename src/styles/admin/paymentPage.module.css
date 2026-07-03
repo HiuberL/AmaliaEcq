@@ -20,7 +20,8 @@
   border-radius: 8px;
   margin-top: -5px;
   margin-bottom: 20px;
-  border-left: 4px solid #111111; /* O el color de tu marca */
+  border-left: 4px solid #111111;
+  /* O el color de tu marca */
 }
 
 .detalleItem {
@@ -47,7 +48,7 @@
   padding: 30px;
   border-radius: 16px;
   border: 1px solid #f0f0f0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -62,20 +63,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fdf8f2; /* Un tono cálido sutil (crema/oro) */
+  background-color: #fdf8f2;
+  /* Un tono cálido sutil (crema/oro) */
   border: 1px solid #f3e8d6;
   padding: 16px;
   border-radius: 12px;
   margin-bottom: 25px;
   transition: all 0.3s ease;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .puntosActivos {
-  border-color: #d97706; /* Cambia a color dorado/ámbar al activarse */
+  border-color: #d97706;
+  /* Cambia a color dorado/ámbar al activarse */
   background-color: #fef3c7;
 }
 
 .puntosInfo {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -107,6 +113,7 @@
 .switchContainer {
   position: relative;
   display: inline-block;
+  margin-left: auto;
   width: 44px;
   height: 24px;
   cursor: pointer;
@@ -120,7 +127,10 @@
 
 .switchSlider {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #ccc;
   transition: .3s;
   border-radius: 24px;
@@ -138,11 +148,12 @@
   border-radius: 50%;
 }
 
-.switchContainer input:checked + .switchSlider {
-  background-color: #d97706; /* Color dorado al encender */
+.switchContainer input:checked+.switchSlider {
+  background-color: #d97706;
+  /* Color dorado al encender */
 }
 
-.switchContainer input:checked + .switchSlider:before {
+.switchContainer input:checked+.switchSlider:before {
   transform: translateX(20px);
 }
 
@@ -196,10 +207,72 @@
   gap: 15px;
 }
 
+.loginLink {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.loginLink:hover {
+  color: #1d4ed8;
+}
+
+.loginLink:active {
+  color: #1e40af;
+}
+
+.puntosRangeContainer {
+  flex: 0 0 100%;
+  width: 100%;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, .08);
+}
+
+.puntosRangeHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.puntosRangeHeader span {
+    font-weight: 500;
+}
+.rangeSlider {
+  width: 100%;
+  cursor: pointer;
+}
+
+.puntosRangeInfo {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: .9rem;
+}
+
+.usarTodosBtn {
+  background: transparent;
+  border: none;
+  color: #b88654;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.usarTodosBtn:hover {
+  text-decoration: underline;
+}
+
 @media (min-width: 576px) {
   .formGrid2 {
     grid-template-columns: 1fr 1fr;
   }
+
   .fullWidthColumn {
     grid-column: span 2;
   }
@@ -301,7 +374,8 @@
   cursor: not-allowed;
 }
 
-.btnNext, .btnSubmit {
+.btnNext,
+.btnSubmit {
   padding: 10px 24px;
   border: none;
   border-radius: 6px;
@@ -335,7 +409,7 @@
   padding: 30px;
   border-radius: 16px;
   border: 1px solid #f0f0f0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
 
 @media (min-width: 992px) {
@@ -426,6 +500,7 @@
 .dynamicFade {
   animation: fadeIn 0.3s ease-in-out;
 }
+
 /* Para que la imagen del perfume se renderice bien y conserve proporciones */
 .itemThumb {
   width: 50px;
@@ -459,6 +534,13 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

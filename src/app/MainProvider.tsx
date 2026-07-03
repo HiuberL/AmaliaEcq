@@ -30,9 +30,10 @@ export default function MainProvider({ children }: { children: React.ReactNode }
     <div className={`${style.principalContainer} ${style.principalContainerBackground}`}>
 
       {/* ================= HEADER ================= */}
+          <MessageAlert />
+
       {showHeader &&
         <header className={`${style.mainHeader} ${isHeaderTransparent ? style.headerTransparent : ''}`}>
-          <MessageAlert />
           <button
             className={`${style.headerBtn} ${style.mobileMenuBtn}`}
             onClick={() => setMenuOpen(true)}

@@ -1,34 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react"; // 1. Importamos useRef
 import { useAgradecimientoHandler } from "./useAgradecimientoHandler";
 import { useAgradecimientoState } from "./useAgradecimientoState";
-
-
+import { obtenerPedidoCompleto } from "@/services/pedidos.service";
 
 export const useAgradecimientoEffects = (
-    state: ReturnType <typeof useAgradecimientoState>,
-    handler: ReturnType <typeof useAgradecimientoHandler>
+    state: ReturnType<typeof useAgradecimientoState>,
+    handler: ReturnType<typeof useAgradecimientoHandler>
 ) => {
-    const{
+    const {
         idPay,
         transactionId,
+        loading, // Traemos loading para validar
         setError,
-        setLoading
-    }=state;
+        setLoading,
+        setPedido,
+    } = state;
 
-    const {
-        procesarPostPago
-    }= handler;
+    const { procesarPostPago } = handler;
+    
+
     useEffect(() => {
         if (!idPay || !transactionId) {
             setError("Faltan parámetros en la URL para procesar el pago.");
             setLoading(false);
             return;
         }
-        const init = async () => {
+        const initPay = async()=>{
             await procesarPostPago();
-
         }
-    init();
-    }, [idPay, transactionId]); // Se ejecuta solo cuando los parámetros están listos
+        initPay();
 
-}
+    }, [idPay, transactionId]); 
+};

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useAgradecimientoState } from "./useAgradecimientoState";
+import { confirmPayment } from "@/services/payphone.service";
+import { obtenerPedidoCompleto } from "@/services/pedidos.service";
 
 
 
@@ -11,33 +13,38 @@ export const useAgradecimientoHandler = (
         transactionId,
         loading,
         setLoading,
-        setError
+        setError,
+        setPedido,
+        ejecutado,
+        setPaymentResponse
     } = state;
 
     const procesarPostPago = async () => {
         try {
-            const resApiX = await fetch('/api/confirmar-api-x', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ idPay, transactionId })
-            });
-
-            if (!resApiX.ok) throw new Error('Falló la confirmación en la API X');
-
-            // Tarea 2: Actualizar el pedido a pagado (en tu Directus o BD)
-            const resDirectus = await fetch('/api/actualizar-pedido-pagado', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ idPay, status: 'pagado' })
-            });
-
-            if (!resDirectus.ok) throw new Error('Falló la actualización del pedido en la base de datos');
-
-            setLoading(false);
+            const uuidPedido = transactionId.split("-")[0].trim();
+            const pedido = await obtenerPedidoCompleto(uuidPedido);
+            console.log("Pedido obtenido:", pedido);
+            setPedido(pedido);
+            if (pedido.formaPago === 'TARJETA'){
+                if(ejecutado.current) return;
+                const response = await confirmPayment(idPay, transactionId);
+                ejecutado.current = true;
+                setPaymentResponse(response);
+            }else{
+                setPaymentResponse({
+                    cardBrand: 'TRANSFERENCIA',
+                    cardType: '',
+                    deferredMessage: '',
+                    statusCode: 0,
+                    message: 'En proceso de revisión',
+                })
+            }
         } catch (err: any) {
-            setError(err.message || "Ocurrió un error al procesar el pago.");
+            setError(err.message || "Error procesando el flujo de agradecimiento.");
+        } finally {
             setLoading(false);
         }
+
     };
 
     return {

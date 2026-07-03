@@ -1,0 +1,311 @@
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #2d3748;
+}
+
+/* Tarjeta de estado de pago */
+.statusCard {
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  border-left: 6px solid #cbd5e0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  background-color: #ffffff;
+}
+
+.statusApproved {
+  background-color: #f0fdf4;
+  border-color: #22c55e;
+}
+.statusApproved .statusIcon {
+  background-color: #22c55e;
+  color: #ffffff;
+}
+.statusApproved .statusTitle {
+  color: #15803d;
+}
+
+.statusPending {
+  background-color: #fefce8;
+  border-color: #eab308;
+}
+.statusPending .statusIcon {
+  background-color: #eab308;
+  color: #ffffff;
+}
+.statusPending .statusTitle {
+  color: #a16207;
+}
+
+.statusCancelled {
+  background-color: #fef2f2;
+  border-color: #ef4444;
+}
+.statusCancelled .statusIcon {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+.statusCancelled .statusTitle {
+  color: #b91c1c;
+}
+
+.statusIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0 auto 15px auto;
+}
+
+.statusTitle {
+  margin: 0 0 5px 0;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.statusMessage {
+  margin: 0 0 20px 0;
+  color: #4a5568;
+  font-size: 15px;
+}
+
+.detailsGrid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 20px;
+}
+
+.detailItem {
+  font-size: 14px;
+  text-align: left;
+}
+
+.detailLabel {
+  display: block;
+  color: #718096;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.detailValue {
+  font-weight: 600;
+  color: #1a202c;
+}
+
+/* Layout estructural */
+.contentLayout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 30px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #1a202c;
+}
+
+/* Productos */
+.productsList {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.productRow {
+  display: flex;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.productRow:last-child {
+  border-bottom: none;
+}
+
+.imageWrapper {
+  width: 70px;
+  height: 70px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #edf2f7;
+  background-color: #f7fafc;
+  flex-shrink: 0;
+}
+
+.productImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.infoWrapper {
+  flex-grow: 1;
+  padding: 0 15px;
+}
+
+.productName {
+  margin: 0 0 4px 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #2d3748;
+}
+
+.productSku {
+  font-size: 12px;
+  color: #a0aec0;
+}
+
+.metaWrapper {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.productQty {
+  display: block;
+  font-size: 13px;
+  color: #718096;
+}
+
+.productPrice {
+  font-weight: 600;
+  font-size: 15px;
+  color: #1a202c;
+}
+
+/* Sidebar Resumen */
+.summaryCard, .shippingCard {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.discount {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid #edf2f7;
+  margin: 15px 0;
+}
+
+.totalRow {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a202c;
+  margin-bottom: 0;
+}
+
+.totalAmount {
+  font-size: 18px;
+}
+
+.shippingCard h4 {
+  margin: 0 0 12px 0;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #718096;
+  letter-spacing: 0.5px;
+}
+
+.shippingCard p {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+}
+
+.shippingCard p:last-child {
+  margin-bottom: 0;
+}
+
+/* Botón */
+.btnPrimary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #1a202c;
+  color: #ffffff;
+  padding: 13px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 15px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btnPrimary:hover {
+  background-color: #2d3748;
+}
+
+/* Contenedor del detalle de envío dinámico */
+.deliveryDetailsWrapper {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.deliveryDetailItem {
+  margin-bottom: 12px;
+}
+
+.deliveryDetailItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Estilo para la etiqueta (Ej: Información) */
+.detailLabelHighlight {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2563eb; /* Un tono azul elegante para resaltar avisos */
+  background-color: #eff6ff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Estilo para el texto largo con saltos de línea */
+.detailTextValue {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #4a5568;
+  margin: 0;
+  white-space: pre-line; /* REGLA CLAVE: Hace que respete los \n\n del JSON */
+}

@@ -4,10 +4,10 @@ import { createItem, readItems } from "@directus/sdk";
 import { directusPrivate } from "./directus.config"
 import { FormDataPay } from "@/hooks/PaymentPage/usePaymentPageState";
 import { create } from "domain";
-import directusClient from "./directus.api";
 import { uuidToNumber } from "@/utils/cryptoInfo.utils";
 
 
+const URL_ASSET = process.env.ASSETS_URL;
 
 interface ClienteDto {
     id: string,
@@ -216,7 +216,7 @@ export const guardarPedido = async (body:FormDataPay, idCarrito:string,valorEnvi
     /* CREAR PEDIDO PARA OBTENER ID DE PEDIDO - SI EL CLIENTE EXISTE CLARAMENTE */
     let clienteIdDireccion;
     
-    const pedido = await directusPrivate.request(createItem('pedidos', {
+    await directusPrivate.request(createItem('pedidos', {
         carrito_id: idCarrito,
         secuencial: uuidToNumber(idCarrito),
         cliente_id: body.idCliente,
@@ -238,3 +238,96 @@ export const guardarPedido = async (body:FormDataPay, idCarrito:string,valorEnvi
 
     return true;
 }
+
+
+
+
+
+export const obtenerPedidoCompleto = async (secuencial:string) => {
+    try {
+        const pedido = await directusPrivate.request(readItems('pedidos', {
+            filter: {
+                secuencial: { _eq: secuencial }
+            },
+            fields: [
+                'secuencial',
+                {
+                    cliente_id: [
+                        'nombres',
+                        'apellidos'
+                    ]
+                },
+                {
+                    cliente_direccion_id:[
+                        "ciudad",
+                        "sector",
+                        "provincia"
+                    ]
+                },
+                {
+                    metodo_envio_id:[
+                        'nombre',
+                        'detalles'
+                    ]
+                },
+                'forma_pago',
+                'subtotal',
+                'descuento',
+                'costo_real_envio',
+                'total',
+                'created_at',
+                {
+                    detalle_pedidos: [
+                        'cantidad',
+                        'subtotal',
+                        {
+                            variant_id:[
+                                'sku',
+                                {
+                                    producto_id:[
+                                        'imagen',
+                                        'nombre'
+                                    ]
+
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        ));
+        return simplificarPedido(pedido[0]);
+    } catch (e) {
+        throw new Error((e as Error).message);
+    }
+}
+
+
+
+const simplificarPedido = (pedidoRaw: any) => {
+    return {
+        secuencial: pedidoRaw.secuencial,
+        formaPago: pedidoRaw.forma_pago,
+        subtotal: parseFloat(pedidoRaw.subtotal),
+        descuento: parseFloat(pedidoRaw.descuento),
+        total: parseFloat(pedidoRaw.total),
+        fecha: new Date(pedidoRaw.created_at),
+        formaEnvio: pedidoRaw.metodo_envio_id.nombre,
+        valorEnvio: `${pedidoRaw.costo_real_envio}`,
+        detalleEnvio: pedidoRaw.metodo_envio_id.detalles,
+        cliente: pedidoRaw.cliente_id 
+            ? `${pedidoRaw.cliente_id.nombres} ${pedidoRaw.cliente_id.apellidos}`
+            : 'Cliente no registrado',
+            
+        // Aplanamos el detalle de los pedidos para que sea un array simple
+        productos: (pedidoRaw.detalle_pedidos || []).map((item: any) => ({
+            cantidad: item.cantidad,
+            subtotal: parseFloat(item.subtotal),
+            sku: item.variant_id?.sku || 'N/A',
+            // Traemos los datos del producto al primer nivel del objeto
+            nombre: item.variant_id?.producto_id?.nombre ,
+            imagen: item.variant_id?.producto_id?.imagen   ? `${URL_ASSET}/${item.variant_id?.producto_id?.imagen}.webp` : null ,
+        }))
+    };
+};

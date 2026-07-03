@@ -1,6 +1,6 @@
 'use server'
 
-import { createItem, readItems } from "@directus/sdk";
+import { createItem, readItems, updateItem } from "@directus/sdk";
 import { directusPrivate } from "./directus.config"
 import { FormDataPay } from "@/hooks/PaymentPage/usePaymentPageState";
 import { create } from "domain";
@@ -48,7 +48,7 @@ const enmascararTexto = (
     );
 }
 
-const convertObjetPersontoForm = (cliente: any,telefono:string=''): FormDataPay => {
+const convertObjetPersontoForm = (cliente: any, telefono: string = ''): FormDataPay => {
     const clientePrimero = cliente[0];
     let direccion;
     if (clientePrimero) {
@@ -91,43 +91,43 @@ const convertObjetPersontoForm = (cliente: any,telefono:string=''): FormDataPay 
                 ubicacion_url: ""
             }
         }
-    return {
-        apellido: clientePrimero.apellidos || '',
-        nombre: clientePrimero.nombres || '',
-        celular: clientePrimero.telefono || '',
-        correo: clientePrimero.correo || '',
-        idCliente: clientePrimero.id || '',
-        usarPuntos: false,
-        puntosUsados: 0,
-        puntosDisponibles: clientePrimero.billetera_id.saldo_disponible,
-        metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
-        provincia: direccion.provincia || '',
-        ciudad: direccion.ciudad || '',
-        direccion: direccion.direccion || '',
-        identificacion: enmascararTexto(clientePrimero.identificacion) || '',
-        metodoPago: 'transferencia',
-        referencia: direccion.referencia || '',
-        sector: direccion.sector || '',
-        urlMapa: direccion.ubicacion_url || ''
-    }
+        return {
+            apellido: clientePrimero.apellidos || '',
+            nombre: clientePrimero.nombres || '',
+            celular: clientePrimero.telefono || '',
+            correo: clientePrimero.correo || '',
+            idCliente: clientePrimero.id || '',
+            usarPuntos: false,
+            puntosUsados: 0,
+            puntosDisponibles: clientePrimero.billetera_id.saldo_disponible,
+            metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
+            provincia: direccion.provincia || '',
+            ciudad: direccion.ciudad || '',
+            direccion: direccion.direccion || '',
+            identificacion: enmascararTexto(clientePrimero.identificacion) || '',
+            metodoPago: 'transferencia',
+            referencia: direccion.referencia || '',
+            sector: direccion.sector || '',
+            urlMapa: direccion.ubicacion_url || ''
+        }
     }
     return {
         apellido: '',
-        nombre:  '',
-        celular:telefono,
-        correo:  '',
+        nombre: '',
+        celular: telefono,
+        correo: '',
         idCliente: '',
         usarPuntos: false,
         puntosUsados: 0,
         puntosDisponibles: 0,
         metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
-        provincia:  '',
-        ciudad:  '',
-        direccion:  '',
-        identificacion:  '',
+        provincia: '',
+        ciudad: '',
+        direccion: '',
+        identificacion: '',
         metodoPago: 'transferencia',
         referencia: '',
-        sector:  '',
+        sector: '',
         urlMapa: ''
     }
 }
@@ -202,7 +202,7 @@ export const searchPersonByPhone = async (telefono: string) => {
             ]
         }
         ));
-        return convertObjetPersontoForm(clientes,telefono);
+        return convertObjetPersontoForm(clientes, telefono);
     } catch (e) {
         throw new Error((e as Error).message);
     }
@@ -212,10 +212,10 @@ export const searchPersonByPhone = async (telefono: string) => {
 
 
 
-export const guardarPedido = async (body:FormDataPay, idCarrito:string,valorEnvio: number,subtotal:number,total:number,descuento:number) => {
+export const guardarPedido = async (body: FormDataPay, idCarrito: string, valorEnvio: number, subtotal: number, total: number, descuento: number) => {
     /* CREAR PEDIDO PARA OBTENER ID DE PEDIDO - SI EL CLIENTE EXISTE CLARAMENTE */
     let clienteIdDireccion;
-    
+
     await directusPrivate.request(createItem('pedidos', {
         carrito_id: idCarrito,
         secuencial: uuidToNumber(idCarrito),
@@ -230,7 +230,7 @@ export const guardarPedido = async (body:FormDataPay, idCarrito:string,valorEnvi
         idpago: null,
         valor_pagado: 0,
         subtotal: subtotal,
-        impuestos:0,
+        impuestos: 0,
         descuento: descuento * 0.01,
         total: total
     }));
@@ -240,16 +240,14 @@ export const guardarPedido = async (body:FormDataPay, idCarrito:string,valorEnvi
 }
 
 
-
-
-
-export const obtenerPedidoCompleto = async (secuencial:string) => {
+export const obtenerPedidoCompleto = async (secuencial: string) => {
     try {
         const pedido = await directusPrivate.request(readItems('pedidos', {
             filter: {
                 secuencial: { _eq: secuencial }
             },
             fields: [
+                'id',
                 'secuencial',
                 {
                     cliente_id: [
@@ -258,14 +256,14 @@ export const obtenerPedidoCompleto = async (secuencial:string) => {
                     ]
                 },
                 {
-                    cliente_direccion_id:[
+                    cliente_direccion_id: [
                         "ciudad",
                         "sector",
                         "provincia"
                     ]
                 },
                 {
-                    metodo_envio_id:[
+                    metodo_envio_id: [
                         'nombre',
                         'detalles'
                     ]
@@ -276,15 +274,21 @@ export const obtenerPedidoCompleto = async (secuencial:string) => {
                 'costo_real_envio',
                 'total',
                 'created_at',
+                'estado',
+                {
+                    pagos: [
+                        'respuesta'
+                    ]
+                },
                 {
                     detalle_pedidos: [
                         'cantidad',
                         'subtotal',
                         {
-                            variant_id:[
+                            variant_id: [
                                 'sku',
                                 {
-                                    producto_id:[
+                                    producto_id: [
                                         'imagen',
                                         'nombre'
                                     ]
@@ -306,28 +310,68 @@ export const obtenerPedidoCompleto = async (secuencial:string) => {
 
 
 const simplificarPedido = (pedidoRaw: any) => {
+    const pagosArray = Array.isArray(pedidoRaw?.pagos) ? pedidoRaw.pagos : [];
+    const ultimoPago = pagosArray.at(-1);
     return {
+        id: pedidoRaw.id,
+        estado: pedidoRaw.estado,
         secuencial: pedidoRaw.secuencial,
         formaPago: pedidoRaw.forma_pago,
         subtotal: parseFloat(pedidoRaw.subtotal),
         descuento: parseFloat(pedidoRaw.descuento),
         total: parseFloat(pedidoRaw.total),
         fecha: new Date(pedidoRaw.created_at),
+        pagoUltimo: ultimoPago?.respuesta ?? {},
+
+        // Para el total, acumulamos validando que exista 'respuesta' en cada iteración
+        pagoTotal: pagosArray.reduce((acumulado: number, item: any) => {
+            const monto = parseFloat(item?.respuesta?.amount || 0);
+            return acumulado + (isNaN(monto) ? 0 : monto);
+        }, 0),
         formaEnvio: pedidoRaw.metodo_envio_id.nombre,
         valorEnvio: `${pedidoRaw.costo_real_envio}`,
         detalleEnvio: pedidoRaw.metodo_envio_id.detalles,
-        cliente: pedidoRaw.cliente_id 
+        cliente: pedidoRaw.cliente_id
             ? `${pedidoRaw.cliente_id.nombres} ${pedidoRaw.cliente_id.apellidos}`
             : 'Cliente no registrado',
-            
+
         // Aplanamos el detalle de los pedidos para que sea un array simple
         productos: (pedidoRaw.detalle_pedidos || []).map((item: any) => ({
             cantidad: item.cantidad,
             subtotal: parseFloat(item.subtotal),
             sku: item.variant_id?.sku || 'N/A',
             // Traemos los datos del producto al primer nivel del objeto
-            nombre: item.variant_id?.producto_id?.nombre ,
-            imagen: item.variant_id?.producto_id?.imagen   ? `${URL_ASSET}/${item.variant_id?.producto_id?.imagen}.webp` : null ,
+            nombre: item.variant_id?.producto_id?.nombre,
+            imagen: item.variant_id?.producto_id?.imagen ? `${URL_ASSET}/${item.variant_id?.producto_id?.imagen}.webp` : null,
         }))
     };
 };
+
+
+export const pagarPedido = async (idPedido: string, body: any) => {
+    await directusPrivate.request(createItem('pago', {
+        pedido_id: idPedido,
+        proveedor: body.provider,
+        transaccion_id: body.transactionId,
+        respuesta: body,
+        estado: body.message,
+        monto: body.amount
+    }));
+
+    if (body.statusCode === 3) {
+        await directusPrivate.request(updateItem('pedidos', idPedido, {
+            estado: 'PAGADO'
+        }));
+
+    } else if (body.statusCode === 2) {
+        await directusPrivate.request(updateItem('pedidos', idPedido, {
+            estado: 'CANCELADO'
+        }));
+    } else {
+        await directusPrivate.request(updateItem('pedidos', idPedido, {
+            estado: 'REVISION'
+        }));
+    }
+
+}
+

@@ -1,6 +1,7 @@
 import { obtenerFormasEnvio } from "@/services/cart.service";
 import { FormDataPay, usePaymentPageState } from "./usePaymentPageState";
 import { guardarPedido, searchPersonByPhone } from "@/services/pedidos.service";
+import { removeSessionCookie } from "@/utils/cookies.utils";
 
 
 export const usePaymentPageHandler = (

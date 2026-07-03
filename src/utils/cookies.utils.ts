@@ -46,3 +46,4 @@ export async function logoutSoloCookies() {
     return { exito: false, error: 'No se pudo cerrar la sesión correctamente.' };
   }
 }
+

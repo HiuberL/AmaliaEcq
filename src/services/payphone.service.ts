@@ -37,10 +37,13 @@ export const confirmPayment = async (id: string, transaction: string) => {
             clientTxId: transaction
         });
         return {
+            provider: 'PAYPHONE',
             cardBrand: response.data.cardBrand,
             cardType: response.data.cardType,
             deferredMessage: response.data.deferredMessage,
+            transactionId: response.data.transactionId,
             statusCode:response.data.statusCode,
+            amount: Number(response.data.amount) / 100,
             message: response.data.message,
         };
 

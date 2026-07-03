@@ -13,7 +13,7 @@ export default function AgradecimientoPage() {
   } = useAgradecimiento();
 
 
-  if (loading) return (<Loading />)
+  if (loading || !paymentResponse) return (<Loading />)
 
   const getStatusConfig = (code: number) => {
     switch (code) {
@@ -81,6 +81,13 @@ export default function AgradecimientoPage() {
               <span className={styles.detailValue}>{paymentResponse.deferredMessage}</span>
             </div>
           )}
+          {paymentResponse.amount && (
+            <div className={styles.detailItem}>
+              <span className={styles.detailLabel}>Valor Pagado</span>
+              <span className={styles.detailValue}>{paymentResponse.amount}</span>
+            </div>
+          )}
+
         </div>
       </div>
 

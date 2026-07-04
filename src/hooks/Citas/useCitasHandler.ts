@@ -86,13 +86,14 @@ export const useCitasHandler = (
         window.showAlert(okMsg, "WARNING");
 
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al insertar la solicitud en Directus:', error);
+      const errorMessage = error?.message || 'Hubo un inconveniente al procesar tu solicitud. Por favor, intenta de nuevo o escríbenos por WhatsApp.';
       setEstadoEnvio({
         exito: false,
-        msg: 'Hubo un inconveniente al procesar tu solicitud. Por favor, intenta de nuevo o escríbenos por WhatsApp.'
+        msg: errorMessage
       });
-      window.showAlert(estadoEnvio?.msg || '',"ERROR");
+      window.showAlert(errorMessage, "ERROR");
     } finally {
       setEnviando(false);
     }

@@ -21,9 +21,13 @@ export const useProductoHandler = (
         setBusqueda(text);
     };    
     const handleConsultProduct = async (page:number, categoria:string, subCategoria: string,busqueda:string="") => {
-        const response: any = await consultProducts(page,categoria,subCategoria,busqueda);
-        setMaxPage(response.conteoTotal)
-        setProducts(response.productosTransf);
+        try {
+            const response: any = await consultProducts(page,categoria,subCategoria,busqueda);
+            setMaxPage(response.conteoTotal)
+            setProducts(response.productosTransf);
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudieron cargar los productos.", 'ERROR');
+        }
     };
     const handleChangeSubCategoria = (nuevaSub: string) => {
         setSubCategoria(nuevaSub);

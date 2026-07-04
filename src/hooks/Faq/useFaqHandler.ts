@@ -14,8 +14,12 @@ export const useFaqHandler = (
         setActiveId(activeId === id ? null : id);
     };
     const handlerConsultQuestions = async () => {
-        const questions = await consultQuestions();
-        setFaqData(questions);
+        try {
+            const questions = await consultQuestions();
+            setFaqData(questions);
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudieron cargar las preguntas frecuentes.", 'ERROR');
+        }
     };
     return {
         toggleAccordion,

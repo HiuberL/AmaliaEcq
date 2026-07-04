@@ -6,7 +6,7 @@ export const useEspacioState = () => {
   const [cliente, setCliente] = useState<any>(null);
   const [activeSidebar, setActiveSidebar] = useState('configuraciones');
   const [activeTab, setActiveTab] = useState('solicitudes');
-  const [locations, setLocations] = useState([]);
+  const [locations, setLocations] = useState<any[]>([]);
 
 
     return{

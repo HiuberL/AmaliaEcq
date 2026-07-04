@@ -55,7 +55,9 @@ export const useAgradecimientoHandler = (
                 setPaymentResponse(respuestaEstado);
             }
         } catch (err: any) {
-            setError(err.message || "Error procesando el flujo de agradecimiento.");
+            const errorMessage = err.message || "Error procesando el flujo de agradecimiento.";
+            setError(errorMessage);
+            window.showAlert(errorMessage, 'ERROR');
         } finally {
             setLoading(false);
         }

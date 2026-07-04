@@ -15,26 +15,48 @@ export const useCartHandler = (
       const router = useRouter();
     
     const handlerConsultCarrito = async () => {
-        const carrito = await consultarCarritoCompleto();
-        return carrito;
+        try {
+            const carrito = await consultarCarritoCompleto();
+            return carrito;
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo consultar el carrito.", 'ERROR');
+            return null;
+        }
     }
     const handlerAddCarrito = async (varianteId: string, cantidad: number) => {
-        await agregarAlCarrito(varianteId, cantidad);
-        setCartOpen(true);
+        try {
+            await agregarAlCarrito(varianteId, cantidad);
+            setCartOpen(true);
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo agregar el producto al carrito.", 'ERROR');
+        }
     }
     const handlerUpdateCarrito = async (detalleId: string, cantidad: number) => {
-        await actualizarCantidadDetalle(detalleId, cantidad);
+        try {
+            await actualizarCantidadDetalle(detalleId, cantidad);
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo actualizar la cantidad del carrito.", 'ERROR');
+        }
     }
     const cargarInformacion = async () => {
         setLoading(true);
-        const data = await handlerConsultCarrito();
-        setCarrito(data);
-        setLoading(false);
+        try {
+            const data = await handlerConsultCarrito();
+            setCarrito(data);
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo cargar la información del carrito.", 'ERROR');
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handlerGoPagePayment = async () =>{ 
-        const guestCartId= await getSessionCookie('guest_cart_id');
-        router.push(`/paymentpage/${guestCartId}`); //
+        try {
+            const guestCartId= await getSessionCookie('guest_cart_id');
+            router.push(`/paymentpage/${guestCartId}`); //
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo abrir la página de pago.", 'ERROR');
+        }
     }
 
     // 2. Manejar el cambio de cantidad (+ / - / eliminar si es 0)

@@ -68,9 +68,9 @@ export const useSolicitudesHandler = (
         window.showAlert(failMsg, "WARNING"); // 👈 Mensaje directo
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al insertar la solicitud en Directus:', error);
-      const catchMsg = 'Hubo un inconveniente al procesar tu solicitud. Por favor, intenta de nuevo o escríbenos por WhatsApp.';
+      const catchMsg = error?.message || 'Hubo un inconveniente al procesar tu solicitud. Por favor, intenta de nuevo o escríbenos por WhatsApp.';
       setEstadoEnvio({ exito: false, msg: catchMsg });
       window.showAlert(catchMsg, "ERROR"); // 👈 Mensaje directo
     } finally {

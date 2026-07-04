@@ -6,9 +6,13 @@ import { useLayoutState } from "./useLayoutState";
 export const useLayoutHandler = () => {
     const router = useRouter();
     const onLogout = async () => {
-        await logoutSoloCookies();
-        router.push('/');
-        router.refresh();
+        try {
+            await logoutSoloCookies();
+            router.push('/');
+            router.refresh();
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo cerrar la sesión.", 'ERROR');
+        }
     };
 
     return{

@@ -44,8 +44,10 @@ export const useEspacioHandler = (
       return datosCliente;
       // Aquí podrías guardar los datos del cliente en otro set de tu estado si es necesario
 
-    } catch (error) {
+    } catch (error: any) {
+      const errorMessage = error?.message || "No se pudo consultar la información del cliente.";
       console.error("Error al consultar datos del cliente:", error);
+      window.showAlert(errorMessage, 'ERROR');
     }
   };
 
@@ -86,7 +88,7 @@ export const useEspacioHandler = (
     return `${puntos}`;
   };
 
-  // Manejador visual para cambiar el radio button de preferido
+
   const handleSetPreferred = (id: any) => {
     setLocations(locations.map(loc => ({
       ...loc,

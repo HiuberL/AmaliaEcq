@@ -19,12 +19,13 @@ export const usePaymentPageEffects = (
     totalPagar: number
 ) => {
     const {
-        handleConsultMetodoEnvio
+        handleConsultMetodoEnvio,
+        handleConsultMetodoPago
     } = handler;
 
     const {
         formData,
-        payPhoneReady,
+        payMethodReady,
         setCarrito,
         setFormData,
         setInfoPerson,
@@ -38,6 +39,7 @@ export const usePaymentPageEffects = (
         const consultarCatalogos = async () => {
             const idGuardado = await getSessionCookie('amalia_cliente_id');
             await handleConsultMetodoEnvio();
+            await handleConsultMetodoPago();
             if (idGuardado) {
                 const response = await searchPersonById(idGuardado);
                 setInfoPerson(response);
@@ -80,7 +82,7 @@ export const usePaymentPageEffects = (
     }, [formData.ciudad]);
 
     useEffect(() => {
-        if (!payPhoneReady) return;
+        if (!payMethodReady || formData.metodoPago === 'transferencia') return;
         if (!window.PPaymentButtonBox) return;
         const generarRender = async () => {
             const config = await bodyPayphonePay(totalPagar, carrito, formData.celular ? `Compra amalia - ${formData.celular}` : `ID pago - ${id}`);
@@ -91,5 +93,5 @@ export const usePaymentPageEffects = (
 
         }
         generarRender();
-    }, [payPhoneReady]);
+    }, [payMethodReady]);
 }

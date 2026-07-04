@@ -19,15 +19,24 @@ export interface FormDataPay {
   metodoPago: 'tarjeta' | 'transferencia';
 }
 
+export interface FormTransfer{
+  cuentaSeleccionada: string;
+  secuencia: string;
+  imagen: string
+}
+
 export const usePaymentPageState = () => {
   const [paso, setPaso] = useState<number>(1);
   const [carrito, setCarrito] = useState<string>('');
+  const [nombreArchivo, setNombreArchivo] = useState<any>(null);
+
   const [provincia,setProvincia] = useState<any>(null);
   const [ciudad,setCiudad] = useState<any>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [sector,setSector] = useState<any>(null);
   const [metodoEnvio, setMetodoEnvio] = useState<any>(null);
-  const [payPhoneReady, setPayPhoneReady] = useState(false);
+  const [metodoPago, setMetodoPago] = useState<any>(null);
+  const [payMethodReady, setPayMethodReady] = useState(false);
   const [infoPerson, setInfoPerson] = useState<FormDataPay>({
     idCliente: '',
     usarPuntos:false,
@@ -46,6 +55,11 @@ export const usePaymentPageState = () => {
     referencia: '',
     urlMapa: '',
     metodoPago: 'transferencia'
+  });
+  const [formTransfer, setFormTransfer] = useState<FormTransfer>({
+    cuentaSeleccionada: "",
+    secuencia:"",
+    imagen: ""
   });
   const [formData, setFormData] = useState<FormDataPay>({
     idCliente: '',
@@ -71,12 +85,15 @@ export const usePaymentPageState = () => {
     paso, setPaso,
     formData, setFormData,
     metodoEnvio,setMetodoEnvio,
-    payPhoneReady, setPayPhoneReady,
+    payMethodReady, setPayMethodReady,
     carrito, setCarrito,
     infoPerson, setInfoPerson,
     provincia,setProvincia,
     ciudad,setCiudad,
     sector,setSector,
-    formRef
+    formRef,
+    metodoPago, setMetodoPago,
+    formTransfer, setFormTransfer,
+    nombreArchivo, setNombreArchivo
   }
 }

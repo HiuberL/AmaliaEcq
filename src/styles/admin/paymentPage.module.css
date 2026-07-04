@@ -544,3 +544,234 @@
     transform: translateY(0);
   }
 }
+
+
+
+
+.container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Sección Informativa */
+.seccionInformativa {
+  margin-bottom: 35px;
+}
+
+.seccionTitle {
+  font-size: 1.3rem;
+  color: #1a202c;
+  margin-bottom: 6px;
+}
+
+.seccionSubtitle {
+  font-size: 0.95rem;
+  color: #718096;
+  margin-bottom: 20px;
+}
+
+.listaCuentas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tarjetaBanco {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.tarjetaHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #edf2f7;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.bancoNombre {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #2b6cb0;
+}
+
+.badgeEstado {
+  background-color: #def7ec;
+  color: #03543f;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.tarjetaDetalles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detalleItem {
+  display: flex;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.label {
+  font-weight: 600;
+  color: #4a5568;
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.valor {
+  color: #2d3748;
+}
+
+.enlace {
+  color: #3182ce;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.enlace:hover {
+  text-decoration: underline;
+}
+
+/* Sección Formulario */
+.seccionFormulario {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.formTitle {
+  font-size: 1.1rem;
+  color: #2d3748;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-left: 4px solid #3182ce;
+  padding-left: 10px;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inputGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.select, .input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #2d3748;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.select:focus, .input:focus {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
+}
+
+/* Componente de Archivo Oculto */
+.fileUploadWrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.fileInputHidden {
+  display: none;
+}
+
+.fileUploadBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #4a5568;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  border: 1px solid #cbd5e0;
+  transition: background-color 0.2s, border-color 0.2s;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.fileUploadBtn:hover {
+  background-color: #f7fafc;
+  border-color: #a0aec0;
+}
+
+.fileName {
+  font-size: 0.85rem;
+  color: #718096;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botón de Enviar */
+.submitBtn {
+  width: 100%;
+  background-color: #3182ce;
+  color: #ffffff;
+  padding: 13px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 5px;
+  box-shadow: 0 2px 4px rgba(49, 130, 206, 0.2);
+}
+
+.submitBtn:hover {
+  background-color: #2b6cb0;
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 550px) {
+  .detalleItem {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .label {
+    width: 100%;
+  }
+  
+  .seccionFormulario {
+    padding: 16px;
+  }
+}

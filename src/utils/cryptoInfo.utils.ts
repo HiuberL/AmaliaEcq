@@ -8,7 +8,20 @@ export const uuidToNumber = (uuid: string): number => {
 
     return Math.abs(hash);
 };
-
+export const convertToBase64 = (file:any) => {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    
+    fileReader.onload = () => {
+      resolve(fileReader.result); // Aquí regresa el string en Base64
+    };
+    
+    fileReader.onerror = (error) => {
+      reject(error);
+    };
+  });
+};
 
 export const uuidToNumberFecha = (uuid: string): string => {
     let hash = 0;

@@ -48,9 +48,8 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
     setPaso,
     metodoEnvio,
     setFormData,
-    payPhoneReady,
+    payMethodReady,
     onFinishForm,
-    setCarrito,
     porcentajeProgreso,
     metodoSeleccionado,
     esEnvioDomicilio,
@@ -66,7 +65,12 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
     sector,
     valorUnPunto,
     onLostFocusCell,
-    formRef
+    formRef,
+    metodoPago,
+    onChangeDataTransfer,
+    formTransfer,
+    onChangeImage,
+    nombreArchivo
   } = usePaymentPage(id, carrito);
 
   if (!metodoEnvio && !provincia && !ciudad && !sector) {
@@ -91,7 +95,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
 
           {/* COLUMNA IZQUIERDA: FORMULARIO Y PASOS */}
           <div className={styles.checkoutFormCard}>
-            {!payPhoneReady ?
+            {!payMethodReady ?
               <>
                 <BotonRegresar fallbackRoute='/' label='Regresar' />
                 {/* BARRA DE PROGRESO */}
@@ -122,7 +126,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                         también puedes{" "}
                         <Link href="/login">iniciar sesión</Link>{" "}
                         para continuar más rápido.
-                      </p>                     
+                      </p>
                       <br />
 
                       <div className={styles.formGrid2}>
@@ -354,14 +358,142 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                     </div>
                   )}
                 </form>
-              </> :
-              <>
-                <div id="pp-button"></div>
-              </>
+              </> : formData.metodoPago === 'tarjeta' ? (
+                <>
+                  <div id="pp-button"></div>
+                </>
+              ) : (
+                <>
+                  <div className={styles.container}>
+
+                    {/* 1. SECCIÓN: Listado Informativo de Cuentas Habilitadas */}
+                    <div className={styles.seccionInformativa}>
+                      <h3 className={styles.seccionTitle}>Cuentas Disponibles para Transferencia</h3>
+                      <p className={styles.seccionSubtitle}>
+                        Por favor, realiza tu transferencia o depósito a cualquiera de nuestras cuentas habilitadas:
+                      </p>
+
+                      <div className={styles.listaCuentas}>
+                        {metodoPago.map((banco:any, index:any) => (
+                          <div key={index} className={styles.tarjetaBanco}>
+                            <div className={styles.tarjetaHeader}>
+                              <span className={styles.bancoNombre}>{banco.banco}</span>
+                            </div>
+
+                            <div className={styles.tarjetaDetalles}>
+                              <div className={styles.detalleItem}>
+                                <span className={styles.label}>Titular:</span>
+                                <span className={styles.valor}>{banco.informacion.nombre}</span>
+                              </div>
+                              <div className={styles.detalleItem}>
+                                <span className={styles.label}>Identificación / RUC:</span>
+                                <span className={styles.valor}>{banco.informacion.identificacion || ''}</span>
+                              </div>
+                              <div className={styles.detalleItem}>
+                                <span className={styles.label}>Correo electrónico:</span>
+                                <span className={styles.valor}>{banco.informacion.correo}</span>
+                              </div>
+                              {banco.informacion.cuenta?.includes('https') ? (
+                                <div className={styles.detalleItem}>
+                                  <span className={styles.label}>Enlace de Pago / QR:</span>
+                                  <span className={styles.valor}>
+                                    <a href={banco.informacion.cuenta} target="_blank" rel="noreferrer" className={styles.enlace}>
+                                      Ver detalles / Escanear QR
+                                    </a>
+                                  </span>
+                                </div>
+                              ):(
+                                <div className={styles.detalleItem}>
+                                  <span className={styles.label}>Cuenta:</span>
+                                  <span className={styles.valor}>{banco.informacion.cuenta}</span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* 2. SECCIÓN: Formulario de Registro de Pago */}
+                    <div className={styles.seccionFormulario}>
+                      <h4 className={styles.formTitle}>Registra los Datos de tu Transferencia</h4>
+
+                      <form onSubmit={(e) => e.preventDefault()}  className={styles.formulario}>
+
+                        {/* Combo de Selección (Muestra las mismas cuentas habilitadas) */}
+                        <div className={styles.inputGroup}>
+                          <label htmlFor="cuentaSeleccionada">¿A qué cuenta realizaste el pago? *</label>
+                          <select
+                            id="cuentaSeleccionada"
+                            name="cuentaSeleccionada"
+                            value={formTransfer.cuentaSeleccionada}
+                            onChange={onChangeDataTransfer}
+                            className={styles.select}
+                            required
+                          >
+                            <option value="">-- Selecciona el banco de destino --</option>
+                            {metodoPago.map((banco:any, index:any) => (
+                              <option key={banco.banco} value={banco.banco}>
+                                {banco.banco}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Input de Secuencial */}
+                        <div className={styles.inputGroup}>
+                          <label htmlFor="secuencia">Número Secuencial / Referencia de Transferencia *</label>
+                          <input
+                            type="text"
+                            id="secuencia"
+                            name="secuencia"
+                            placeholder="Ej: 00234512"
+                            value={formTransfer.secuencia}
+                            onChange={onChangeDataTransfer}
+                            className={styles.input}
+                            required
+                          />
+                        </div>
+
+                        {/* Cargar Comprobante (Estilizado) */}
+                        <div className={styles.inputGroup}>
+                          <label>Subir Comprobante de Pago (Imagen) *</label>
+                          <div className={styles.fileUploadWrapper}>
+                            <label htmlFor="file-upload" className={styles.fileUploadBtn}>
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                              </svg>
+                              {formTransfer.imagen ? 'Cambiar Imagen' : 'Seleccionar Imagen'}
+                            </label>
+                            <input
+                              id="file-upload"
+                              type="file"
+                              name="imagen"
+                              accept="image/*"
+                              onChange={onChangeImage}
+                              className={styles.fileInputHidden}
+                              required={!formTransfer.imagen}
+                            />
+                            {nombreArchivo && <span className={styles.fileName}>{nombreArchivo}</span>}
+                          </div>
+                        </div>
+
+                        <button type="submit" className={styles.submitBtn}>
+                          Notificar Pago Realizado
+                        </button>
+                      </form>
+                    </div>
+
+                  </div>
+
+                </>
+              )
             }
 
             {/* BOTONES DE NAVEGACIÓN */}
-            {!payPhoneReady &&
+            {!payMethodReady &&
               <div className={styles.navigationButtons}>
                 <button
                   type="button"

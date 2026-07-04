@@ -19,7 +19,7 @@ export const usePaymentPage = (id: string, carrito: any) => {
         setFormData: state.setFormData,
         metodoEnvio: state.metodoEnvio,
         onChangeData: handler.handleChange,
-        payPhoneReady: state.payPhoneReady,
+        payMethodReady: state.payMethodReady,
         onFinishForm: handler.onFinishForm,
         setCarrito: state.setCarrito,
         porcentajeProgreso: handler.porcentajeProgreso,
@@ -37,7 +37,14 @@ export const usePaymentPage = (id: string, carrito: any) => {
         sector: state.sector,
         onLostFocusCell: handler.handleSearchClient,
         valorUnPunto: handler.valorUnPunto,
-        formRef: state.formRef
+        formRef: state.formRef,
+        metodoPago: state.metodoPago,
+        formTransfer: state.formTransfer,
+        setFormTransfer: state.setFormTransfer,
+        onChangeDataTransfer: handler.handleChangeTransfer,
+        onChangeImage: handler.handleFileChange,
+        nombreArchivo: state.nombreArchivo,
+        onFinishFormTransfer: handler.onFinishFormTransfer
     }
 
 }

@@ -28,7 +28,7 @@
 }
 
 .backLink:hover {
-  color: #000;
+  color: var(--soft-black);
 }
 
 .pageTitle {
@@ -219,13 +219,13 @@
   justify-content: space-between;
   margin-bottom: 15px;
   font-size: 15px;
-  color: #555;
+  color: var(--hard-strong-gray);
 }
 
 .totalRow {
   font-size: 18px;
   font-weight: 700;
-  color: #000;
+  color: var(--soft-black);
   margin-top: 15px;
 }
 

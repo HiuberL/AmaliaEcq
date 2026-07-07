@@ -9,6 +9,7 @@ export const useAgradecimientoState = (id:string,transaction: string) => {
     const [idPay, setIdPay] = useState<string>(id);
     const [paymentResponse,setPaymentResponse] = useState<any>(null);
     const [transactionId, setTransactionId] = useState<string>(transaction);
+    const [notFound, setNotFound] = useState<boolean>(false);
     const ejecutado = useRef(false);
     return{ 
         loading, setLoading,
@@ -17,6 +18,7 @@ export const useAgradecimientoState = (id:string,transaction: string) => {
         idPay, setIdPay,
         transactionId, setTransactionId,
         ejecutado,
-        paymentResponse,setPaymentResponse
+        paymentResponse,setPaymentResponse,
+        notFound, setNotFound
     }
 }

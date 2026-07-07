@@ -2,7 +2,16 @@
   --primary: #2563eb;
   --secondary: #1e293b;
   --background: #fdf7ef;
+  --soft-white: #f5f2eb;
   --white:  #ffffff;
+  --soft-black: #1a1a1a;
+  --soft-gray: #b2b2b2;
+  --strong-gray: #777777;
+  --hard-strong-gray: #555555;
+  --primary-blue: #3b82f6;
+  --primary-yellow: #f59e0b;
+  --primary-red: #ef4444;
+  --accent-low-color:#3c3c3c;
   --texto-primary:var(--font-cinzel);
   --texto-secundary: var(--font-inter);
   --border-low: #0f172a;

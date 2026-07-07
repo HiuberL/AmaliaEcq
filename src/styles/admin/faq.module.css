@@ -2,7 +2,7 @@
 .pageWrapper {
   width: 100%;
   overflow-x: hidden;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding-bottom: 6rem;
 }
 
@@ -29,14 +29,14 @@
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 4px;
-  color: #1a1a1a;
+  color: var(--soft-black);
   margin: 0 0 1rem 0;
 }
 
 .heroSection p {
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
-  color: #666666;
+  color: var(--strong-gray);
   margin: 0 0 2.5rem 0;
   max-width: 550px;
   line-height: 1.6;
@@ -56,8 +56,8 @@
   padding: 14px 45px 14px 20px;
   border: 1px solid #e0e0e0;
   border-radius: 15px; /* Estilo minimalista cuadrado */
-  background-color: #ffffff;
-  color: #1a1a1a;
+  background-color: var(--white);
+  color: var(--soft-black);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
   transition: all 0.3s ease;
   box-sizing: border-box;
@@ -65,7 +65,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #1a1a1a;
+  border-color: var(--soft-black);
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
 }
 
@@ -90,7 +90,7 @@
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #1a1a1a;
+  color: var(--soft-black);
   border-bottom: 1px solid #f0f0f0;
   padding-bottom: 1rem;
   margin-bottom: 2rem;
@@ -105,7 +105,7 @@
 
 /* ================= DISEÑO DE CARDS (COLAPSABLE) ================= */
 .faqCard {
-  background-color: #ffffff;
+  background-color: var(--white);
   border: 1px solid #eaeaea;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -132,7 +132,7 @@
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--soft-black);
   margin: 0;
   padding-right: 1.5rem;
   line-height: 1.4;
@@ -142,7 +142,7 @@
   font-family: var(--font-inter), sans-serif;
   font-size: 1.4rem;
   font-weight: 300;
-  color: #1a1a1a;
+  color: var(--soft-black);
   transition: transform 0.3s ease;
 }
 
@@ -161,14 +161,14 @@
 .cardContent p {
   font-family: var(--font-inter), sans-serif;
   font-size: 0.95rem;
-  color: #555555;
+  color: var(--accent-low-color);
   line-height: 1.7;
   margin: 0;
 }
 
 /* Estado de la Card Abierta */
 .cardOpen {
-  border-color: #1a1a1a !important;
+  border-color: var(--soft-black) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
 }
 
@@ -182,11 +182,11 @@
   text-align: center;
   padding: 6rem 1.5rem;
   font-family: var(--font-inter), sans-serif;
-  color: #666666;
+  color: var(--strong-gray);
 }
 
 .cardContent strong {
-  color: #1a1a1a;
+  color: var(--soft-black);
   font-weight: 600;
 }
 
@@ -197,7 +197,7 @@
 
 .cardContent li {
   margin-bottom: 0.4rem;
-  color: #555555;
+  color: var(--accent-low-color);
 }
 /* ================= RESPONSIVE ESCRITORIO ================= */
 @media (min-width: 768px) {

@@ -42,9 +42,9 @@
   }
 }
 
-.alert-info { background-color: #3b82f6}
-.alert-warning { background-color: #f59e0b}
-.alert-error { background-color: #ef4444}
+.alert-info { background-color: var(--primary-blue)}
+.alert-warning { background-color: var(--primary-yellow)}
+.alert-error { background-color: var(--primary-red)}
 
 
 /* 1. Definimos las animaciones nativas de CSS */

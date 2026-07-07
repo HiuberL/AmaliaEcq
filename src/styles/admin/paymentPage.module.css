@@ -169,7 +169,7 @@
 }
 
 .progressLabels .activeStep {
-  color: #111111;
+  color: var(--soft-black);
 }
 
 .progressBarBackground {
@@ -181,7 +181,7 @@
 }
 
 .progressBarFill {
-  background-color: #111111;
+  background-color: var(--soft-black);
   height: 100%;
   transition: width 0.4s ease-in-out;
 }
@@ -303,7 +303,7 @@
 
 .formGroup input:focus,
 .formGroup select:focus {
-  border-color: #111111;
+  border-color: var(--soft-black);
 }
 
 /* SELECCIÓN RADIO PASO 3 */
@@ -324,14 +324,14 @@
 }
 
 .radioCardOption.selected {
-  border-color: #111111;
+  border-color: var(--soft-black);
   background-color: #fafafa;
 }
 
 .radioCardOption input[type="radio"] {
   margin-top: 3px;
   margin-right: 12px;
-  accent-color: #111111;
+  accent-color: var(--soft-black);
 }
 
 .radioTextContent {
@@ -342,7 +342,7 @@
 .radioTitle {
   font-size: 14px;
   font-weight: 600;
-  color: #111111;
+  color: var(--soft-black);
 }
 
 .radioDescription {
@@ -386,17 +386,17 @@
 }
 
 .btnNext {
-  background-color: #111111;
-  color: #ffffff;
+  background-color: var(--soft-black);
+  color: var(--white);
 }
 
 .btnNext:hover {
-  background-color: #222222;
+  background-color: var(--soft-black);
 }
 
 .btnSubmit {
   background-color: #10b981;
-  color: #ffffff;
+  color: var(--white);
 }
 
 .btnSubmit:hover {
@@ -490,7 +490,7 @@
 .grandTotal {
   font-size: 16px;
   font-weight: 700;
-  color: #111111;
+  color: var(--soft-black);
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px dashed #e5e7eb;
@@ -563,7 +563,7 @@
 
 .seccionTitle {
   font-size: 1.3rem;
-  color: #1a202c;
+  color: var(--soft-black);
   margin-bottom: 6px;
 }
 
@@ -687,7 +687,7 @@
   border-radius: 6px;
   font-size: 0.95rem;
   color: #2d3748;
-  background-color: #ffffff;
+  background-color: var(--white);
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
@@ -714,7 +714,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: #ffffff;
+  background-color: var(--white);
   color: #4a5568;
   padding: 10px 16px;
   border-radius: 6px;
@@ -744,7 +744,7 @@
 .submitBtn {
   width: 100%;
   background-color: #3182ce;
-  color: #ffffff;
+  color: var(--white);
   padding: 13px;
   border: none;
   border-radius: 6px;

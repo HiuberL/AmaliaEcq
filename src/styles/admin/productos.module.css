@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #111111;
+    color: var(--soft-black);
     border-bottom: 1px solid #e2e8f0;
     padding-bottom: 0.75rem;
 }
@@ -68,7 +68,7 @@
     font-family: var(--font-inter), sans-serif;
     font-size: 0.75rem;
     font-weight: 600;
-    color: #888888;
+    color: var(--soft-gray);
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin: 0;
@@ -101,13 +101,13 @@
 
 .categoryLink:hover {
     background-color: #f8fafc;
-    color: #111111;
+    color: var(--soft-black);
 }
 
 /* Estado seleccionado de la categoría de la URL */
 .categoryActive {
     background-color: #434343;
-    color: #ffffff !important;
+    color: var(--white) !important;
     font-weight: 600;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .radioLabel input {
-    accent-color: #111111;
+    accent-color: var(--soft-black);
     /* Selector negro para estética refinada */
     width: 16px;
     height: 16px;
@@ -212,7 +212,7 @@
 
     font-size: 15px;
     font-family: var(--font-inter), sans-serif;
-    color: #1a1a1a;
+    color: var(--soft-black);
     background-color: #fbfbfa;
 
     box-sizing: border-box;
@@ -221,8 +221,8 @@
 
 .searchContainer input:focus {
     outline: none;
-    border-color: #111111;
-    background-color: #ffffff;
+    border-color: var(--soft-black);
+    background-color: var(--white);
     box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.04);
 }
 
@@ -343,7 +343,7 @@
 
     .categoryActive {
         background-color: #434343 !important;
-        color: #ffffff !important;
+        color: var(--white) !important;
         font-weight: 600;
     }
     /* Tu grid original intacto con 2 columnas elegantes en cel */

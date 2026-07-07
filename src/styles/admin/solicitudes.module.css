@@ -1,7 +1,7 @@
 .pageWrapper {
     width: 100%;
     overflow-x: hidden;
-    background-color: #ffffff;
+    background-color: var(--white);
     padding: 4rem 0;
     border-radius: 20px;
 }
@@ -29,7 +29,7 @@
     font-family: var(--font-inter), sans-serif;
     font-size: 0.85rem;
     text-transform: uppercase;
-    color: #888888;
+    color: var(--soft-gray);
     letter-spacing: 2px;
 }
 
@@ -37,7 +37,7 @@
     font-family: var(--font-cinzel), serif;
     font-size: 2.2rem;
     font-weight: 300;
-    color: #1a1a1a;
+    color: var(--soft-black);
     margin: 0.5rem 0 1.5rem 0;
     line-height: 1.2;
 }
@@ -45,7 +45,7 @@
 .description {
     font-family: var(--font-inter), sans-serif;
     font-size: 0.98rem;
-    color: #555555;
+    color: var(--accent-low-color);
     line-height: 1.7;
     margin-bottom: 2rem;
 }
@@ -53,7 +53,7 @@
 .contactDetails p {
     font-family: var(--font-inter), sans-serif;
     font-size: 0.9rem;
-    color: #666666;
+    color: var(--strong-gray);
     margin: 0.5rem 0;
 }
 
@@ -93,7 +93,7 @@
     border: 1px solid #dcdcdc;
     border-radius: 0px;
     /* Bordes rectos minimalistas */
-    background-color: #ffffff;
+    background-color: var(--white);
     font-family: var(--font-inter), sans-serif;
     font-size: 0.95rem;
     box-sizing: border-box;
@@ -102,7 +102,7 @@
 
 .formInput:focus,
 .formTextarea:focus {
-    border-color: #1a1a1a;
+    border-color: var(--soft-black);
     outline: none;
 }
 
@@ -114,8 +114,8 @@
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #ffffff;
-    background-color: #1a1a1a;
+    color: var(--white);
+    background-color: var(--soft-black);
     padding: 16px;
     border: 1px solid #1a1a1a;
     cursor: pointer;
@@ -125,7 +125,7 @@
 
 .btnSubmit:hover:not(:disabled) {
     background-color: transparent;
-    color: #1a1a1a;
+    color: var(--soft-black);
 }
 
 .btnSubmit:disabled {
@@ -156,7 +156,7 @@
 
 /* Contenedor general de Quill */
 .quillWrapper {
-    background-color: #ffffff;
+    background-color: var(--white);
     font-family: var(--font-inter), sans-serif;
 }
 
@@ -180,7 +180,7 @@
 
 /* Estilo al enfocar el editor */
 .quillWrapper :global(.ql-container.ql-snow):focus-within {
-    border-color: #1a1a1a;
+    border-color: var(--soft-black);
 }
 
 /* 🚨 BLINDAJE DE IMÁGENES DENTRO DEL PROPIO EDITOR CLASIFICADO */
@@ -208,7 +208,7 @@
     justify-content: center;
     font-family: var(--font-inter), sans-serif;
     font-size: 0.85rem;
-    color: #888888;
+    color: var(--soft-gray);
     background-color: #fafafa;
 }
 

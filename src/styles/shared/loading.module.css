@@ -23,8 +23,8 @@
   width: 100%;
   height: 100%;
   border: 3px solid transparent;
-  border-top-color: #1a1a1a; /* Color principal (puedes cambiarlo por tu tono de marca) */
-  border-bottom-color: #1a1a1a;
+  border-top-color: var(--soft-black); /* Color principal (puedes cambiarlo por tu tono de marca) */
+  border-bottom-color: var(--soft-black);
   border-radius: 50%;
   animation: spinOuter 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
 }
@@ -47,7 +47,7 @@
   font-family: var(--font-cinzel), serif;
   font-size: 0.9rem;
   letter-spacing: 0.3em; /* Espaciado premium entre letras */
-  color: #1a1a1a;
+  color: var(--soft-black);
   text-transform: uppercase;
   opacity: 0.8;
   animation: pulseText 2s ease-in-out infinite;

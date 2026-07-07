@@ -9,7 +9,7 @@
 /* --- SIDEBAR --- */
 .sidebar {
   width: 260px;
-  background-color: #ffffff;
+  background-color: var(--white);
   border-right: 1px solid #eae6df;
   padding: 2.5rem 1.5rem;
   display: flex;
@@ -23,7 +23,7 @@
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: #1a1a1a;
+  color: var(--soft-black);
   padding-left: 0.5rem;
 }
 
@@ -48,12 +48,12 @@
 
 .menuBtn:hover {
   background-color: #f5f2eb;
-  color: #1a1a1a;
+  color: var(--soft-black);
 }
 
 .activeMenu {
-  background-color: #1a1a1a;
-  color: #ffffff !important;
+  background-color: var(--soft-black);
+  color: var(--white) !important;
 }
 
 /* --- MAIN CONTENT --- */
@@ -73,7 +73,7 @@
 .welcomeText {
   font-size: 2.2rem;
   font-weight: 400;
-  color: #1a1a1a;
+  color: var(--soft-black);
   margin: 0 0 0.5rem 0;
 }
 
@@ -112,7 +112,7 @@
 .cardValue {
   font-size: 2rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--soft-black);
 }
 
 .pointsAvailable .cardValue {
@@ -158,14 +158,14 @@
 }
 
 .tabBtn:hover {
-  color: #1a1a1a;
+  color: var(--soft-black);
   background-color: #f5f2eb;
 }
 
 .activeTab {
-  color: #1a1a1a;
+  color: var(--soft-black);
   border-bottom: 2px solid #1a1a1a;
-  background-color: #ffffff;
+  background-color: var(--white);
 }
 
 .tabContent {
@@ -227,7 +227,7 @@
   border-radius: 8px;
   font-size: 0.95rem;
   color: #2b2b2b;
-  background-color: #ffffff;
+  background-color: var(--white);
   transition: border-color 0.2s;
   width: 100%;
   box-sizing: border-box;
@@ -242,7 +242,7 @@
 
 .formGroup input:focus {
   outline: none;
-  border-color: #1a1a1a;
+  border-color: var(--soft-black);
 }
 
 .formActions {
@@ -253,8 +253,8 @@
 }
 
 .saveBtn {
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: var(--soft-black);
+  color: var(--white);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
@@ -295,9 +295,9 @@
 }
 
 .createBtn {
-  background-color: #ffffff;
+  background-color: var(--white);
   border: 1px solid #1a1a1a;
-  color: #1a1a1a;
+  color: var(--soft-black);
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   font-weight: 500;
@@ -311,8 +311,8 @@
 }
 
 .createBtn:hover {
-  background-color: #1a1a1a;
-  color: #ffffff;
+  background-color: var(--soft-black);
+  color: var(--white);
 }
 
 .tableWrapper {
@@ -352,7 +352,7 @@
 }
 
 .radioInput {
-  accent-color: #1a1a1a;
+  accent-color: var(--soft-black);
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -436,7 +436,7 @@
     border-bottom: 1px solid #eae6df;
     gap: 1rem;
     box-sizing: border-box;
-    background-color: #ffffff;
+    background-color: var(--white);
   }
 
   .brandTitle {
@@ -463,7 +463,7 @@
 
   .activeMenu {
     background-color: #faf9f6; /* Se mimetiza con el fondo principal */
-    color: #1a1a1a !important;
+    color: var(--soft-black) !important;
     border-bottom: 2px solid #1a1a1a;
     font-weight: 600;
   }

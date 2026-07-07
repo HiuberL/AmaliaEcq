@@ -3,7 +3,7 @@
   min-height: 80vh;
   display: flex;
   align-items: center;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 3rem 0;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .activeTab {
-  color: #1a1a1a;
+  color: var(--soft-black);
   border-bottom: 2px solid #1a1a1a;
   font-weight: 500;
 }
@@ -79,7 +79,7 @@
 }
 
 .inputGroup input:focus {
-  border-color: #1a1a1a;
+  border-color: var(--soft-black);
   outline: none;
 }
 
@@ -89,8 +89,8 @@
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #ffffff;
-  background-color: #1a1a1a;
+  color: var(--white);
+  background-color: var(--soft-black);
   padding: 14px;
   border: 1px solid #1a1a1a;
   cursor: pointer;
@@ -100,7 +100,7 @@
 
 .btnSubmit:hover {
   background-color: transparent;
-  color: #1a1a1a;
+  color: var(--soft-black);
 }
 
 .errorAlert {

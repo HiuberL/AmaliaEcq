@@ -27,7 +27,7 @@
 
 /* Efecto sutil al pasar el mouse por encima */
 .backButton:hover {
-  color: #1a1a1a;
+  color: var(--soft-black);
 }
 
 .backButton:hover .arrow {

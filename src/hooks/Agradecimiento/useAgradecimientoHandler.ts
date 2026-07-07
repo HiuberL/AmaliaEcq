@@ -18,7 +18,8 @@ export const useAgradecimientoHandler = (
         setPedido,
         ejecutado,
         setPaymentResponse,
-        paymentResponse
+        paymentResponse,
+        notFound, setNotFound
     } = state;
 
     const procesarPostPago = async () => {
@@ -27,7 +28,6 @@ export const useAgradecimientoHandler = (
             const uuidPedido = transactionId.split("-")[0].trim();
             const pedido = await obtenerPedidoCompleto(uuidPedido);
             let response;
-            console.log("Pedido obtenido:", pedido);
             setPedido(pedido);
             if(pedido.estado === 'CREADO'){
                 if (pedido.formaPago === 'TARJETA'){
@@ -57,6 +57,20 @@ export const useAgradecimientoHandler = (
         } catch (err: any) {
             const errorMessage = err.message || "Error procesando el flujo de agradecimiento.";
             setError(errorMessage);
+            const response = {
+                    provider: 'Ninguno',
+                    cardBrand: 'No encontrado',
+                    cardType: '',
+                    deferredMessage: '',
+                    statusCode: 99,
+                    amount: 0,
+                    transactionId:'', //secuencial
+                    message: 'Contacta con la tienda, posiblemente el pedido no se ha generado o fue eliminado.',
+                }                
+                setPaymentResponse(response);                    
+                setNotFound(true);
+                setLoading(false);
+                return;            
             window.showAlert(errorMessage, 'ERROR');
         } finally {
             setLoading(false);

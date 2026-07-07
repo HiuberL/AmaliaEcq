@@ -5,8 +5,8 @@
 display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #fcfbf7;
-  color: #1a1a1a;
+  background-color:var(--soft-white);
+  color: var(--soft-black);
   font-family: var(--font-inter), sans-serif;  
   position: relative;
 }
@@ -46,10 +46,10 @@ display: flex;
   vertical-align:middle;
   align-items: center;
   padding: 1.25rem 5%;
-  background-color: #ffffff;
+  background-color: var(--white);
   border-bottom: 1px solid #eaeaea;
   position: sticky;
-  top: 0;
+  top: -1;
   z-index: 100;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
@@ -92,7 +92,7 @@ display: flex;
   height: 1px;
   bottom: 0;
   left: 0;
-  background-color: #1a1a1a;
+  background-color: var(--soft-black);
   transition: width 0.3s ease;
 }
 
@@ -133,7 +133,7 @@ display: flex;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #ffffff;
+  background-color: var(--white);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   border: 1px solid #eaeaea;
   padding: 0.75rem 0;
@@ -153,12 +153,12 @@ display: flex;
   display: block;
   padding: 0.6rem 1.5rem;
   font-size: 0.9rem;
-  color: #555555;
+  color: var(--accent-low-color);
 }
 
 .submenu li a:hover {
-  background-color: #f9f9f6;
-  color: #000000;
+  background-color: var(--soft-white);
+  color:var(--soft-black);
 }
 
 /* ==========================================================================
@@ -174,7 +174,7 @@ display: flex;
   background: none;
   border: none;
   cursor: pointer;
-  color: #1a1a1a;
+  color: var(--soft-black);
   padding: 0.5rem;
   display: flex;
   align-items: center;
@@ -200,8 +200,8 @@ display: flex;
    5. FOOTER (Pie de Página)
    ========================================================================== */
 .mainFooter {
-  background-color: #111111;
-  color: #ffffff;
+  background-color: var(--soft-black);
+  color: var(--white);
   padding: 4rem 5% 2rem 5%;
   margin-top: auto;
   font-size: 0.9rem;
@@ -222,11 +222,11 @@ display: flex;
   font-size: 1.1rem;
   letter-spacing: 1px;
   margin-bottom: 1.5rem;
-  color: #fcfbf7;
+  color: var(--soft-white);
 }
 
 .footerSection p {
-  color: #aaaaaa;
+  color: var(--soft-gray);
   line-height: 1.6;
 }
 
@@ -241,11 +241,11 @@ display: flex;
 }
 
 .footerSection ul li a {
-  color: #aaaaaa;
+  color: var(--soft-gray);
 }
 
 .footerSection ul li a:hover {
-  color: #ffffff;
+  color: var(--white);
   padding-left: 4px;
   /* Un pequeño efecto de empuje al hover */
 }
@@ -256,7 +256,7 @@ display: flex;
   margin: 0 auto;
   padding-top: 2rem;
   text-align: center;
-  color: #666666;
+  color: var(--strong-gray);
   font-size: 0.8rem;
 }
 .headerTransparent {
@@ -280,7 +280,7 @@ display: flex;
 .footerDivider {
   border: 0;
   height: 1px;
-  background-color: #222222;
+  background-color: var(--soft-black);
   /* Gris oscuro que contrasta suave con el fondo #111 */
   margin: 1.5rem 0;
   /* Espaciado arriba y abajo de la línea */
@@ -292,7 +292,7 @@ display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
-  color: #aaaaaa;
+  color: var(--soft-gray);
   /* Color gris suave */
   font-size: 0.9rem;
   line-height: 1.6;
@@ -312,12 +312,12 @@ display: flex;
 }
 
 .policyList li a {
-  color: #888888;
+  color: var(--soft-gray);
   /* Un tono un poco más apagado para que sea secundario */
 }
 
 .policyList li a:hover {
-  color: #ffffff;
+  color: var(--white);
   /* Brilla al pasar el mouse */
 }
 
@@ -349,7 +349,7 @@ display: flex;
 
   /* Estilo para cada enlace de red social */
   .socialLink {
-    color: #aaaaaa;
+    color: var(--soft-gray);
     /* Color gris suave a juego con el texto de contacto */
     display: flex;
     align-items: center;
@@ -360,7 +360,7 @@ display: flex;
 
   /* Efecto al pasar el mouse por encima */
   .socialLink:hover {
-    color: #ffffff;
+    color: var(--white);
     /* Se ilumina en blanco */
     transform: translateY(-3px);
     /* Pequeño salto hacia arriba muy elegante */
@@ -377,7 +377,7 @@ display: flex;
   top: 100%;            /* Se posiciona justo al ras de abajo del botón */
   right: 0;             /* Se alinea al borde derecho para que no se desborde */
   width: 180px;
-  background-color: #ffffff;
+  background-color: var(--white);
   border: 1px solid #eaeaea;
   padding: 0.5rem 0;
   margin-top: 8px;      /* Separación sutil del header */
@@ -409,7 +409,7 @@ display: flex;
   border: none;
   font-family: var(--font-inter), sans-serif; /* Tu tipografía secundaria limpia */
   font-size: 0.85rem;
-  color: #555555;
+  color: var(--hard-strong-gray);
   text-decoration: none;
   text-align: left;
   cursor: pointer;
@@ -419,8 +419,8 @@ display: flex;
 
 /* 💄 Efecto hover premium para las opciones */
 .dropdownItem:hover {
-  background-color: #f7f7f7;
-  color: #1a1a1a;
+  background-color: var(--soft-white);
+  color: var(--soft-black);
 }
 
 /* Ajuste opcional para el botón del ícono principal si es necesario */
@@ -431,7 +431,7 @@ display: flex;
   background: none;
   border: none;
   cursor: pointer;
-  color: #1a1a1a;
+  color: var(--soft-black);
   padding: 8px;
 }  
 /* Responsive básico para tablets/celulares (Oculta menú horizontal si es muy pequeño) */
@@ -450,7 +450,7 @@ display: flex;
     /* Escondido completamente a la izquierda */
     width: 280px;
     height: 100vh;
-    background-color: #ffffff;
+    background-color: var(--white);
     /* Cambiamos la sombra para que se proyecte hacia la derecha */
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
     z-index: 999;
@@ -477,7 +477,7 @@ display: flex;
     border: none;
     align-self: flex-end;
     cursor: pointer;
-    color: #1a1a1a;
+    color: var(--soft-black);
     padding: 0.5rem;
   }
 
@@ -516,61 +516,6 @@ display: flex;
 
   .submenu li a {
     padding: 0.4rem 0;
-  }
-}
-
-/* Responsive para escritorio */
-@media (min-width: 768px) {
-  .mobileMenuBtn,
-  .closeMenuBtn,
-  .menuOverlay {
-    display: none !important;
-  }
-
-  .mainNav {
-    position: static;
-    left: auto;
-    width: auto;
-    height: auto;
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0;
-    display: flex;
-    flex-direction: row;
-    gap: 0;
-  }
-
-  .navList {
-    flex-direction: row;
-    align-items: center;
-    gap: 2rem;
-    width: auto;
-    font-size: 0.95rem;
-  }
-
-  .navList > li {
-    width: auto;
-  }
-
-  .hasSubmenu {
-    width: auto;
-  }
-
-  .submenu {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    border: 1px solid #eaeaea;
-    border-radius: 4px;
-    padding: 0.75rem 0;
-    display: none;
-    min-width: 160px;
-  }
-
-  .hasSubmenu:hover .submenu {
-    display: block;
   }
 
   /* Flecha del trigger de Tienda fija en móviles */

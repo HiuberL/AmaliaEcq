@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest) {
   const token = await getSessionCookie('amalia_token');
   const { pathname } = request.nextUrl;
   await analiticaCliente('VISITA');
-  const rutasProtegidas = ['/espacio/informacion', '/juegos'];
+  const rutasProtegidas = ['/espacio/informacion', '/sorteo/juegaygana'];
 
   const rutasAuth = ['/login'];
 

@@ -22,7 +22,7 @@ export async function consultarDatosCliente(token: string | null, idCliente: str
             { citas: ["tipo", "dia", "hora"] },
             { solicitudes: ["atendido", "solicitud"] },
             {
-                billetera_id: ["saldo_disponible", "saldo_bloqueado", {
+                billetera_id: ["id","saldo_disponible", "saldo_bloqueado", {
                     historial_puntos: [
                         "id",
                         "tipo",

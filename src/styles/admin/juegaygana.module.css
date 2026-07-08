@@ -1,0 +1,534 @@
+/* ==========================================================================
+   ESTILOS GENERALES Y BASE
+   ========================================================================== */
+.main {
+  min-height: 100vh;
+  background-color: var(--soft-black);
+  color: #f5f5f5;
+  border-radius: 15px;
+  padding: 24px 16px; /* Padding reducido para móviles */
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.85rem; /* Más compacto en móviles */
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  margin: 0 0 8px 0;
+  background: linear-gradient(to right, #fbbf24, #f97316, #facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #a3a3a3;
+  font-size: 0.875rem; /* Legible pero compacto */
+  max-width: 450px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   SISTEMA DE REJILLA (GRID) RESPONSIVO
+   ========================================================================== */
+.grid {
+  display: flex;
+  flex-direction: column-reverse; /* En móviles, el juego queda ARRIBA y las reglas/recarga ABAJO */
+  gap: 20px;
+}
+
+.columnLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.columnRight {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ==========================================================================
+   TARJETAS Y COMPONENTES
+   ========================================================================== */
+.card {
+  background-color: rgba(23, 23, 23, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid #262626;
+  border-radius: 16px;
+  padding: 18px; /* Menos espacio interno en móvil */
+}
+
+.cardTitleGold {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fbbf24;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+}
+
+.cardTitle {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #e5e5e5;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 12px 0;
+}
+
+.rulesList {
+  margin: 0;
+  padding: 12px 14px;
+  background-color: rgba(10, 10, 10, 0.4);
+  border: 1px solid rgba(38, 38, 38, 0.5);
+  border-radius: 12px;
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.ruleItem {
+  font-size: 0.8rem;
+  color: #d4d4d4;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.ruleItem:last-child {
+  margin-bottom: 0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.displayPanel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0a0a0a;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #262626;
+}
+
+.panelLabel {
+  font-size: 0.7rem;
+  color: #a3a3a3;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.panelValue {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: #fbbf24;
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   CONTROLES SLIDER Y BOTONES DE RECARGA
+   ========================================================================== */
+.sliderWrapper {
+  width: 100%;
+}
+
+.slider {
+  width: 100%;
+  height: 10px; /* Un poco más grueso en móvil para que sea fácil de arrastrar */
+  border-radius: 8px;
+  background-color: #262626;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: #737373;
+  font-family: monospace;
+  margin-top: 6px;
+}
+
+.buttonRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.secondaryButton {
+  padding: 12px; /* Más alto para facilitar el 'tap' con el dedo */
+  background-color: rgba(38, 38, 38, 0.5);
+  border: 1px solid rgba(64, 64, 64, 0.5);
+  color: #d4d4d4;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.secondaryButton:hover {
+  background-color: #262626;
+}
+
+.primaryButton {
+  padding: 14px;
+  background: linear-gradient(to right, #f59e0b, #ea580c);
+  border: none;
+  color: #0a0a0a;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.1);
+}
+
+/* ==========================================================================
+   CONTENEDOR TRAGAMONEDAS
+   ========================================================================== */
+.slotContainer {
+  background-color: rgba(23, 23, 23, 0.6);
+  backdrop-filter: blur(12px);
+  border: 2px solid #262626;
+  border-radius: 20px;
+  padding: 16px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.slotContainerSpinning {
+  border-color: #f59e0b;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+}
+
+.slotInner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px; /* Reducido en móvil para evitar scroll innecesario */
+  border: 1px solid rgba(38, 38, 38, 0.8);
+  background-color: rgba(10, 10, 10, 0.8);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.slotBadge {
+  margin-bottom: 16px;
+  padding: 4px 12px;
+  background-color: #171717;
+  border: 1px solid #262626;
+  border-radius: 9999px;
+  font-size: 0.65rem;
+  font-family: monospace;
+  color: #a3a3a3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.slotPlaceholder {
+  width: 100%;
+  background-color: rgba(23, 23, 23, 0.9);
+  border: 1px solid #262626;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.placeholderText {
+  color: #737373;
+  font-size: 0.65rem;
+  font-family: monospace;
+  margin: 0 0 12px 0;
+}
+
+.emojiRow {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.emojiBox {
+  width: 65px; /* Más angostos para que entren holgadamente de lado a lado */
+  height: 80px;
+  background-color: #0a0a0a;
+  border: 2px solid #262626;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem; /* Emojis ligeramente más pequeños */
+  transition: transform 0.2s ease;
+}
+
+.emojiBoxSpinning {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   BARRA DE CONTROL DE APUESTAS
+   ========================================================================== */
+.controlsBar {
+  background-color: rgba(23, 23, 23, 0.4);
+  border: 1px solid rgba(38, 38, 38, 0.8);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column; /* Apilados verticalmente en móviles */
+  gap: 14px;
+}
+
+.betSelector {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Expande al ancho completo del móvil */
+  width: 100%;
+  background-color: #0a0a0a;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #262626;
+  box-sizing: border-box;
+}
+
+.betLabel {
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #a3a3a3;
+}
+
+.betControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.betButton {
+  width: 36px; /* Más grandes en móviles para mejor precisión táctil */
+  height: 36px;
+  border-radius: 8px;
+  background-color: #171717;
+  border: none;
+  color: #a3a3a3;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.betInput {
+  width: 50px;
+  background: transparent;
+  border: none;
+  text-align: center;
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: #ffffff;
+  outline: none;
+}
+
+.betInput::-webkit-outer-spin-button,
+.betInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.betInput {
+  -moz-appearance: textfield;
+}
+
+.playButton {
+  width: 100%; /* Botón de jugar gigante que ocupa todo el ancho */
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #f59e0b;
+  color: #0a0a0a;
+  border: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.playButtonDisabled {
+  background-color: #262626;
+  color: #737373;
+  cursor: not-allowed;
+  border: 1px solid #404040;
+}
+
+.balanceCard {
+  background: linear-gradient(135deg, rgba(23, 23, 23, 0.8), rgba(10, 10, 10, 0.9));
+  border: 1px solid #fbbf24; /* Borde dorado sutil para resaltar el saldo */
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(251, 191, 36, 0.05);
+}
+
+.balanceInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.balanceLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a3a3a3;
+  font-weight: 600;
+}
+
+.balanceValue {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  font-family: monospace;
+}
+
+.balanceIcon {
+  font-size: 1.75rem;
+  background-color: rgba(251, 191, 36, 0.1);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid rgba(251, 191, 36, 0.2);
+}
+
+.emojiBoxSpinning {
+  transform: scale(1.02);
+  border-color: #fbbf24;
+  animation: blurGiro 0.1s infinite alternate;
+}
+@keyframes blurGiro {
+  0% {
+    filter: blur(0px);
+    transform: translateY(-2px);
+  }
+  100% {
+    filter: blur(4px); /* Desenfoque que da el efecto de movimiento rápido */
+    transform: translateY(2px);
+  }
+}
+/* ==========================================================================
+   MEDIA QUERIES (ESCRITORIO / DISPOSITIVOS GRANDES)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .main {
+    padding: 48px 24px;
+  }
+
+.balanceCard {
+    padding: 20px 24px;
+  }
+  .balanceValue {
+    font-size: 1.75rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  /* Cambia a rejilla de 3 columnas de Next.js */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row; /* Cancela el flex-direction del móvil */
+    gap: 32px;
+  }
+
+  .columnRight {
+    grid-column: span 2;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .cardTitleGold, .cardTitle {
+    font-size: 1.125rem;
+    margin-bottom: 16px;
+  }
+
+  .rulesList {
+    padding: 16px;
+  }
+
+  .ruleItem {
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+  }
+
+  .displayPanel {
+    padding: 12px 16px;
+  }
+
+  .panelValue {
+    font-size: 1.25rem;
+  }
+
+  .secondaryButton {
+    padding: 10px 16px;
+  }
+
+  .slotContainer {
+    padding: 24px;
+    border-radius: 24px;
+  }
+
+  .slotInner {
+    min-height: 300px;
+    padding: 24px;
+  }
+
+  .slotPlaceholder {
+    padding: 32px;
+  }
+
+  .emojiBox {
+    width: 80px;
+    height: 96px;
+    font-size: 2.25rem;
+  }
+
+  .controlsBar {
+    flex-direction: row; /* Se alinean horizontalmente en PC */
+    padding: 24px;
+  }
+
+  .betSelector {
+    width: auto;
+  }
+
+  .playButton {
+    flex: 1;
+    width: auto;
+  }
+}

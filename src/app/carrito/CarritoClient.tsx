@@ -8,7 +8,7 @@ import styles from '@styles/admin/carritoPage.module.css'; // Crearemos estos es
 import BotonRegresar from '@/components/returnButton';
 
 export default function CarritoClient() {
-  const { loading, carrito, onChangeValue,onGoPagePayment } = useCart();
+  const { loading, carrito, onChangeValue,onGoPagePayment } = useCart(true);
 
   if (loading) {
     return (

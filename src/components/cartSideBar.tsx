@@ -2,6 +2,7 @@
 
 import React from 'react';
 import styles from '@styles/shared/cartSidebar.module.css';
+import { useCart } from '@/hooks/Cart/useCart';
 
 interface CartSidebarProps {
   isOpen: boolean;
@@ -13,7 +14,6 @@ export default function CartSidebar({ isOpen, onClose, children }: CartSidebarPr
   
   // Si no está abierto, no renderiza nada para optimizar rendimiento y evitar llamadas prematuras
   if (!isOpen) return null;
-
   return (
     <div className={styles.overlay} onClick={onClose}>
       {/* Detenemos la propagación del click para que el carrito no se cierre al interactuar por dentro */}

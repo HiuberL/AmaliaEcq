@@ -7,7 +7,7 @@ import { Trash } from 'lucide-react';
 import Loading from '@/app/loading';
 
 export default function CartContent() {
-  const { loading,carrito,onChangeValue,onGoPagePayment } = useCart();
+  const { loading,carrito,onChangeValue,onGoPagePayment } = useCart(true);
 
   if (loading) {
     return <Loading/>;

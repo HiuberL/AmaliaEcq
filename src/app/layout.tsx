@@ -25,6 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${inter.variable} ${cinzel.variable}`}>
+      <head>
+        <link rel="icon" type="image/png" href="/assets/logo_Cropped.png" />
+      </head>
       <body>
         <LayoutProvider>
           <MainProvider>

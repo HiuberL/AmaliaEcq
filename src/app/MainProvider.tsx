@@ -30,7 +30,6 @@ export default function MainProvider({ children }: { children: React.ReactNode }
     <div className={`${style.principalContainer} ${style.principalContainerBackground}`}>
 
       {/* ================= HEADER ================= */}
-          <MessageAlert />
 
       {showHeader &&
         <header className={`${style.mainHeader} ${isHeaderTransparent ? style.headerTransparent : ''}`}>
@@ -59,7 +58,12 @@ export default function MainProvider({ children }: { children: React.ReactNode }
               <li><Link href="/" onClick={() => setMenuOpen(false)}>Inicio</Link></li>
               <li><Link href="/nosotros" onClick={() => setMenuOpen(false)}>Nosotros</Link></li>
               <li><Link href="/blog" onClick={() => setMenuOpen(false)}>Blog</Link></li>
-
+              <li className={style.hasSubmenu}>
+                <span className={style.submenuTrigger}>Sorteos</span>
+                <ul className={style.submenu}>
+                  <li><Link href="/sorteo/juegaygana" onClick={() => setMenuOpen(false)}>Juega y Gana</Link></li>
+                </ul>
+              </li>
               <li className={style.hasSubmenu}>
                 <span className={style.submenuTrigger}>Tienda</span>
                 <ul className={style.submenu}>
@@ -123,7 +127,10 @@ export default function MainProvider({ children }: { children: React.ReactNode }
         </header>
       }
       {/* ================= CONTENIDO PRINCIPAL ================= */}
+      
       <main className={style.mainContent}>
+                <MessageAlert />
+
         {children}
       </main>
 

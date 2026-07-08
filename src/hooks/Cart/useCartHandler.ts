@@ -10,7 +10,8 @@ export const useCartHandler = (
 ) => {
     const {
         setLoading,
-        setCarrito
+        setCarrito,
+        carrito
     } = state;
       const router = useRouter();
     
@@ -25,6 +26,9 @@ export const useCartHandler = (
     }
     const handlerAddCarrito = async (varianteId: string, cantidad: number) => {
         try {
+            if(!carrito){
+                await cargarInformacion();
+            }
             await agregarAlCarrito(varianteId, cantidad);
             setCartOpen(true);
         } catch (error: any) {

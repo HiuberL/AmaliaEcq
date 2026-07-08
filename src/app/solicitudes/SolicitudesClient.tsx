@@ -12,7 +12,7 @@ const EditorMensajeSeguro = dynamic(() => import('@/components/EditorMensaje'), 
   ssr: false,
   loading: () => <div className={style.editorLoader}>Cargando editor premium...</div>
 });
-export default function SolicitudesClient({ userLogueadoId }: { userLogueadoId?: string | null }) {
+export default function SolicitudesClient() {
   const{
         nombre, setNombre,
         apellido, setApellido,

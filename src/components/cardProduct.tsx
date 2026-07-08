@@ -38,7 +38,7 @@ interface CardProductProps {
 export const CardProduct: React.FC<CardProductProps> = ({ product, onClickGoProductPage }) => {
   const { nombre, imagen, marca, variantes, descuento_general,etiquetaDescuento, precios } = product;
     const {
-        onAddCart
+        onAddCart,
     } = useCart();
   // 1. Agrupar de forma dinámica todas las opciones únicas disponibles en los combos (ej: "Cantidad")
   const mapeoCombos = useMemo(() => {

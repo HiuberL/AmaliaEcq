@@ -1,13 +1,10 @@
-// app/tienda/[categoria]/page.tsx (Server Component)
 import { Metadata } from 'next';
-import RootLayout from '../layout';
-import InicioClient from './AgradecimientoClient';
 import AgradecimientoClient from './AgradecimientoClient';
+import { Suspense } from 'react';
 
+export const dynamic = 'force-dynamic';
 
-export async function generateMetadata(): Promise<Metadata> {
-  
-  return {
+export const metadata : Metadata  = {
     title: 'Página de Agradecimiento | Amalia Ec',
     description: '',
     robots:{
@@ -15,9 +12,12 @@ export async function generateMetadata(): Promise<Metadata> {
       follow: false,
       nocache: true,
     }
-  };
 }
 
 export default function AgradecimientoPage() {
-  return <AgradecimientoClient />;
+return (
+    <Suspense fallback={null}>
+      <AgradecimientoClient />
+    </Suspense>
+  );
 }

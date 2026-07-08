@@ -13,7 +13,7 @@ const getProductoSeguro = cache(async (slug: string) => {
 });
 
 // 🚀 1. METADATOS: Intentamos resolver rápido
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function metadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const producto = await getProductoSeguro(slug);
   

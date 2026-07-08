@@ -5,7 +5,7 @@ import InicioClient from './InicioClient';
 
 
 // 1. GENERACIÓN DE METADATOS DINÁMICOS PARA GOOGLE
-export const generateMetadata: Metadata = {    
+export const metadata: Metadata = {    
     title: `Productos Originales | Ecuador | Amalia Ec`,
     description: `Explora nuestro catálogo exclusivo de productos originales en Ecuador. Encuentra las mejores marcas internacionales, perfumes y maquillajes en stock con envíos a todo el país.`,
     openGraph: {

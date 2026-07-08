@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import LoginClient from './LoginCliente';
 
 
-export const generateMetadata: Metadata = {    
+export const metadata: Metadata = {    
     title: `Productos Originales | Ecuador | Amalia Ec`,
     description: `Estamos listos y escuchamos atentamente tus solicitudes, en esta sección puedes solicitar cotizaciones, enviarnos comentarios o mensajes`,
     openGraph: {

@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { cache } from 'react';
+import { cache, Suspense } from 'react';
 import { consultBlogBySlug } from '@/services/blog.service';
 import PoliticaDetalleCliente from './PoliticaDetalleCliente';
 import { consultPoliticasBySlug } from '@/services/politica.service';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -14,13 +16,13 @@ const getPoliticaSecure = cache(async (slug: string) => {
 });
 
 // 🚀 1. METADATOS: Intentamos resolver rápido
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function metadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const politica = await getPoliticaSecure(slug);
-  
+
   // Si no encuentra el elemento en el array base devuelto por consultProductoEspecifico
   const info = Array.isArray(politica) ? politica[0] : politica;
-  
+
   if (!info) {
     return { title: 'Política no encontrada | AmaliaEc' };
   }
@@ -49,5 +51,10 @@ async function SuspenseData({ slug }: { slug: string }) {
     notFound();
   }
 
-  return <PoliticaDetalleCliente politica={info} />;
+  return (
+    <Suspense>
+      <PoliticaDetalleCliente politica={info} />
+    </Suspense>
+
+  );
 }

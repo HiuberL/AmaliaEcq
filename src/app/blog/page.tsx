@@ -2,9 +2,11 @@
 import { Metadata } from 'next';
 import CategoriaClient from './BlogClient';
 import BlogClient from './BlogClient';
+import { Suspense } from 'react';
 
-export const generateMetadata = (): Metadata => {  
-  return {
+export const dynamic = 'force-dynamic';
+
+export const metadata : Metadata = {  
     title: `Blog | AmaliaEc`,
     description: `Amalia también realiza reseñas de productos y artículos relacionados con el mundo de la perfumería y la cosmética. Descubre nuestros consejos, recomendaciones y novedades en nuestro blog.`,
     openGraph: {
@@ -12,9 +14,13 @@ export const generateMetadata = (): Metadata => {
       description: `Amalia también realiza reseñas de productos y artículos relacionados con el mundo de la perfumería y la cosmética. Descubre nuestros consejos, recomendaciones y novedades en nuestro blog.`,
       type: 'website',
     }
-  };
 }
 
 export default function BlogPage() {
-  return <BlogClient />;
+  return (
+    <Suspense fallback={null}>
+      <BlogClient />
+    </Suspense>
+
+  );
 }

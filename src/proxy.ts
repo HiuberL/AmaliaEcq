@@ -3,7 +3,7 @@ import { getSessionCookie } from './utils/cookies.utils';
 import { analiticaCliente } from './app/actions/geolocalizacion.server';
 import { renovarSesionServidor } from './services/login.service';
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const token = await getSessionCookie('amalia_token');
   const { pathname } = request.nextUrl;
   await analiticaCliente('VISITA');

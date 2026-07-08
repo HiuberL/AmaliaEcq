@@ -7,7 +7,6 @@ import styles from '@styles/admin/agradecimiento.module.css'
 export default function AgradecimientoPage() {
   const {
     loading,
-    error,
     paymentResponse,
     pedido,
     notFound

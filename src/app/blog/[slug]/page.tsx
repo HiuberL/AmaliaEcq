@@ -1,8 +1,10 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { cache } from 'react';
+import { cache, Suspense } from 'react';
 import { consultBlogBySlug } from '@/services/blog.service';
 import BlogDetalleCliente from './BlogDetalleCliente';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -13,13 +15,13 @@ const getBlogSecure = cache(async (slug: string) => {
 });
 
 // 🚀 1. METADATOS: Intentamos resolver rápido
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function metadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const blog = await getBlogSecure(slug);
-  
+
   // Si no encuentra el elemento en el array base devuelto por consultProductoEspecifico
   const info = Array.isArray(blog) ? blog[0] : blog;
-  
+
   if (!info) {
     return { title: 'Blog no encontrado | AmaliaEc' };
   }
@@ -48,5 +50,10 @@ async function SuspenseData({ slug }: { slug: string }) {
     notFound();
   }
 
-  return <BlogDetalleCliente blog={info} />;
+  return (
+    <Suspense>
+      <BlogDetalleCliente blog={info} />
+    </Suspense>
+
+  );
 }

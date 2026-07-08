@@ -1,0 +1,164 @@
+/* ==========================================
+   CARD BLOG HORIZONTAL (FILA)
+   ========================================== */
+.cardBlog {
+  display: flex;
+  flex-direction: row;
+  /* Fuerza la distribución horizontal */
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cardBlog:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   IZQUIERDA: CONTENEDOR DE LA IMAGEN
+   ========================================== */
+.imageContainer {
+  flex-shrink: 0;
+  width: 180px;
+  /* Ancho fijo para la imagen en desktop */
+  min-height: 180px;
+  background-color: #f3f4f6;
+  position: relative;
+  overflow: hidden;
+}
+
+.blogImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.cardBlog:hover .blogImage {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   DERECHA: CONTENIDO E INFORMACIÓN
+   ========================================== */
+.blogInfo {
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  flex-grow: 1;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+/* CABECERA (TÍTULO Y FECHA) */
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.blogTitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.3;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* FECHA ARRIBA A LA DERECHA */
+.blogDate {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  white-space: nowrap;
+  /* Evita que la fecha se rompa en 2 líneas */
+  background-color: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+}
+
+/* TAGS DE CATEGORÍA */
+.tagContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.tag {
+  background-color: #3b3b3b;
+  /* Color similar al estilo oscuro de tu captura */
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.15rem 0.55rem;
+  border-radius: 6px;
+  text-transform: capitalize;
+}
+
+/* CUERPO TRUNCADO */
+.blogBody {
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-top: 0.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  /* Corta a 2 líneas para mantener limpio el card */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Limpia formato html inyectado */
+.blogBody * {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  color: inherit !important;
+}
+
+/* ==========================================
+   AJUSTE DEL GRID DE CONTENEDOR PADRE
+   ========================================== */
+/* Como ahora las cards ocupan 1 fila entera, en tu CSS del Grid cambia a 1 sola columna: */
+.blogGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+/* ==========================================
+   RESPONSIVE PARA MÓVILES
+   ========================================== */
+@media (max-width: 640px) {
+  .cardBlog {
+    flex-direction: column;
+    /* En teléfonos vuelve a formato vertical para no apretar el contenido */
+  }
+
+  .imageContainer {
+    width: 100%;
+    height: 180px;
+  }
+
+  .headerContainer {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .blogDate {
+    align-self: flex-start;
+  }
+}

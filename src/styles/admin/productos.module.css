@@ -353,3 +353,10 @@
         margin-bottom: 2.5rem;
     }
 }
+
+.blogGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.45rem;
+  width: 100%;
+}

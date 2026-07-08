@@ -183,11 +183,11 @@ export default function MainProvider({ children }: { children: React.ReactNode }
               <hr className={style.footerDivider} />
 
               <ul className={style.policyList}>
-                <li><Link href="/politica-reembolso">Política de Reembolso</Link></li>
-                <li><Link href="/politica-envio">Política de Envío</Link></li>
-                <li><Link href="/privacidad">Declaración de Privacidad</Link></li>
-                <li><Link href="/terminos">Términos y Condiciones</Link></li>
-                <li><Link href="/privacidad">Políticas de privacidad</Link></li>
+                <li><Link href="/politica/politica-reembolso">Política de Reembolso</Link></li>
+                <li><Link href="/politica/politica-envio">Política de Envío</Link></li>
+                <li><Link href="/politica/declaracion-accesibilidad">Declaración de Accesibilidad</Link></li>
+                <li><Link href="/politica/terminos-condiciones">Términos y Condiciones</Link></li>
+                <li><Link href="/politica/politica-privacidad">Políticas de privacidad</Link></li>
               </ul>
             </div>
           </div>

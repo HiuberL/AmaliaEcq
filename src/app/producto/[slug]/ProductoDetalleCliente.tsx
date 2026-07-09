@@ -23,7 +23,8 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
 
 
     const{
-        onAddCart
+        onAddCart,
+        onClickSolicitud
     }=useCart();
 
     // 1. Lógica de Precios y Descuento de la Variante Activa
@@ -137,7 +138,7 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                                         Añadir
                                 </button>
                             ) : (
-                                <button className={style.addToCartBtn}>
+                                <button className={style.addToCartBtn} onClick={() => onClickSolicitud(product.nombre,varianteSeleccionada.sku,cantidad)}>
                                     <PenSquareIcon width={20}/>
                                     Solicitar
                                 </button>

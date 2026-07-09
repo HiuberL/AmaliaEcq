@@ -2,6 +2,7 @@ import { actualizarCantidadDetalle, agregarAlCarrito, consultarCarritoCompleto }
 import { useCartState } from "./useCartState";
 import { getSessionCookie } from "@/utils/cookies.utils";
 import { useRouter } from "next/navigation";
+import { guardarSolicitudProducto } from "@/services/solicitudes.service";
 
 
 export const useCartHandler = (
@@ -33,6 +34,17 @@ export const useCartHandler = (
             setCartOpen(true);
         } catch (error: any) {
             window.showAlert(error.message || "No se pudo agregar el producto al carrito.", 'ERROR');
+        }
+    }
+
+    const handleAddSolicitud = async (producto:string, sku:string, cantidad: number) => {
+        try{
+            const guestCartId= await getSessionCookie('amalia_cliente_id');
+            const solicitud = `Pedido - Producto: ${producto} sku: ${sku} solicita ${cantidad} productos`;
+            await guardarSolicitudProducto(solicitud,guestCartId||null);
+            window.showAlert("Tu solicitud se ha guardar, nos encargaremos de ello.", 'INFO');
+        } catch (error: any) {
+            window.showAlert(error.message || "No se pudo solicitar el producto.", 'ERROR');
         }
     }
     const handlerUpdateCarrito = async (detalleId: string, cantidad: number) => {
@@ -91,7 +103,8 @@ export const useCartHandler = (
         handlerUpdateCarrito,
         cargarInformacion,
         handleCambiarCantidad,
-        handlerGoPagePayment
+        handlerGoPagePayment,
+        handleAddSolicitud
     }
 
 };

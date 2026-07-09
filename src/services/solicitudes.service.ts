@@ -62,6 +62,23 @@ const guardarSolicitudCliente = async (request: any,idGuardado:string | null) =>
 
 };
 
+
+const guardarSolicitudProducto = async (solicitud: any,idGuardado:string | null) => {
+    try {
+        const resultado = await directusPrivate.request(
+            createItem('solicitudes', {
+                solicitud: solicitud,
+                cliente_id: null
+            })
+        );
+    } catch (error) {
+        console.error("Error al procesar la solicitud", error);
+        throw error;
+    }
+
+};
+
 export {
-    guardarSolicitudCliente
+    guardarSolicitudCliente,
+    guardarSolicitudProducto
 }

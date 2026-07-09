@@ -22,6 +22,7 @@ export const useCart= (effectsActive: boolean=false) =>{
         carrito:state.carrito,
         onChangeValue: handler.handleCambiarCantidad,
         onGoPagePayment: handler.handlerGoPagePayment,
-        onChargeInformation: handler.cargarInformacion
+        onChargeInformation: handler.cargarInformacion,
+        onClickSolicitud: handler.handleAddSolicitud
     }
 };

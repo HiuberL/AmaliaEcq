@@ -56,7 +56,7 @@
 
 .productName {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium-1);
   font-weight: 600;
   color: var(--soft-black);
   margin: 0;
@@ -73,13 +73,13 @@
 }
 
 .currentPrice {
-  font-size: 1.1rem;
+  font-size: var(--font-size-medium);
   font-weight: 700;
   color: var(--soft-black);
 }
 
 .oldPrice {
-  font-size: 0.9rem;
+  font-size: var(--font-size-small);
   color: #999999;
   text-decoration: line-through;
 }
@@ -102,7 +102,7 @@
 
 /* Marca del producto */
 .productBrand {
-  font-size: 0.75rem;
+  font-size: var(--font-size-small-1);
   text-transform: uppercase;
   letter-spacing: 1px;
   color: var(--soft-gray);
@@ -132,7 +132,7 @@
 }
 
 .selectLabel {
-  font-size: 0.75rem;
+  font-size: var(--font-size-small-1);
   font-weight: 600;
   color: #64748b;
   text-transform: uppercase;
@@ -145,7 +145,7 @@
   padding: 0 0.5rem;
   border: 1px solid #e2e8f0;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: var(--font-size-small);
   color: var(--soft-black);
   background-color: #f8fafc;
   cursor: pointer;
@@ -177,7 +177,7 @@
   color: var(--white);
   border: none;
   border-radius: 6px;
-  font-size: 0.85rem;
+  font-size: var(--font-size-small);
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s;

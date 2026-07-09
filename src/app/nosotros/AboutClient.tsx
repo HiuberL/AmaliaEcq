@@ -19,9 +19,9 @@ export default function NosotrosClient() {
         <div className={style.container}>
           <div className={style.gridTwoCols}>
             <div className={style.textContent}>
-              <h2 className={style.sectionTitle}>Misión</h2>
+              <h2 className={style.heroTitle}>Misión</h2>
               {/* === AQUÍ VA TU CONTENIDO DE MISIÓN === */}
-              <p className={style.paragraph}>
+              <p className={style.heroSubtitle}>
                 Nuestra misión es conectar a nuestros clientes con la excelencia y el lujo auténtico, 
                 convirtiéndonos en su aliado de máxima confianza a la hora de elegir fragancias y productos de bienestar 
                 verdaderamente originales.              </p>
@@ -43,8 +43,8 @@ export default function NosotrosClient() {
         <div className={style.container}>
           <div className={style.gridTwoColsReverse}>
             <div className={style.textContent}>
-              <h2 className={style.sectionTitle}>Visión</h2>
-              <p className={style.paragraph}>
+              <h2 className={style.heroTitle}>Visión</h2>
+              <p className={style.heroSubtitle}>
                 Ser la boutique online líder en Ecuador y el referente absoluto de confianza en perfumería 
                 y cosmética, reconocida por la autenticidad inigualable de nuestros productos y por inspirar 
                 elegancia y bienestar en cada hogar.

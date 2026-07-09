@@ -14,8 +14,8 @@
 /* ================= 1. HERO SECTION ================= */
 .heroSection {
   background-color: var(--white); /* Un tono sutil y claro */
-  border-radius: 50px;
-  padding: 6rem 1.5rem;
+  border-radius: 15px;
+  padding: 2rem 1.5rem;
   text-align: center;
 }
 
@@ -29,8 +29,8 @@
 }
 .heroTitle {
   font-family: var(--font-cinzel), serif;
-  font-size: 3rem;
-  font-weight: 300;
+  font-size: var(--font-size-medium);
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 5px;
   color: var(--soft-black);
@@ -39,7 +39,7 @@
 
 .heroSubtitle {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1.1rem;
+  font-size: var(--font-size-small);
   font-weight: 400;
   color: var(--strong-gray);
   line-height: 1.6;
@@ -49,8 +49,8 @@
 .storySection,
 .storySectionAlt {
   margin-top: 15px;
-  padding: 6rem 0;
-  border-radius: 50px;
+  padding: 2rem 0;
+  border-radius: 15px;
   background-color: var(--white);
 
 }
@@ -99,16 +99,17 @@
 }
 
 .featuredImage {
-  width: 300px;
+  width: 200px;
   height: auto;
   object-fit: cover;
 }
 
 /* ================= 4. SECCIÓN VALORES ================= */
 .valuesSection {
-  padding: 6rem 0;
+  padding: 2.5rem 0;
   margin-top: 15px;
-  background-color: #fcfcfc;
+  border-radius: 15px;
+  background-color: var(--very-soft-white);
 }
 
 .sectionTitleCenter {
@@ -140,8 +141,8 @@
 }
 
 .iconWrapper {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   margin: 0 auto 1.5rem;
   display: flex;
   align-items: center;
@@ -156,17 +157,17 @@
 
 .valueTitle {
   font-family: var(--font-cinzel), serif;
-  font-size: 1.3rem;
+  font-size: var(--font-size-medium);
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--soft-black);
-  margin-bottom: 1rem;
+  margin-bottom: var(--font-size-medium);
 }
 
 .valueDescription {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-small);
   color: var(--strong-gray);
   line-height: 1.7;
 }
@@ -174,21 +175,32 @@
 /* ================= RESPONSIVE (ESCRITORIO) ================= */
 @media (min-width: 768px) {
   
+  .valueDescription{
+    font-size: var(--font-size-small);
+  }
+  .valueTitle{
+    font-size: var(--font-size-medium);
+    font-weight: 500;
+  }
+
   /* Ajustes Hero PC */
   .heroSection {
-    padding: 8rem 1.5rem;
+    padding: 2.5rem 1.5rem;
   }
   
   .heroTitle {
-    font-size: 4rem;
-    font-weight: 600;
+    font-size: var(--font-size-large);
+    font-weight: 700;
   }
 
+  .heroSubtitle{
+    font-size: var(--font-size-medium);
+  }
   /* Ajustes Grilla Historias PC */
   .gridTwoCols,
   .gridTwoColsReverse {
     flex-direction: row; /* Lado a lado */
-    gap: 5rem;
+    padding: 0rem 1rem;
   }
 
   .textContent {

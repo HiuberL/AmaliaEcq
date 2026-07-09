@@ -51,7 +51,7 @@
 
 .sidebarHeader h2 {
     font-family: var(--font-cinzel), serif;
-    font-size: 1.1rem;
+    font-size: var(--font-size-small);
     font-weight: 700;
     margin: 0;
     letter-spacing: 0.5px;
@@ -66,7 +66,7 @@
 
 .filterSection h3 {
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.75rem;
+    font-size: var(--font-size-small);
     font-weight: 600;
     color: var(--soft-gray);
     text-transform: uppercase;
@@ -93,7 +93,7 @@
     border-width: 0;
     border-radius: 10px;
     color: #475569;
-    font-size: 0.9rem;
+    font-size: var(--font-size-small);
     text-decoration: none;
     background: transparent;
     transition: all 0.2s ease;
@@ -162,7 +162,6 @@
     width: 100%;
     background: white;
     padding: 16px;
-    /* Ajustado para que no quede un borde gigante alrededor */
     border-radius: 16px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     border: 1px solid #f0f0ed;
@@ -199,18 +198,12 @@
 
 .searchContainer input {
     width: 100%;
-    /* Toma todo el espacio disponible */
     height: 52px;
-    /* Un poquito más alto para que sea más premium y cómodo de leer */
-
     padding-left: 48px;
-    /* Espacio exacto para que el texto no pise la lupa */
     padding-right: 20px;
-
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-
-    font-size: 15px;
+    font-size: var(--font-size-small);
     font-family: var(--font-inter), sans-serif;
     color: var(--soft-black);
     background-color: #fbfbfa;
@@ -241,15 +234,16 @@
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 2.5rem 1.75rem;
-    margin-bottom: 4rem;
+    margin-bottom: 1rem;
 }
 
+.noBlog,
 .noProducts {
     text-align: center;
     padding: 5rem 1rem;
     color: #64748b;
     font-family: var(--font-inter), sans-serif;
-    font-size: 1rem;
+    font-size: var(--font-size-medium);
     background: white;
     border-radius: 16px;
     width: 100%;
@@ -261,6 +255,13 @@
    5. RESPONSIVE DESIGN TOTAL (Media Query 768px)
    ========================================================================== */
 @media (max-width: 768px) {
+
+    .noBlog,
+    .noProducts {
+        font-size: var(--font-size-medium);
+
+    }
+
     .contentProducto {
         padding: 15px 10px;
     }
@@ -338,7 +339,7 @@
 
     .searchContainer input {
         height: 44px;
-        font-size: 14px;
+        font-size: var(--font-size-small);
     }
 
     .categoryActive {
@@ -346,17 +347,19 @@
         color: var(--white) !important;
         font-weight: 600;
     }
+
     /* Tu grid original intacto con 2 columnas elegantes en cel */
     .productsGrid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 1.5rem 1rem;
-        margin-bottom: 2.5rem;
+        margin-bottom: 1rem;
     }
 }
 
 .blogGrid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.45rem;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.45rem;
+    margin-bottom: 1rem;
+    width: 100%;
 }

@@ -3,24 +3,25 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-
-    margin-top: 20px;
+    background-color: var(--very-soft-white);
+    padding:1rem 1rem;
+    border-radius: 15px;
+    width: 100%;
 }
 
 .pagination button {
     min-width: 40px;
     height: 40px;
-
     border: 1px solid #e2e8f0;
     border-radius: 10px;
-
     background: white;
-
     cursor: pointer;
-
     transition: all .2s ease;
 }
-
+.pageInfo{
+    font-size: var(--font-size-small);
+    font-weight: 500;
+}
 .pagination button:hover:not(:disabled) {
     background: #f8fafc;
 }

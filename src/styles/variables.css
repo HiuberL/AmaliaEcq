@@ -1,6 +1,7 @@
 :root {
   --background: #fdf7ef;
   --soft-white: #f5f2eb;
+  --very-soft-white: #fcfcfc;
   --white:  #ffffff;
   --soft-black: #1a1a1a;
   --soft-gray: #b2b2b2;
@@ -12,6 +13,7 @@
   --accent-low-color:#3c3c3c;
   --font-size-small-1: 0.6rem ;
   --font-size-small: 0.75rem ;
+  --font-size-medium-1: 0.8rem;
   --font-size-medium: 1rem;
   --font-size-large: 2rem
 }

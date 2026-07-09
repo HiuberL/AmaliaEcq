@@ -84,18 +84,18 @@ export default function MainProvider({ children }: { children: React.ReactNode }
               className={`${style.headerBtn} ${style.mobileMenuBtn}`}
               onClick={() => setMenuOpen(true)}
             >
-              <Menu size={24} />
+              <Menu size={16} />
             </button>
 
             <button className={style.headerBtn} onClick={() => setCartOpen(true)}>
-              <ShoppingCart size={20} />
+              <ShoppingCart size={16} />
             </button>
             <CartSidebar isOpen={cartOpen} onClose={() => setCartOpen(false)}>
               <CartContent />
             </CartSidebar>
             {!isLogin ? (
               <Link href="/login" className={style.headerBtnL}>
-                <LogIn size={20} />
+                <LogIn size={16} />
               </Link>
             ) : (
               /* 📦 Contenedor padre que controlará el hover */
@@ -103,7 +103,7 @@ export default function MainProvider({ children }: { children: React.ReactNode }
 
                 {/* El botón principal del usuario */}
                 <button className={style.headerBtnL}>
-                  <User size={20} />
+                  <User size={16} />
                 </button>
 
                 {/* 📋 El submenú desplegable flotante */}

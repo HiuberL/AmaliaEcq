@@ -6,11 +6,15 @@ import { useProductoDetalle } from '@/hooks/ProductoDetalle/useProductoDetalle';
 import BotonRegresar from '@/components/returnButton';
 import { useCart } from '@/hooks/Cart/useCart';
 import { PenSquareIcon, ShoppingBag, ShoppingCart } from 'lucide-react';
+import dynamic from 'next/dynamic';
 
 interface ProductClientProps {
     product: any; // Estructura idéntica a tu consultProductoEspecifico
 }
-
+const EditorMensajeSeguro = dynamic(() => import('@/components/EditorMensaje'), {
+    ssr: false,
+    loading: () => <div className={style.editorLoader}>Cargando editor premium...</div>
+});
 export default function ProductoDetalleClient({ product }: ProductClientProps) {
     // Estados para la interactividad visual de la página
     const {
@@ -18,14 +22,18 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
         imagenActiva, setImagenActiva,
         cantidad, setCantidad,
         pestanaAbierta,
-        togglePestana
+        onCreateResena,
+        togglePestana,
+        handleChange,
+        formResena,
+        handleChangeTextArea
     } = useProductoDetalle(product);
 
 
-    const{
+    const {
         onAddCart,
         onClickSolicitud
-    }=useCart();
+    } = useCart();
 
     // 1. Lógica de Precios y Descuento de la Variante Activa
     const precioBase = Number(varianteSeleccionada?.precio || 0);
@@ -133,13 +141,13 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                                 </button>
                             </div>
                             {varianteSeleccionada.activo ? (
-                                <button className={style.addToCartBtn} onClick={()=> onAddCart(varianteSeleccionada.id,cantidad)}>
-                                        <ShoppingCart width={20}/>
-                                        Añadir
+                                <button className={style.addToCartBtn} onClick={() => onAddCart(varianteSeleccionada.id, cantidad)}>
+                                    <ShoppingCart width={20} />
+                                    Añadir
                                 </button>
                             ) : (
-                                <button className={style.addToCartBtn} onClick={() => onClickSolicitud(product.nombre,varianteSeleccionada.sku,cantidad)}>
-                                    <PenSquareIcon width={20}/>
+                                <button className={style.addToCartBtn} onClick={() => onClickSolicitud(product.nombre, varianteSeleccionada.sku, cantidad)}>
+                                    <PenSquareIcon width={20} />
                                     Solicitar
                                 </button>
                             )
@@ -190,16 +198,46 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                     <div className={style.reviewFormCard}>
                         <h3>Compartir mi experiencia</h3>
                         <div className={style.formGrid}>
-                            <input type="text" placeholder="Tu nombre o alias" className={style.formInput} />
-                            <select className={style.formSelect}>
-                                <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
-                                <option value="4">⭐⭐⭐⭐ (4/5)</option>
-                                <option value="3">⭐⭐⭐ (3/5)</option>
-                                <option value="2">⭐⭐ (2/5)</option>
-                                <option value="1">⭐ (1/5)</option>
+                            {/* Campo Usuario */}
+                            <input
+                                type="text"
+                                name="usuario"
+                                value={formResena.usuario}
+                                onChange={handleChange}
+                                placeholder="Tu nombre o alias"
+                                className={style.formInput}
+                            />
+
+                            {/* Campo Puntuación */}
+                            <select
+                                name="puntuacion"
+                                value={formResena.puntuacion}
+                                onChange={handleChange}
+                                className={style.formSelect}
+                            >
+                                <option value={5}>⭐⭐⭐⭐⭐ (5/5)</option>
+                                <option value={4}>⭐⭐⭐⭐ (4/5)</option>
+                                <option value={3}>⭐⭐⭐ (3/5)</option>
+                                <option value={2}>⭐⭐ (2/5)</option>
+                                <option value={1}>⭐ (1/5)</option>
                             </select>
-                            <textarea placeholder="Escribe tu opinión sobre la fragancia, fijación y presentación..." rows={4} className={style.formTextarea} />
-                            <button className={style.btnSubmitReview}>Publicar Reseña</button>
+
+                            {/* Campo Comentario */}
+                            <div className={style.quillWrapper}>
+                                {/* ⚡ Usamos el editor aislado de forma segura */}
+                                <EditorMensajeSeguro
+                                    value={formResena.comentario}
+                                    onChange={handleChangeTextArea}
+                                    placeholder="Describe la fragancia, marca o sube fotos de referencia..."
+                                />
+                            </div>
+                            {/* Botón corregido */}
+                            <button
+                                className={style.btnSubmitReview}
+                                onClick={() => onCreateResena()}
+                            >
+                                Publicar Reseña
+                            </button>
                         </div>
                     </div>
 
@@ -212,18 +250,24 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                                         <strong>{res.usuario_anonimo || 'Cliente de Amalia'}</strong>
                                         <span className={style.stars}>{'⭐'.repeat(Number(res.puntuacion))}</span>
                                     </div>
-                                    <p className={style.reviewComment}>
-                                        <span
-                                            dangerouslySetInnerHTML={{ __html: res.comentario }}
-                                        />
-                                    </p>
+                                    <div className={style.reviewComment}
+                                        dangerouslySetInnerHTML={{ __html: res.comentario }}
+                                    />
                                     <span className={style.reviewDate}>
-                                        {res.created_at ? new Date(res.created_at).toLocaleDateString() : ''}
+                                        {res.created_at ?
+                                            new Date(res.created_at).toLocaleDateString('es-ES', {
+                                                day: '2-digit',
+                                                month: 'short',
+                                                year: 'numeric'
+                                            })
+
+
+                                            : ''}
                                     </span>
                                 </div>
                             ))
                         ) : (
-                            <div className={style.noReviewsText}> 
+                            <div className={style.noReviewsText}>
                                 <p >Aún no hay reseñas para este perfume. ¡Sé el primero en compartir la tuya!</p>
                             </div>
                         )}

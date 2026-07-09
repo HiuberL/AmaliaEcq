@@ -14,6 +14,11 @@ export const useProductoDetalle = (slug: string) => {
         setCantidad: state.setCantidad,
         pestanaAbierta: state.pestanaAbierta, 
         setPestanaAbierta: state.setPestanaAbierta,
-        togglePestana: handler.togglePestana
+        togglePestana: handler.togglePestana,
+        onCreateResena: handler.crearResena,
+        formResena: state.formResena,
+        handleChange: handler.handleChange,
+        handleChangeTextArea: handler.handleChangeTextArea,
+
     }
 }

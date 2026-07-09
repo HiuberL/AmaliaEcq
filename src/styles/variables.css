@@ -1,6 +1,7 @@
 :root {
   --background: #fdf7ef;
   --soft-white: #f5f2eb;
+  --lint-soft-white: #fffcf3;
   --very-soft-white: #fcfcfc;
   --white:  #ffffff;
   --soft-black: #1a1a1a;

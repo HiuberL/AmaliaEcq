@@ -1,7 +1,7 @@
 'use server'
 import { ApiGeneral } from "@/interfaces/api-cliente.interface";
 import { ProductoFull } from "@/interfaces/admin/producto-detalle.interface";
-import { readItems } from "@directus/sdk";
+import { createItem, readItems } from "@directus/sdk";
 import { directusPublic } from "./directus.config";
 
 const URL_ASSET = process.env.ASSETS_URL;
@@ -236,6 +236,7 @@ const consultProductoEspecifico = async (slug: string): Promise<any> => {
             "is_primary"
           ]
         },
+        "id",
         "nombre",
         "marca",
         "descripcion",
@@ -290,6 +291,7 @@ const consultProductoEspecifico = async (slug: string): Promise<any> => {
   );
   if (!producto || producto.length === 0) return null;
 
+
   const info = producto[0];
   if (info.imagenes_productos) {
     info.imagenes_productos = info.imagenes_productos.map((item: any) => ({
@@ -321,8 +323,24 @@ const consultProductoEspecifico = async (slug: string): Promise<any> => {
   return info;
 }
 
+const crearResenaProducto = async (producto_id: string,puntuacion: number, usuario:string,comentario:string) => {
+  try{
+    await directusPublic.request(createItem('resena', {
+        producto_id: producto_id,
+        puntuacion: puntuacion,
+        usuario_anonimo: usuario,
+        comentario: comentario
+      }));
+  } catch (error) {
+    console.error("Error creando comentario:", error);
+    throw new Error('Error al crear resena en el producto');
+  }
+
+}
+
 export {
   consultProducts,
   consultCategorias,
-  consultProductoEspecifico
+  consultProductoEspecifico,
+  crearResenaProducto
 };

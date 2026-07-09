@@ -11,8 +11,8 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Solo declaras las variables PÚBLICAS
-ARG NEXT_PUBLIC_API_URL
-ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_SITE_URL
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 
 RUN npm run build
 
@@ -20,7 +20,7 @@ RUN npm run build
 FROM node:18-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV=develop
+ENV NODE_ENV=DEVELOP
 ENV PORT=3002
 ENV HOSTNAME="0.0.0.0"
 

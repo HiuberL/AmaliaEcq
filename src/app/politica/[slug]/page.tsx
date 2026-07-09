@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { cache, Suspense } from 'react';
-import { consultBlogBySlug } from '@/services/blog.service';
-import PoliticaDetalleCliente from './PoliticaDetalleCliente';
+import PoliticaDetalleCliente from './PoliticaDetalleCliente'; // Asegúrate de que PoliticaDetalleCliente use "export default"
 import { consultPoliticasBySlug } from '@/services/politica.service';
 
 export const dynamic = 'force-dynamic';
@@ -15,12 +14,11 @@ const getPoliticaSecure = cache(async (slug: string) => {
   return await consultPoliticasBySlug(slug);
 });
 
-// 🚀 1. METADATOS: Intentamos resolver rápido
-export async function metadata({ params }: Props): Promise<Metadata> {
+// 🚀 1. METADATOS
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const politica = await getPoliticaSecure(slug);
 
-  // Si no encuentra el elemento en el array base devuelto por consultProductoEspecifico
   const info = Array.isArray(politica) ? politica[0] : politica;
 
   if (!info) {
@@ -28,33 +26,24 @@ export async function metadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${info.meta_title} | AmaliaEc` || `${info.titulo} | Amalia`,
-    description: info.meta_description,
+    title: info.meta_title ? `${info.meta_title} | AmaliaEc` : `${info.titulo || 'Política'} | Amalia`,
+    description: info.meta_description || '',
   };
 }
 
-// 📦 2. COMPONENTE PRINCIPAL (Ruta del Servidor)
+// 📦 2. COMPONENTE PRINCIPAL
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-
-  // Creamos un componente interno asíncrono para obligar al streaming a activarse
-  return (
-    <SuspenseData slug={slug} />
-  );
-}
-
-// ⚡ Componente auxiliar que maneja la carga pesada asíncrona desvinculada de los metadatos
-async function SuspenseData({ slug }: { slug: string }) {
   const politica = await getPoliticaSecure(slug);
   const info = Array.isArray(politica) ? politica[0] : politica;
+
   if (!info) {
     notFound();
   }
 
   return (
-    <Suspense>
-      <PoliticaDetalleCliente politica={info} />
-    </Suspense>
-
+  <Suspense>
+    <PoliticaDetalleCliente politica={info} />
+  </Suspense>  
   );
 }

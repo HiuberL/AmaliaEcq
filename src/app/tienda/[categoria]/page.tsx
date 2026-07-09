@@ -9,7 +9,7 @@ interface CategoriaPageProps {
   }>;
 }
 // 1. GENERACIÓN DE METADATOS DINÁMICOS PARA GOOGLE
-export async function metadata({ params }: CategoriaPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: CategoriaPageProps): Promise<Metadata> {
   const parameter = await params;
   
   // Ponemos la primera letra en mayúscula para el título de Google

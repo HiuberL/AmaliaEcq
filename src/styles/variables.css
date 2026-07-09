@@ -1,6 +1,4 @@
 :root {
-  --primary: #2563eb;
-  --secondary: #1e293b;
   --background: #fdf7ef;
   --soft-white: #f5f2eb;
   --white:  #ffffff;
@@ -12,11 +10,8 @@
   --primary-yellow: #f59e0b;
   --primary-red: #ef4444;
   --accent-low-color:#3c3c3c;
-  --texto-primary:var(--font-cinzel);
-  --texto-secundary: var(--font-inter);
-  --border-low: #0f172a;
-  --background-strong-button: #373737;
-  --color-strong-button: var(--white);
-  --background-strong-button-mk: #ffb433;
-  --color-strong-button-ml: var(--background-strong-button);
+  --font-size-small-1: 0.6rem ;
+  --font-size-small: 0.75rem ;
+  --font-size-medium: 1rem;
+  --font-size-large: 2rem
 }

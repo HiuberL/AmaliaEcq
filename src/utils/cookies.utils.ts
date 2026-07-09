@@ -1,13 +1,16 @@
 'use server'; // 🛡️ Se mantiene en el servidor de forma segura
 
+
+
 import { cookies } from 'next/headers';
 
 // 🚀 CORRECCIÓN: Exportamos funciones asíncronas individuales, no un objeto
+const isHttps = process.env.NEXT_PUBLIC_SITE_URL?.startsWith('https://') || false;
 export async function setSessionCookie(id: string, value: string) {
   const cookieStore = await cookies();
   cookieStore.set(id, value, {
     maxAge: 86400, // 1 día en segundos
-    secure: process.env.NODE_ENV === 'production',
+    secure: isHttps,
     sameSite: 'lax',
     httpOnly: true, // Protegido contra lectura de JS en el navegador
     path: '/'

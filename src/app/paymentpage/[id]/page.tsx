@@ -13,7 +13,7 @@ const getCarrito = cache(async (id: string) => {
 });
 
 // 🚀 1. METADATOS: Intentamos resolver rápido
-export async function metadata(): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
   
   return {
     title: ' Página de Pago | Amalia Ec',

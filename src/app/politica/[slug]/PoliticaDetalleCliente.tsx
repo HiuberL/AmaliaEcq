@@ -1,4 +1,4 @@
-import React from 'react';
+'use client';
 import style from '@styles/admin/blogDetalle.module.css'; // O tu archivo de estilos para la vista detalle
 import BotonRegresar from '@/components/returnButton';
 

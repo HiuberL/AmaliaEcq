@@ -2,32 +2,37 @@
    1. CONTENEDOR PRINCIPAL Y LAYOUT GENERAL
    ========================================================================== */
 .principalContainer {
-display: flex;
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color:var(--soft-white);
+  background-color: var(--soft-white);
   color: var(--soft-black);
-  font-family: var(--font-inter), sans-serif;  
+  font-family: var(--font-inter), sans-serif;
   position: relative;
 }
-.principalContainerBackground{
+
+.principalContainerBackground {
   position: relative;
   z-index: 1;
 }
+
 .principalContainerBackground::before {
   content: '';
-  background-image: linear-gradient(rgba(255, 243, 229, 0.845), rgba(255, 243, 229, 0.845)), url('/assets/background-flower.jpg'); /* Ajusta la ruta si la tienes en otra carpeta */
+  background-image: linear-gradient(rgba(255, 243, 229, 0.845), rgba(255, 243, 229, 0.845)), url('/assets/background-flower.jpg');
+  /* Ajusta la ruta si la tienes en otra carpeta */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-attachment: fixed;  
-  position: fixed; /* Cubre toda la pantalla de forma fija */
+  background-attachment: fixed;
+  position: fixed;
+  /* Cubre toda la pantalla de forma fija */
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   filter: blur(3px);
-  z-index: -1; /* Se coloca detrás de todo el contenido, pero frente a la imagen base */
+  z-index: -1;
+  /* Se coloca detrás de todo el contenido, pero frente a la imagen base */
 }
 
 /* Redirige los links globales dentro del layout */
@@ -43,23 +48,25 @@ display: flex;
 .mainHeader {
   display: flex;
   justify-content: space-between;
-  vertical-align:middle;
+  vertical-align: middle;
   align-items: center;
-  padding: 1.25rem 5%;
+  padding: 0.75rem 5%;
   background-color: var(--white);
-  border-bottom: 1px solid #eaeaea;
+  border-bottom: 1px solid var(--white);
   position: sticky;
   top: -1;
   z-index: 100;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
 }
 
-/* Logo con la fuente serif elegante */
 .headerLogo {
-  font-family: var(--font-cinzel), serif;
-  font-size: 1.5rem;
-  font-weight: 700;
   letter-spacing: 2px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;
+  vertical-align: center;
+  margin-left: 10px;
+  padding-top: 1px;
 }
 
 /* Menú de Navegación */
@@ -75,7 +82,7 @@ display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 0.95rem;
+  font-size: var(--font-size-small);
   font-weight: 500;
 }
 
@@ -152,13 +159,13 @@ display: flex;
 .submenu li a {
   display: block;
   padding: 0.6rem 1.5rem;
-  font-size: 0.9rem;
+  font-size: var(--font-size-small);
   color: var(--accent-low-color);
 }
 
 .submenu li a:hover {
   background-color: var(--soft-white);
-  color:var(--soft-black);
+  color: var(--soft-black);
 }
 
 /* ==========================================================================
@@ -194,8 +201,10 @@ display: flex;
   margin: 0 auto;
   padding: 2rem 5%;
   box-sizing: border-box;
-}
 
+  display: flex;
+  flex-direction: column;
+}
 /* ==========================================================================
    5. FOOTER (Pie de Página)
    ========================================================================== */
@@ -204,7 +213,7 @@ display: flex;
   color: var(--white);
   padding: 4rem 5% 2rem 5%;
   margin-top: auto;
-  font-size: 0.9rem;
+  font-size: var(--font-size-small);
 }
 
 .footerGrid {
@@ -219,7 +228,7 @@ display: flex;
 
 .footerSection h3 {
   font-family: var(--font-cinzel), serif;
-  font-size: 1.1rem;
+  font-size: var(--font-size-medium);
   letter-spacing: 1px;
   margin-bottom: 1.5rem;
   color: var(--soft-white);
@@ -257,11 +266,13 @@ display: flex;
   padding-top: 2rem;
   text-align: center;
   color: var(--strong-gray);
-  font-size: 0.8rem;
+  font-size: var(--font-size-small-1);
 }
+
 .headerTransparent {
   background-color: transparent !important;
 }
+
 /* ==========================================================================
    6. ANIMACIONES Y RESPONSIVE SUTIL
    ========================================================================== */
@@ -281,9 +292,7 @@ display: flex;
   border: 0;
   height: 1px;
   background-color: var(--soft-black);
-  /* Gris oscuro que contrasta suave con el fondo #111 */
   margin: 1.5rem 0;
-  /* Espaciado arriba y abajo de la línea */
   width: 100%;
 }
 
@@ -294,7 +303,7 @@ display: flex;
   margin: 0;
   color: var(--soft-gray);
   /* Color gris suave */
-  font-size: 0.9rem;
+  font-size: var(--font-size-small);
   line-height: 1.6;
 }
 
@@ -303,7 +312,7 @@ display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.85rem;
+  font-size: var(--font-size-small);
   /* Un poco más pequeña que el contacto */
 }
 
@@ -313,12 +322,10 @@ display: flex;
 
 .policyList li a {
   color: var(--soft-gray);
-  /* Un tono un poco más apagado para que sea secundario */
 }
 
 .policyList li a:hover {
   color: var(--white);
-  /* Brilla al pasar el mouse */
 }
 
 .mobileMenuBtn {
@@ -339,52 +346,44 @@ display: flex;
   backdrop-filter: blur(2px);
   z-index: 998;
 }
-  .socialContainer {
-    display: flex;
-    gap: 1.25rem;
-    /* Espacio entre cada icono */
-    margin-top: 1.25rem;
-    /* Separación respecto al texto de contacto */
-  }
 
-  /* Estilo para cada enlace de red social */
-  .socialLink {
-    color: var(--soft-gray);
-    /* Color gris suave a juego con el texto de contacto */
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-    justify-content: center;
-    transition: color 0.3s ease, transform 0.2s ease;
-  }
+.socialContainer {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
 
-  /* Efecto al pasar el mouse por encima */
-  .socialLink:hover {
-    color: var(--white);
-    /* Se ilumina en blanco */
-    transform: translateY(-3px);
-    /* Pequeño salto hacia arriba muy elegante */
-  }
-/* 1. Contenedor padre relativo para que el menú flote justo debajo */
+/* Estilo para cada enlace de red social */
+.socialLink {
+  color: var(--soft-gray);
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  justify-content: center;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.socialLink:hover {
+  color: var(--white);
+  transform: translateY(-3px);
+}
+
 .userMenuContainer {
   position: relative;
   display: inline-block;
 }
 
-/* 2. El submenú oculto por defecto */
 .dropdownMenu {
   position: absolute;
-  top: 100%;            /* Se posiciona justo al ras de abajo del botón */
-  right: 0;             /* Se alinea al borde derecho para que no se desborde */
+  top: 100%;
+  right: 0;
   width: 180px;
   background-color: var(--white);
   border: 1px solid #eaeaea;
   padding: 0.5rem 0;
-  margin-top: 8px;      /* Separación sutil del header */
+  margin-top: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   z-index: 110;
-  
-  /* 🪄 Estado inicial para la transición suave */
   opacity: 0;
   visibility: hidden;
   transform: translateY(10px);
@@ -407,8 +406,9 @@ display: flex;
   padding: 10px 16px;
   background: none;
   border: none;
-  font-family: var(--font-inter), sans-serif; /* Tu tipografía secundaria limpia */
-  font-size: 0.85rem;
+  font-family: var(--font-inter), sans-serif;
+  /* Tu tipografía secundaria limpia */
+  font-size: var(--font-size-small);
   color: var(--hard-strong-gray);
   text-decoration: none;
   text-align: left;
@@ -417,13 +417,11 @@ display: flex;
   transition: all 0.2s ease;
 }
 
-/* 💄 Efecto hover premium para las opciones */
 .dropdownItem:hover {
   background-color: var(--soft-white);
   color: var(--soft-black);
 }
 
-/* Ajuste opcional para el botón del ícono principal si es necesario */
 .headerBtnL {
   display: flex;
   align-items: center;
@@ -433,13 +431,12 @@ display: flex;
   cursor: pointer;
   color: var(--soft-black);
   padding: 8px;
-}  
-/* Responsive básico para tablets/celulares (Oculta menú horizontal si es muy pequeño) */
+}
+
 @media (max-width: 768px) {
   .mobileMenuBtn {
     display: flex;
     order: -1;
-    /* Lo posiciona a la izquierda si lo deseas */
   }
 
   /* Transformar el nav clásico en una barra deslizable desde la derecha */
@@ -487,7 +484,7 @@ display: flex;
     align-items: flex-start;
     gap: 1.5rem;
     width: 100%;
-    font-size: 1.1rem;
+    font-size: var(--font-size-small);
   }
 
   .navList>li {

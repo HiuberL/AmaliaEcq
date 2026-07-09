@@ -32,17 +32,11 @@ export default function MainProvider({ children }: { children: React.ReactNode }
       {/* ================= HEADER ================= */}
 
       {showHeader &&
-        <header className={`${style.mainHeader} ${isHeaderTransparent ? style.headerTransparent : ''}`}>
-          <button
-            className={`${style.headerBtn} ${style.mobileMenuBtn}`}
-            onClick={() => setMenuOpen(true)}
-          >
-            <Menu size={24} />
-          </button>
+        <header className={`${style.mainHeader} ${isHeaderTransparent ? style.headerTransparent : ''}`} >
 
-          <div className={style.headerLogo}>
-            <Link href="/">
-              <img src="/assets/logo_Cropped.png" alt="Logo Amalia Ec" width={50} />
+          <div className={style.headerLogo} >
+            <Link className={style.headerLogo} href="/">
+              <img src="/assets/logo_Cropped.png" alt="Logo Amalia Ec" width={40} />
             </Link>
           </div>
 
@@ -86,6 +80,13 @@ export default function MainProvider({ children }: { children: React.ReactNode }
           )}
 
           <div className={style.headerActions}>
+            <button
+              className={`${style.headerBtn} ${style.mobileMenuBtn}`}
+              onClick={() => setMenuOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
+
             <button className={style.headerBtn} onClick={() => setCartOpen(true)}>
               <ShoppingCart size={20} />
             </button>
@@ -127,9 +128,9 @@ export default function MainProvider({ children }: { children: React.ReactNode }
         </header>
       }
       {/* ================= CONTENIDO PRINCIPAL ================= */}
-      
+
       <main className={style.mainContent}>
-                <MessageAlert />
+        <MessageAlert />
 
         {children}
       </main>

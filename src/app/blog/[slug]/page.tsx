@@ -15,7 +15,7 @@ const getBlogSecure = cache(async (slug: string) => {
 });
 
 // 🚀 1. METADATOS: Intentamos resolver rápido
-export async function metadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const blog = await getBlogSecure(slug);
 

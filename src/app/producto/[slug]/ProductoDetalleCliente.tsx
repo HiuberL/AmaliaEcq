@@ -222,7 +222,9 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                                 </div>
                             ))
                         ) : (
-                            <p className={style.noReviewsText}>Aún no hay reseñas para este perfume. ¡Sé el primero en compartir la tuya!</p>
+                            <div className={style.noReviewsText}> 
+                                <p >Aún no hay reseñas para este perfume. ¡Sé el primero en compartir la tuya!</p>
+                            </div>
                         )}
                     </div>
                 </section>

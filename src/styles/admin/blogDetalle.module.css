@@ -49,7 +49,7 @@
 .tag {
   background-color: #3b3b3b;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: var(--font-size-small);
   font-weight: 600;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -57,7 +57,7 @@
 }
 
 .blogTitle {
-  font-size: 2.25rem;
+  font-size: var(--font-size-large);
   font-weight: 800;
   color: #111827;
   line-height: 1.25;
@@ -65,7 +65,7 @@
 }
 
 .blogDate {
-  font-size: 0.875rem;
+  font-size: var(--font-size-small);
   color: #6b7280;
   font-weight: 500;
 }
@@ -100,7 +100,7 @@
    ESTILOS DEL CUERPO (HTML INYECTADO)
    ========================================== */
 .blogBody {
-  font-size: 1.05rem;
+  font-size: var(--font-size-medium) !important;
   line-height: 1.8;
   color: #374151;
   word-break: break-word;
@@ -114,19 +114,13 @@
 .blogBody h2,
 .blogBody h3,
 .blogBody h4 {
+  font-size: var(--font-size-large-1) !important;
   color: #111827;
   font-weight: 700;
+  
   margin-top: 2rem;
   margin-bottom: 1rem;
   line-height: 1.3;
-}
-
-.blogBody h2 {
-  font-size: 1.6rem;
-}
-
-.blogBody h3 {
-  font-size: 1.35rem;
 }
 
 .blogBody ul,
@@ -165,11 +159,11 @@
 /* ==========================================
    RESPONSIVE EN MÓVILES
    ========================================== */
-@media (max-width: 640px) {
+@media (max-width: 768) {
   .pageWrapper {
-    padding: 1rem 0.5rem 2rem 0.5rem;
+    padding: 1rem 1.5rem 2rem 1.5rem;
   }
-
+  
   .blogArticle {
     padding: 1.5rem 1rem;
     border-radius: 12px;

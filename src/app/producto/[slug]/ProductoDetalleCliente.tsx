@@ -5,6 +5,7 @@ import style from '@styles/admin/producto-detalle.module.css';
 import { useProductoDetalle } from '@/hooks/ProductoDetalle/useProductoDetalle';
 import BotonRegresar from '@/components/returnButton';
 import { useCart } from '@/hooks/Cart/useCart';
+import { PenSquareIcon, ShoppingBag, ShoppingCart } from 'lucide-react';
 
 interface ProductClientProps {
     product: any; // Estructura idéntica a tu consultProductoEspecifico
@@ -132,11 +133,13 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                             </div>
                             {varianteSeleccionada.activo ? (
                                 <button className={style.addToCartBtn} onClick={()=> onAddCart(varianteSeleccionada.id,cantidad)}>
-                                    Añadir al Carrito
+                                        <ShoppingCart width={20}/>
+                                        Añadir
                                 </button>
                             ) : (
                                 <button className={style.addToCartBtn}>
-                                    Solicitar disponibilidad
+                                    <PenSquareIcon width={20}/>
+                                    Solicitar
                                 </button>
                             )
                             }

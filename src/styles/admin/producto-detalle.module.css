@@ -2,7 +2,7 @@
   width: 100%;
   overflow-x: hidden;
   background-color: var(--white);
-  padding: 4rem 0;
+  padding: 2rem 0.3rem;
   border-radius: 20px;
 }
 
@@ -78,7 +78,7 @@
 
 .brandLabel {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.85rem;
+  font-size: var(--font-size-small);
   text-transform: uppercase;
   color: #777777;
   letter-spacing: 2px;
@@ -86,8 +86,8 @@
 
 .productName {
   font-family: var(--font-cinzel), serif;
-  font-size: 2.4rem;
-  font-weight: 300;
+  font-size: var(--font-size-large);
+  font-weight: 500;
   color: var(--soft-black);
   margin: 0.5rem 0;
   line-height: 1.2;
@@ -95,7 +95,7 @@
 
 .skuText {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.8rem;
+  font-size:var(--font-size-small);
   color: #999999;
   margin-bottom: 1rem;
 }
@@ -108,7 +108,7 @@
   padding: 10px 10px;
   border-radius: 10px;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.8rem;
+  font-size: var(--font-size-small);
   color: var(--white);
   background-color: black;
   margin-bottom: 1rem;
@@ -124,20 +124,20 @@
 
 .priceBefore {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1.1rem;
+  font-size: var(--font-size-small);
   color: #a0a0a0;
   text-decoration: line-through;
 }
 
 .priceFinal {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1.8rem;
+  font-size: var(--font-size-large-1);
   font-weight: 500;
   color: var(--soft-black);
 }
 
 .priceFinal small {
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium);
   color: var(--strong-gray);
 }
 
@@ -150,7 +150,7 @@
 
 .quickDescription p {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium);
   color: var(--accent-low-color);
   line-height: 1.7;
   margin: 0 0 2rem 0;
@@ -166,7 +166,7 @@
 
 .selectorContainer label {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.85rem;
+  font-size: var(--font-size-small);
   text-transform: uppercase;
   color: #444444;
   letter-spacing: 1px;
@@ -179,7 +179,7 @@
   border-radius: 0px;
   background-color: var(--white);
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium);
 }
 
 /* Grid de botones de Compra */
@@ -201,17 +201,24 @@
   width: 45px;
   height: 100%;
   cursor: pointer;
-  font-size: 1.2rem;
+  font-size: var(--font-size-medium);
 }
 
 .quantitySelector span {
   font-family: var(--font-inter), sans-serif;
+  font-size: var(--font-size-medium);
   width: 30px;
   text-align: center;
 }
 
+
 .addToCartBtn {
   flex: 1;
+  display: inline-flex;
+  align-items: center;     /* Centra verticalmente icono y texto */
+  justify-content: center;/* Centra horizontalmente el contenido */
+  gap: 8px;  
+  
   font-family: var(--font-cinzel), serif;
   background-color: var(--soft-black);
   color: var(--white);
@@ -220,12 +227,14 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
+  border-radius: 15px;
   transition: all 0.3s ease;
 }
 
 .addToCartBtn:hover {
   background-color: transparent;
   color: var(--soft-black);
+  transform: scale(0.98);
 }
 
 /* Acordeón de Atributos */
@@ -250,7 +259,7 @@
   font-family: var(--font-cinzel), serif;
   text-transform: uppercase;
   letter-spacing: 1px;
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium-1);
 }
 
 .accordionBody {
@@ -269,7 +278,7 @@
 
 .accordionContent p {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium) !important;
   color: var(--strong-gray);
   line-height: 1.6;
   margin: 0;
@@ -284,7 +293,7 @@
 
 .reviewsSection h2 {
   font-family: var(--font-cinzel), serif;
-  font-size: 1.6rem;
+  font-size: var(--font-size-large-1);
   text-transform: uppercase;
   letter-spacing: 2px;
   margin-bottom: 2rem;
@@ -299,7 +308,7 @@
 
 .reviewFormCard h3 {
   font-family: var(--font-cinzel), serif;
-  font-size: 1rem;
+  font-size: var(--font-size-medium-1);
   text-transform: uppercase;
   margin: 0 0 1.5rem 0;
 }
@@ -316,6 +325,8 @@
   border: 1px solid #e0e0e0;
   border-radius: 0px;
   font-family: var(--font-inter), sans-serif;
+  font-size: var(--font-size-small);
+
   box-sizing: border-box;
 }
 
@@ -323,7 +334,10 @@
   align-self: flex-start;
   font-family: var(--font-cinzel), serif;
   background-color: var(--soft-black);
+  font-size: var(--font-size-small);
   color: var(--white);
+  border-radius: 15px;
+  font-weight: 500;
   border: 1px solid #1a1a1a;
   padding: 12px 24px;
   text-transform: uppercase;
@@ -349,7 +363,7 @@
 
 .reviewComment {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium);
   color: #444444;
   margin: 0 0 0.5rem 0;
 }

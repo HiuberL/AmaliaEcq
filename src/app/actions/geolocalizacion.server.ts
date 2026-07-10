@@ -28,6 +28,7 @@ export async function analiticaCliente(tipo: string, criterio: string = '') {
         getSessionCookie('amalia_cliente_id')
     ]);
 
+    if (criterio.includes('payment') || criterio.includes('login') || criterio.includes('espacio') || criterio.includes('agradecimiento')) return;
     // 2. Ejecutamos la sesión una sola vez arriba para tenerla disponible siempre
     const session = await initializeGuestSession();
     

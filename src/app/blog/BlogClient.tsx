@@ -1,5 +1,4 @@
 'use client'
-
 import style from '@styles/admin/productos.module.css'; // Asegúrate de actualizar los estilos abajo
 import { Search, ChevronRight, SlidersHorizontal } from 'lucide-react';
 import { Pagination } from '@/components/pagination';

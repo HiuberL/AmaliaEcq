@@ -2,11 +2,10 @@
 
 import MessageAlert from '@/components/messageAlert';
 import { useLayout } from '@/hooks/Layout/useLayout';
-import { existsToken } from '@/utils/cookies.utils';
+
 import style from '@styles/root.module.css';
-import { Bell, Home, LogIn, LogOut, Menu, ShoppingCart, User, X } from 'lucide-react';
+import {Home, LogIn, LogOut, Menu, ShoppingCart, User, X } from 'lucide-react';
 import Link from 'next/link';
-import Loading from './loading';
 import CartContent from '@/components/cartComponent';
 import CartSidebar from '@/components/cartSideBar';
 import { useLayoutContext } from './layoutContext';

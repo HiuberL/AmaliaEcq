@@ -61,10 +61,10 @@ export default function CartContent() {
                   </span>
                 )}
                 { precioProducto != precioProductoD ? (
-                 <p className={styles.itemPrice}>${precioProductoD*item.cantidad}</p>   
+                 <p className={styles.itemPrice}>${(precioProductoD*item.cantidad).toFixed(2)}</p>   
                 ):(
 
-                 <p className={styles.itemPrice}>${precioProducto*item.cantidad}</p>   
+                 <p className={styles.itemPrice}>${(precioProducto*item.cantidad).toFixed(2)}</p>   
 
                 )
                 }

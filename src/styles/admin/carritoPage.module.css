@@ -1,7 +1,7 @@
 .pageWrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px; /* Reducido para móviles */
+  padding: 2rem 3rem; /* Reducido para móviles */
   font-family: var(--font-inter), sans-serif;
   background-color: white;
   border-radius: 20px;
@@ -9,7 +9,7 @@
 
 @media (min-width: 768px) {
   .pageWrapper {
-    padding: 50px; /* Recupera el espacio en escritorio */
+    padding: 2rem 3rem; /* Recupera el espacio en escritorio */
   }
 }
 
@@ -33,13 +33,13 @@
 
 .pageTitle {
   font-family: var(--font-cinzel), serif;
-  font-size: 26px; /* Más pequeño en móvil */
+  font-size: var(--font-size-large-1);
   margin-top: 10px;
 }
 
 @media (min-width: 768px) {
   .pageTitle {
-    font-size: 32px;
+    font-size: var(--font-size-large-1);
   }
 }
 
@@ -70,7 +70,7 @@
     border-bottom: 1px solid #eaeaea;
     font-weight: 600;
     color: #444;
-    font-size: 14px;
+    font-size: var(--font-size-medium-1);
   }
 }
 
@@ -101,22 +101,22 @@
 }
 
 .productImage {
-  width: 80px; /* Ligeramente más grande en móvil para que luzca bien */
-  height: 80px;
+  width: 75px; /* Ligeramente más grande en móvil para que luzca bien */
+  height: 75px;
   object-fit: cover;
   border-radius: 8px;
   background: #f9f9f9;
 }
 
 .productName {
-  font-size: 16px;
+  font-size: var(--font-size-medium);
   margin: 0 0 4px 0;
   font-weight: 500;
   padding-right: 30px; /* Evita que el texto pise el botón de borrar */
 }
 
 .productSku {
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: #888;
   margin: 0;
 }
@@ -125,7 +125,7 @@
   display: inline-block;
   background: #f0e6ff;
   color: #6200ee;
-  font-size: 11px;
+  font-size: var(--font-size-small);
   padding: 2px 8px;
   border-radius: 12px;
   margin-top: 5px;
@@ -147,23 +147,24 @@
   border: none;
   padding: 8px 14px; /* Botones más grandes para dedos en móvil */
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--font-size-small);
 }
 
 .quantitySelector span {
   padding: 0 10px;
-  min-width: 24px;
+  min-width: 20px;
   text-align: center;
-  font-size: 14px;
+  font-size: var(--font-size-medium-1);
 }
 
 /* Ajuste del precio total por producto */
+.priceCell,
 .totalCell {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--font-size-medium-1);
 }
 
 /* En móvil, mandamos el botón de borrar a la esquina superior derecha */
@@ -207,7 +208,8 @@
 }
 
 .summaryTitle {
-  font-size: 20px;
+  font-size: var(--font-size-medium);
+  font-family: var(--font-cinzel);
   margin-top: 0;
   margin-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
@@ -218,12 +220,12 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
-  font-size: 15px;
+  font-size: var(--font-size-medium-1);
   color: var(--hard-strong-gray);
 }
 
 .totalRow {
-  font-size: 18px;
+  font-size: var(--font-size-medium-1);
   font-weight: 700;
   color: var(--soft-black);
   margin-top: 15px;
@@ -250,7 +252,7 @@
   color: #fff;
   border: none;
   padding: 16px; /* Más cómodo para pulsar en móvil */
-  font-size: 16px;
+  font-size: var(--font-size-medium-1);
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;

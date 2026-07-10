@@ -1,7 +1,10 @@
 /* ================= CONTENEDOR GENERAL ================= */
 .pageWrapper {
   width: 100%;
+  max-width: 1000px;
+  margin: auto;
   overflow-x: hidden;
+  border-radius: 15px;
   background-color: var(--white);
   padding-bottom: 6rem;
 }
@@ -9,14 +12,14 @@
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 5rem;
   box-sizing: border-box;
 }
 
 /* ================= HERO & BUSCADOR ================= */
 .heroSection {
   background-color: #f9f9f9;
-  padding: 5rem 1.5rem;
+  padding: 3rem 1.5rem;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -25,7 +28,7 @@
 
 .heroSection h1 {
   font-family: var(--font-cinzel), serif;
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -35,7 +38,7 @@
 
 .heroSection p {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1rem;
+  font-size: var(--font-size-medium);
   color: var(--strong-gray);
   margin: 0 0 2.5rem 0;
   max-width: 550px;
@@ -52,7 +55,7 @@
 .searchInput {
   width: 100%;
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium-1);
   padding: 14px 45px 14px 20px;
   border: 1px solid #e0e0e0;
   border-radius: 15px; /* Estilo minimalista cuadrado */
@@ -74,7 +77,7 @@
   right: 18px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.1rem;
+  font-size: var(--font-size-medium-1);
   opacity: 0.4;
   pointer-events: none;
 }
@@ -86,12 +89,12 @@
 
 .faqGroup h2 {
   font-family: var(--font-cinzel), serif;
-  font-size: 1.4rem;
+  font-size: var(--font-size-medium-1);
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--soft-black);
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 }
@@ -107,6 +110,7 @@
 .faqCard {
   background-color: var(--white);
   border: 1px solid #eaeaea;
+  border-radius: 15px;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -130,7 +134,7 @@
 
 .cardHeader h3 {
   font-family: var(--font-inter), sans-serif;
-  font-size: 1rem;
+  font-size: var(--font-size-medium-1);
   font-weight: 500;
   color: var(--soft-black);
   margin: 0;
@@ -160,7 +164,7 @@
 
 .cardContent p {
   font-family: var(--font-inter), sans-serif;
-  font-size: 0.95rem;
+  font-size: var(--font-size-small);
   color: var(--accent-low-color);
   line-height: 1.7;
   margin: 0;
@@ -173,7 +177,7 @@
 }
 
 .cardOpen .cardBody {
-  max-height: 500px; /* Un valor alto seguro para que la respuesta fluya sin cortarse */
+  max-height: 1000px; /* Un valor alto seguro para que la respuesta fluya sin cortarse */
   opacity: 1;
 }
 
@@ -187,22 +191,25 @@
 
 .cardContent strong {
   color: var(--soft-black);
+  font-size: var(--font-size-small);
   font-weight: 600;
 }
 
 .cardContent ul {
   padding-left: 1.2rem;
+  font-size: var(--font-size-small);
   margin: 0.5rem 0 0 0;
 }
 
 .cardContent li {
   margin-bottom: 0.4rem;
+  font-size: var(--font-size-small);
   color: var(--accent-low-color);
 }
 /* ================= RESPONSIVE ESCRITORIO ================= */
 @media (min-width: 768px) {
   .heroSection {
-    padding: 7rem 1.5rem;
+    padding: 5rem 1.5rem;
   }
 
   .heroSection h1 {

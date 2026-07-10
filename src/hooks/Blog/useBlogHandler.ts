@@ -43,6 +43,7 @@ export const useBlogHandler = (
     }
 
     const onClickGotoBlogSection = async (slug: string) => {
+        setLoading(true);
         router.push(`/blog/${slug}`);
     };    
 

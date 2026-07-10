@@ -3,10 +3,10 @@ import FaqClient from './FaqClient';
 
 
 export const metadata: Metadata = {    
-    title: `Productos Originales | Ecuador | Amalia Ec`,
+    title: `FAQ | Ecuador | Amalia Ec`,
     description: `Entendemos que tengas muchas preguntas, por eso recopilamos todas las preguntas que nos han realizado para tu facilidad.`,
     openGraph: {
-      title: `Productos Originales | Ecuador | Amalia Ec`,
+      title: `FAQ | Ecuador | Amalia Ec`,
       description: `Entendemos que tengas muchas preguntas, por eso recopilamos todas las preguntas que nos han realizado para tu facilidad.`,
       type: 'website',
     }

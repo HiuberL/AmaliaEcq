@@ -2,7 +2,7 @@
     width: 100%;
     overflow-x: hidden;
     background-color: var(--white);
-    padding: 4rem 0;
+    padding: 4rem 2rem;
     border-radius: 20px;
 }
 
@@ -27,7 +27,7 @@
 
 .subtitle {
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.85rem;
+    font-size: var(--font-size-medium);
     text-transform: uppercase;
     color: var(--soft-gray);
     letter-spacing: 2px;
@@ -35,7 +35,7 @@
 
 .title {
     font-family: var(--font-cinzel), serif;
-    font-size: 2.2rem;
+    font-size: var(--font-size-large);
     font-weight: 300;
     color: var(--soft-black);
     margin: 0.5rem 0 1.5rem 0;
@@ -44,7 +44,7 @@
 
 .description {
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.98rem;
+    font-size: var(--font-size-medium);
     color: var(--accent-low-color);
     line-height: 1.7;
     margin-bottom: 2rem;
@@ -52,7 +52,7 @@
 
 .contactDetails p {
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.9rem;
+    font-size: var(--font-size-medium);
     color: var(--strong-gray);
     margin: 0.5rem 0;
 }
@@ -80,7 +80,7 @@
 
 .inputGroup label {
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.8rem;
+    font-size: var(--font-size-medium-1);
     text-transform: uppercase;
     color: #444444;
     letter-spacing: 1px;
@@ -92,10 +92,9 @@
     padding: 14px;
     border: 1px solid #dcdcdc;
     border-radius: 0px;
-    /* Bordes rectos minimalistas */
     background-color: var(--white);
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.95rem;
+    font-size: var(--font-size-medium-1);
     box-sizing: border-box;
     transition: border-color 0.2s ease;
 }
@@ -110,10 +109,11 @@
 .btnSubmit {
     width: 100%;
     font-family: var(--font-cinzel), serif;
-    font-size: 0.9rem;
-    font-weight: 400;
+    font-size: var(--font-size-medium-1);
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 2px;
+    border-radius: 15px;
     color: var(--white);
     background-color: var(--soft-black);
     padding: 16px;
@@ -174,8 +174,7 @@
     border: 1px solid #dcdcdc;
     border-radius: 0px;
     min-height: 200px;
-    /* Le da una altura inicial elegante de caja de mensaje */
-    font-size: 0.95rem;
+    font-size: var(--font-size-medium-1);
 }
 
 /* Estilo al enfocar el editor */
@@ -207,7 +206,7 @@
     align-items: center;
     justify-content: center;
     font-family: var(--font-inter), sans-serif;
-    font-size: 0.85rem;
+    font-size: var(--font-size-medium-1);
     color: var(--soft-gray);
     background-color: #fafafa;
 }
@@ -226,7 +225,6 @@
         gap: 4.5rem;
         align-items: flex-start;
     }
-
     .dateTimeRow {
         flex-direction: column;
         /* Se apilan verticalmente en celulares pequeños */

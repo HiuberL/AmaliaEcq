@@ -13,7 +13,8 @@ export const useProductoHandler = (
         setMaxPage,
         maxPage,
         setSubCategoria,
-        setBusqueda
+        setBusqueda,
+        setLoading
     }=state
     const router = useRouter();
 
@@ -34,6 +35,7 @@ export const useProductoHandler = (
         setPage(1); // Ultra importante reiniciar a la página 1 al cambiar de categoría
     };
     const handleOpenPageProduct = async (slug: string) => {
+        setLoading(true);
         router.push(`/producto/${slug}`);
     };
     const handleChangePage = async (page:number) =>{

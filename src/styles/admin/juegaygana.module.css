@@ -6,7 +6,7 @@
   background-color: var(--soft-black);
   color: #f5f5f5;
   border-radius: 15px;
-  padding: 24px 16px; /* Padding reducido para móviles */
+  padding: 5rem 3rem; /* Padding reducido para móviles */
   font-family: system-ui, -apple-system, sans-serif;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .title {
-  font-size: 1.85rem; /* Más compacto en móviles */
+  font-size: var(--font-size-large);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.05em;
@@ -33,7 +33,7 @@
 
 .subtitle {
   color: #a3a3a3;
-  font-size: 0.875rem; /* Legible pero compacto */
+  font-size: var(--font-size-large-1);
   max-width: 450px;
   margin: 0 auto;
   line-height: 1.5;
@@ -72,7 +72,7 @@
 }
 
 .cardTitleGold {
-  font-size: 1rem;
+  font-size: var(--font-size-medium);
   font-weight: bold;
   color: #fbbf24;
   text-transform: uppercase;

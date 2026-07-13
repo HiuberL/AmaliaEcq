@@ -4,6 +4,7 @@ import React from 'react';
 import style from '@styles/admin/solicitudes.module.css'; // Ajusta la ruta a tus estilos
 import { useCitas } from '@/hooks/Citas/useCitas';
 import dynamic from 'next/dynamic';
+import CalendarioDisponibilidad from '@/components/calendarioDisponibilidad';
 
 const EditorMensajeSeguro = dynamic(() => import('@/components/EditorMensaje'), {
   ssr: false,
@@ -22,9 +23,9 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
     dia, setDia,
     enviando,
     idCliente,
-    handleSubmit
+    handleSubmit,
+    citasActivas
   } = useCitas();
-
   return (
     <div className={style.pageWrapper}>
       <div className={style.container}>
@@ -40,6 +41,8 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
               <br/>
               <br/>
               Las citas a hogar tiene un valor de $5 a cualquier parte de quito y solo se pueden realizar fines de semana.
+              <br/>
+              Todas las citas tienen una duración de hasta <b>2 horas</b>.
             </p>
             <div className={style.contactDetails}>
               <p>
@@ -55,6 +58,7 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
               <p>✉️ info@amaliaecq.com</p>
             </div>
 
+          <CalendarioDisponibilidad disponibilidadApi={citasActivas} />
 
 
           </div>

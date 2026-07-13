@@ -11,6 +11,7 @@ export const useCitasState = () => {
   const [dia, setDia] = useState('');
   const [hora, setHora] = useState('');
   const [enviando, setEnviando] = useState(false);
+  const [citasActivas,setCitasActivas] = useState<any[]>();
   const [estadoEnvio, setEstadoEnvio] = useState<{ exito: boolean; msg: string } | null>(null);
 
 
@@ -25,6 +26,7 @@ export const useCitasState = () => {
         enviando, setEnviando,
         estadoEnvio, setEstadoEnvio,
         mensaje, setMensaje,
-        idCliente, setIdCliente
+        idCliente, setIdCliente,
+        citasActivas,setCitasActivas
     }
 }

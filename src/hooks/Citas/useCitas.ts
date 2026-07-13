@@ -30,6 +30,7 @@ export const useCitas = () => {
         setHora: state.setHora,
         dia: state.dia,
         setDia: state.setDia,
+        citasActivas: state.citasActivas,
         idCliente: state.idCliente
     }
 }

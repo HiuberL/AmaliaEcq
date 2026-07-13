@@ -7,10 +7,10 @@ import AboutClient from './AboutClient';
 
 // 1. GENERACIÓN DE METADATOS DINÁMICOS PARA GOOGLE
 export const metadata: Metadata = {    
-    title: `Productos Originales | Ecuador | Amalia Ec`,
+    title: `Nosotros | Ecuador | Amalia Ec`,
     description: `Conóce nuestra historia, Amalia nació con la premisa de entregar originalidad y seguridad a nuestros clientes`,
     openGraph: {
-      title: `Productos Originales | Ecuador | Amalia Ec`,
+      title: `Nosotros | Ecuador | Amalia Ec`,
       description: `Conóce nuestra historia, Amalia nació con la premisa de entregar originalidad y seguridad a nuestros clientes`,
       type: 'website',
     }

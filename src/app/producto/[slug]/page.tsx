@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const info = Array.isArray(producto) ? producto[0] : producto;
   
   if (!info || !info.activo) {
-    return { title: 'Producto no encontrado | Amalia' };
+    return { title: 'Producto no encontrado | Ecuador | Amalia Ec' };
   }
 
   return {
-    title: info.meta_title || `${info.nombre} | Amalia Perfumería`,
+    title:  `${info.meta_title || info.nombre} | Ecuador | Amalia Ec`,
     description: info.meta_description || `Descubre ${info.nombre} de la marca ${info.marca}.`,
   };
 }

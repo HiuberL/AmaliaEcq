@@ -21,11 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const info = Array.isArray(politica) ? politica[0] : politica;
 
   if (!info) {
-    return { title: 'Política no encontrada | AmaliaEc' };
+    return { title: 'Política no encontrada | Ecuador | Amalia Ec' };
   }
 
   return {
-    title: info.meta_title ? `${info.meta_title} | AmaliaEc` : `${info.titulo || 'Política'} | Amalia`,
+    title: info.meta_title ? `${info.meta_title} | Ecuador | Amalia Ec` : `${info.titulo || 'Política'} | Ecuador | Amalia Ec`,
     description: info.meta_description || '',
   };
 }

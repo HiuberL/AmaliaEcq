@@ -14,7 +14,7 @@ const cinzel = Cinzel({
 });
 
 export const metadata = {
-  title: 'Amalia Ec',
+  title: 'Amalia Ec | Ecuador',
   description: 'Tienda de Perfumes y Maquillajes en Ecuador',
 };
 

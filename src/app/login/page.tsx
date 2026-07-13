@@ -3,7 +3,7 @@ import LoginClient from './LoginCliente';
 
 
 export const metadata: Metadata = {    
-    title: `Productos Originales | Ecuador | Amalia Ec`,
+    title: `Login | Ecuador | Amalia Ec`,
     description: `Página de inicio de sesión`,
     robots:{
       index: false,

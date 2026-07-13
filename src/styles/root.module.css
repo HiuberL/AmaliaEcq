@@ -16,6 +16,33 @@
   z-index: 1;
 }
 
+.btnWhatsapp{
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 55px;
+  height: 55px;
+  background-color: #25d366;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+.whatsappicon{
+  width: 30px;
+  height: 30px;
+}
+.btnWhatsapp:hover {
+    background-color: #20ba5a;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  }
+
 .principalContainerBackground::before {
   content: '';
   background-image: linear-gradient(rgba(255, 243, 229, 0.845), rgba(255, 243, 229, 0.845)), url('/assets/background-flower.jpg');
@@ -433,6 +460,15 @@
 }
 
 @media (max-width: 768px) {
+  .btnWhatsapp{
+    width: 40px;
+    height: 40px;
+  }
+  .whatsappicon{
+    width: 20px;
+    height: 20px;
+  }
+
   .mobileMenuBtn {
     display: flex;
     order: -1;

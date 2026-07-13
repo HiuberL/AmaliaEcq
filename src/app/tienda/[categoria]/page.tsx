@@ -16,10 +16,10 @@ export async function generateMetadata({ params }: CategoriaPageProps): Promise<
   const nombreCategoria = parameter.categoria.charAt(0).toUpperCase() + parameter.categoria.slice(1).toLowerCase();
   
   return {
-    title: `${nombreCategoria} Exclusivos de Alta Gama | Amalia EQ`,
+    title: `${nombreCategoria} Exclusivos de Alta Gama | Ecuador | Amalia Ec`,
     description: `Explora nuestro catálogo exclusivo de ${nombreCategoria.toLowerCase()} en Ecuador. Encuentra las mejores marcas internacionales, decants personalizados y productos en stock con envíos a todo el país.`,
     openGraph: {
-      title: `${nombreCategoria} Exclusivos de Alta Gama | Amalia EQ`,
+      title: `${nombreCategoria} Exclusivos de Alta Gama | Ecuador | Amalia Ec`,
       description: `Compra lo mejor en ${nombreCategoria.toLowerCase()} con envíos rápidos a nivel nacional.`,
       type: 'website',
     }

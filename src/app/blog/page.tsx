@@ -7,10 +7,10 @@ import { Suspense } from 'react';
 export const dynamic = 'force-dynamic';
 
 export const metadata : Metadata = {  
-    title: `Blog | AmaliaEc`,
+    title: `Blog | Ecuador | Amalia Ec`,
     description: `Amalia también realiza reseñas de productos y artículos relacionados con el mundo de la perfumería y la cosmética. Descubre nuestros consejos, recomendaciones y novedades en nuestro blog.`,
     openGraph: {
-      title: `Blog | AmaliaEc`,
+      title: `Blog | Ecuador | Amalia Ec`,
       description: `Amalia también realiza reseñas de productos y artículos relacionados con el mundo de la perfumería y la cosmética. Descubre nuestros consejos, recomendaciones y novedades en nuestro blog.`,
       type: 'website',
     }

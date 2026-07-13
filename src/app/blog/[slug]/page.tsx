@@ -23,11 +23,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const info = Array.isArray(blog) ? blog[0] : blog;
 
   if (!info) {
-    return { title: 'Blog no encontrado | AmaliaEc' };
+    return { title: 'Blog no encontrado | Ecuador | Amalia Ec' };
   }
 
   return {
-    title: `${info.meta_title} | AmaliaEc` || `${info.titulo} | Amalia Perfumería`,
+    title: `${info.meta_title || info.titulo} | Ecuador | Amalia Ec`,
     description: info.meta_description || `En amalia también reseñamos por esta razón tenemos mucha información para ti`,
   };
 }

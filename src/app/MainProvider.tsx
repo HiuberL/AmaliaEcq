@@ -148,21 +148,32 @@ export default function MainProvider({ children }: { children: React.ReactNode }
           <div className={style.footerGrid}>
             <div className={style.footerSection}>
               <h3>Sobre Nosotros</h3>
-              <p>Breve descripción de lo que hace tu marca o proyecto.</p>
+              <p>Somos una tienda semi Online ubicados en la ciudad de Quito, hacemos envíos a nivel nacional por servientrega o cooperativa. 
+                Trabajamos bajo la modalidad de citas por lo que puedes separar la tuya y conocer este mundo tan maravilloso de perfumería árabe 
+                y maquillajes de excelente calidad.
+                <br/>
+                <br/>
+                Nuestra misión es conectar a nuestros clientes con la excelencia y el lujo auténtico, 
+                convirtiéndonos en su aliado de máxima confianza a la hora de elegir fragancias y productos de bienestar 
+                verdaderamente originales.  
+              </p>
             </div>
             <div className={style.footerSection}>
               <h3>Enlaces Rápidos</h3>
               <ul>
                 <li><Link href="/faq">Preguntas Frecuentes</Link></li>
+                <li><Link href="/solicitudes">Realizar solicitudes</Link></li>
                 <li><Link href="/citas">Reserva una Cita</Link></li>
-                <li><Link href="/contacto">Contacto</Link></li>
+                <li><Link href="/tienda/perfumes">Tienda Perfumes</Link></li>
+                <li><Link href="/tienda/maquillajes">Tienda Maquillajes</Link></li>
               </ul>
             </div>
             <div className={style.footerSection}>
               <ul className={style.contactList}>
-                <li>+593999092702</li>
+                <li><a href="https://wa.me/593999092702?text=Hola,%20quisiera%20más%20información" target="_blank" rel="noopener noreferrer">+593999092702</a></li>
+                <li><a href="https://maps.app.goo.gl/bpAAvwTbbFjJmZvt7" target="_blank" rel="noopener noreferrer">Ecuador, Pichincha, Quito, Islas Malvinas y E1F</a></li>
+
                 <li>info@amaliaecq.com</li>
-                <li>Ecuador, Pichincha, Quito, Islas Malvinas y E1F</li>
               </ul>
               <div className={style.socialContainer}>
                 {/* Instagram */}

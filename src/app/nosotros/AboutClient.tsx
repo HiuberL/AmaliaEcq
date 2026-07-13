@@ -10,7 +10,7 @@ export default function NosotrosClient() {
       <section className={style.heroSection}>
         <div className={style.heroContent}>
           <h1 className={style.heroTitle}>Nuestra Esencia</h1>
-          <p className={style.heroSubtitle}>Somos una tienda semi Online ubicados en la ciudad de Quito, hacemos envíos a nivel nacional por servientrega o cooperativa. Trabajamos bajo la modalidad de citas por lo que puedes separar la tuya y conocer este mundo tan maravilloso de perfumería árabe.</p>
+          <p className={style.heroSubtitle}>Somos una tienda semi Online ubicados en la ciudad de Quito, hacemos envíos a nivel nacional por servientrega o cooperativa. Trabajamos bajo la modalidad de citas por lo que puedes separar la tuya y conocer este mundo tan maravilloso de perfumería árabe y maquillajes de excelente calidad.</p>
         </div>
       </section>
 

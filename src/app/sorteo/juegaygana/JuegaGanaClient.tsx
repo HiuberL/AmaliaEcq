@@ -99,7 +99,7 @@ export default function JuegaYGanaPage() {
               <div className={styles.balanceInfo}>
                 <span className={styles.balanceLabel}>Tu Saldo Disponible</span>
                 <span className={styles.balanceValue}>
-                  {mounted ? puntosActuales.toLocaleString() : puntosActuales} <span style={{ color: '#a3a3a3', fontSize: '0.85rem' }}>PTS</span>
+                  {puntosActuales} <span style={{ color: '#a3a3a3', fontSize: '0.85rem' }}>PTS</span>
                 </span>
               </div>
               <div className={styles.balanceIcon}>

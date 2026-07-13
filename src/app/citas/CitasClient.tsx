@@ -138,8 +138,7 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
               </div>
 
               {/* Contenedor en paralelo para el Día y la Hora */}
-              <div style={{ display: 'flex', gap: '1rem', width: '100%' }}>
-                <div className={style.inputGroup} style={{ flex: 1 }}>
+                <div className={style.inputGroup}>
                   <label htmlFor="dia">Día Sugerido *</label>
                   <input
                     type="date"
@@ -151,7 +150,7 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
                   />
                 </div>
 
-                <div className={style.inputGroup} style={{ flex: 1 }}>
+                <div className={style.inputGroup}>
                   <label htmlFor="hora">Hora Sugerida *</label>
                   <input
                     type="time"
@@ -162,7 +161,6 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
                     required
                   />
                 </div>
-              </div>
 
               <div className={style.inputGroup}>
                 <label htmlFor="mensaje">Detalle de tu Solicitud *</label>

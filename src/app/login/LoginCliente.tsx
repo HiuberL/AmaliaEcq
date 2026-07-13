@@ -93,7 +93,7 @@ export default function LoginClient() {
                     required 
                     value={nombres} 
                     onChange={(e) => setNombres(e.target.value)} 
-                    placeholder="Ej: Kevin"
+                    placeholder="Ej: XXXXXX XXXXXX"
                   />
                 </div>
                 <div className={style.inputGroup}>
@@ -102,7 +102,7 @@ export default function LoginClient() {
                     type="text" 
                     value={apellidos} 
                     onChange={(e) => setApellidos(e.target.value)} 
-                    placeholder="Ej: Lizano"
+                    placeholder="Ej: XXXXXX XXXXX"
                   />
                 </div>
                 <div className={style.inputGroup}>

@@ -229,14 +229,13 @@
   flex: 1;
   display: inline-flex;
   align-items: center;
-  /* Centra verticalmente icono y texto */
   justify-content: center;
-  /* Centra horizontalmente el contenido */
   gap: 8px;
-
   font-family: var(--font-cinzel), serif;
   background-color: var(--soft-black);
   color: var(--white);
+  font-size: var(--font-size-medium-1);
+  font-weight: 500;
   border: 1px solid #1a1a1a;
   padding: 16px;
   text-transform: uppercase;

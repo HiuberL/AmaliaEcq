@@ -75,7 +75,7 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
                     id="nombre"
                     value={nombre}
                     onChange={(e) => setNombre(e.target.value)}
-                    placeholder="Ej: Kevin"
+                    placeholder="Ej: XXXXX XXXXXX"
                     className={style.formInput}
                     required
                   />
@@ -88,7 +88,7 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
                     id="apellido"
                     value={apellido}
                     onChange={(e) => setApellido(e.target.value)}
-                    placeholder="Ej: Lizano"
+                    placeholder="Ej: XXXXX XXXXX"
                     className={style.formInput}
                     required
                   />

@@ -77,6 +77,27 @@ export const consultBlogs = async (
 }
 
 
+export const consultAllBlogs = async () => {
+
+    const blogInformacion = await directusPublic.request(
+        readItems('Blog', {
+            fields: [
+                'id',
+                'imagen_principal',
+                'titulo',
+                'slug',
+                'categoria',
+                'cuerpo',
+                'date_created'
+            ]
+        })
+    );
+
+    return blogInformacion;
+}
+
+
+
 export const consultBlogBySlug = async (slug: string) => {
     const filtros: any = {
         _and: [

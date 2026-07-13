@@ -16,14 +16,12 @@ const consultProducts = async (
   page: number,
   categoria: string,
   subCategoria: string,
-  busqueda: string = ""
+  busqueda: string = "",
+  maxInfo: number = 9
 ): Promise<any> => {
   try {
     const categoriaB = capitalizarTexto(categoria);
     const subCategoriaB = capitalizarTexto(subCategoria);
-
-    const maxInfo = 9;
-
     // 1. NUEVA ESTRUCTURA DE FILTROS REULIZABLES
     // CORREGIDO: Como 'grupo' y 'nombre' ahora viven en la tabla 'categoria',
     // entramos a ambos campos a través de la relación 'categoria_id' desde la tabla pivote.
@@ -88,6 +86,7 @@ const consultProducts = async (
               "marca",
               "meta_title",
               "meta_description",
+              "updated_at",
               "descuento",
               {
                 variantes: [

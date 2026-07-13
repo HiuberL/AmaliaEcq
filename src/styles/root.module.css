@@ -519,7 +519,7 @@
     align-items: flex-start;
     gap: 1.5rem;
     width: 100%;
-    font-size: var(--font-size-small);
+    font-size: var(--font-size-medium);
   }
 
   .navList>li {

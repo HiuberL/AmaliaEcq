@@ -62,7 +62,7 @@ export default function SolicitudesClient() {
                   id="nombre"
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
-                  placeholder="Ej: Kevin Lizano"
+                  placeholder="Ej: XXXX XXXX"
                   className={style.formInput}
                 />
               </div>
@@ -73,7 +73,7 @@ export default function SolicitudesClient() {
                   id="apellido"
                   value={apellido}
                   onChange={(e) => setApellido(e.target.value)}
-                  placeholder="Ej: Kevin Lizano"
+                  placeholder="Ej: XXXX XXXX"
                   className={style.formInput}
                 />
               </div>

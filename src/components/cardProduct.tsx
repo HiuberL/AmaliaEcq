@@ -123,13 +123,13 @@ export const CardProduct: React.FC<CardProductProps> = ({ product, onClickGoProd
               </span>
               {/* Y al lado el precio final con el descuento aplicado */}
               <span className={style.currentPrice}>
-                ${precioDescuento.toFixed(2)} <small>USD</small>
+                ${precioDescuento.toFixed(2)}
               </span>
             </>
           ) : (
             /* Si no hay descuento, solo mostramos el precio normal */
             <span className={style.currentPrice}>
-              ${precioAMostrar.toFixed(2)} <small>USD</small>
+              ${precioAMostrar.toFixed(2)}
             </span>
           )}
         </div>

@@ -137,7 +137,7 @@ const consultarCitas = async () => {
                 const estaOcupado = citasOcupadasSet.has(keyOcupado);
 
                 return {
-                    hora: hora, // ej: "10:00"
+                    hora: hora,
                     disponible: !estaOcupado
                 };
             });
@@ -151,6 +151,7 @@ const consultarCitas = async () => {
 
     return datosDisponibilidadApi;
 };
+
 export {
     guardarCitaCliente,
     consultarCitas

@@ -453,6 +453,12 @@
   padding-bottom: 0.75rem;
   margin-bottom: 0.75rem;
 }
+.cardHeader2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .orderInfo {
   display: flex;
@@ -472,6 +478,11 @@
   font-weight: 600;
 }
 
+.dateCita {
+  font-size: var(--font-size-small);
+  color: #111827;
+  font-weight: 400;
+}
 /* Badges de estado */
 .statusBadge {
   font-size: var(--font-size-small);
@@ -496,12 +507,36 @@
   color: #991b1b;
 }
 
+.statusBadge.porconfirmar {
+  background-color: #ffdbbd;
+  color: #c17524;
+}
+
+.statusBadge.confirmado {
+  background-color: #fee2fb;
+  color: #4d0558;
+}
+
+.statusBadge.realizado {
+  background-color: #b7f4cf;
+  color: #006018;
+}
 /* Cuerpo con detalles */
 .cardBody {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
   margin-bottom: 0.75rem;
+}
+.cardBodySol {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.cardBodySol p {
+  font-size: var(--font-size-small);
+  
 }
 
 .detailItem {

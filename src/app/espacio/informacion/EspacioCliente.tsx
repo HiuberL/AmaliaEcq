@@ -11,8 +11,8 @@ export default function ProfilePage() {
     activeTab, setActiveTab,
     locations, handleSetPreferred, setCelular, celular,
     onChangeCellPhone, setIsModalOpen, isModalOpen,
-  formData,onChangeData,provincia,ciudad,sector,onCreateDireccionCliente,
-onUpdatePreferentDireccionCliente} = useEspacio();
+    formData, onChangeData, provincia, ciudad, sector, onCreateDireccionCliente,
+    onUpdatePreferentDireccionCliente } = useEspacio();
 
   if (!cliente) {
     return <Loading />
@@ -87,17 +87,42 @@ onUpdatePreferentDireccionCliente} = useEspacio();
                   {listaSolicitudes.length === 0 ? (
                     <p className={styles.noData}>No tienes solicitudes registradas.</p>
                   ) : (
-                    listaSolicitudes.map((sol: any, idx: number) => (
-                      <div key={idx} className={styles.dataItem}>
-                        <p className={styles.solicitudTexto}>
-                          <strong>Solicitud:</strong>{' '}
-                          <span dangerouslySetInnerHTML={{ __html: sol.solicitud || '' }} />
-                        </p>
-                        <span className={sol.atendido ? styles.statusDone : styles.statusPending}>
-                          {sol.atendido ? 'Atendido' : 'Pendiente'}
-                        </span>
-                      </div>
-                    ))
+                    listaSolicitudes
+                      .sort((a:any, b:any) => {
+                        const fechaA = a.date_created ? new Date(a.date_created).getTime() : 0;
+                        const fechaB = b.date_created ? new Date(b.date_created).getTime() : 0;
+                        return fechaB - fechaA; // De más reciente a más antigua
+                      })
+                      .map((sol: any, idx: number) => {
+                        const fechaFormateada = new Date(sol.date_created).toLocaleDateString('es-EC', {
+                          day: '2-digit',
+                          month: 'short',
+                          year: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        });
+
+                        return (
+                          <div key={idx} className={styles.purchaseCard}>
+                            <div className={styles.cardHeader}>
+                              <p className={styles.orderLabel}>
+                                <strong>Solicitud:</strong>{' '}
+                              </p>
+                              <span className={`${styles.statusBadge} ${styles[sol.atendido ? 'realizado' : 'pendiente']}`}>
+                                {sol.atendido ? 'Atendido' : 'Pendiente'}
+                              </span>
+                            </div>
+                            <div className={styles.cardBodySol}>
+                              <span dangerouslySetInnerHTML={{ __html: sol.solicitud || '' }} />
+                            </div>
+                            <div className={styles.detailItem}>
+                              <span>Fecha</span>
+                              <small>{fechaFormateada}</small>
+                            </div>
+
+                          </div>
+                        )
+                      })
                   )}
                 </div>
               )}
@@ -108,9 +133,16 @@ onUpdatePreferentDireccionCliente} = useEspacio();
                     <p className={styles.noData}>No tienes citas programadas.</p>
                   ) : (
                     listaCitas.map((cita: any, idx: number) => (
-                      <div key={idx} className={styles.dataItem}>
-                        <p><strong>Servicio:</strong> {cita.tipo}</p>
-                        <p><strong>Fecha:</strong> {cita.dia} a las {cita.hora}</p>
+                      <div key={idx} className={styles.purchaseCard}>
+                        <div className={styles.cardHeader2}>
+                          <p className={styles.orderLabel}>{cita.tipo}</p>
+                          <span className={styles.dateCita}>
+                            {cita.dia} a las {cita.hora}
+                          </span>
+                          <span className={`${styles.statusBadge} ${styles[cita.estado.replace(" ", "").toLowerCase()]}`}>
+                            {cita.estado}
+                          </span>
+                        </div>
                       </div>
                     ))
                   )}

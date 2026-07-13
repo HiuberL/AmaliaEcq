@@ -37,6 +37,9 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
             <h1 className={style.title}>Agendamiento de Citas</h1>
             <p className={style.description}>
               Deseas probar nuestros productos antes de comprarlos? Es una excelente idea, estamos ubicados en quito. En el caso que no puedas visitarnos, podemos ir hasta donde tí. Déjanos tu información y te contactaremos.
+              <br/>
+              <br/>
+              Las citas a hogar tiene un valor de $5 a cualquier parte de quito y solo se pueden realizar fines de semana.
             </p>
             <div className={style.contactDetails}>
               <p>
@@ -51,6 +54,9 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
               </p>
               <p>✉️ info@amaliaecq.com</p>
             </div>
+
+
+
           </div>
 
           {/* COLUMNA DEL FORMULARIO */}
@@ -122,8 +128,8 @@ export default function CitasClient({ userLogueadoId }: { userLogueadoId?: strin
                   required
                 >
                   <option value="" disabled>Selecciona el tipo de atención</option>
-                  <option value="presencial">Cita Presencial</option>
-                  <option value="hogar">Visita a Hogar</option>
+                  <option value="Presencial">Cita Presencial</option>
+                  <option value="Hogar">Visita a Hogar</option>
                 </select>
               </div>
 

@@ -22,7 +22,6 @@ export const useBlogHandler = (
         try{
             const responseCategories = await consultCategoriasBlog();
             setCategoriaT(responseCategories);
-            console.log(responseCategories);
             const responseBlogPost = await consultBlogs(page,categoria,busqueda);
             setBlogPost(responseBlogPost.informacion);
             setMaxPage(responseBlogPost.total);

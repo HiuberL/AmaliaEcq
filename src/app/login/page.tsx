@@ -4,11 +4,11 @@ import LoginClient from './LoginCliente';
 
 export const metadata: Metadata = {    
     title: `Productos Originales | Ecuador | Amalia Ec`,
-    description: `Estamos listos y escuchamos atentamente tus solicitudes, en esta sección puedes solicitar cotizaciones, enviarnos comentarios o mensajes`,
-    openGraph: {
-      title: `Productos Originales | Ecuador | Amalia Ec`,
-      description: `Estamos listos y escuchamos atentamente tus solicitudes, en esta sección puedes solicitar cotizaciones, enviarnos comentarios o mensajes`,
-      type: 'website',
+    description: `Página de inicio de sesión`,
+    robots:{
+      index: false,
+      follow: false,
+      nocache: true,
     }
 }
 

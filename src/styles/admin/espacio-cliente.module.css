@@ -1,14 +1,16 @@
 .container {
   display: flex;
   min-height: 100vh;
+  border-radius: 15px;
   background-color: #faf9f6; /* Fondo hueso/crudo muy elegante */
   color: #2b2b2b;
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: var(--font-inter), sans-serif;
 }
 
 /* --- SIDEBAR --- */
 .sidebar {
   width: 260px;
+  border-radius: 15px 0px 0px 15px;
   background-color: var(--white);
   border-right: 1px solid #eae6df;
   padding: 2.5rem 1.5rem;
@@ -19,7 +21,7 @@
 }
 
 .brandTitle {
-  font-size: 1.3rem;
+  font-size: var(--font-size-medium);
   font-weight: 600;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -38,7 +40,7 @@
   border: none;
   text-align: left;
   padding: 0.85rem 1rem;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium-1);
   font-weight: 500;
   color: #6e6e6e;
   border-radius: 8px;
@@ -71,7 +73,7 @@
 }
 
 .welcomeText {
-  font-size: 2.2rem;
+  font-size: var(--font-size-large);
   font-weight: 400;
   color: var(--soft-black);
   margin: 0 0 0.5rem 0;
@@ -80,7 +82,7 @@
 .subtitle {
   color: #7a7a7a;
   margin: 0;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium-1);
 }
 
 /* --- PUNTOS --- */
@@ -88,7 +90,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .pointCard {
@@ -103,14 +105,14 @@
 }
 
 .cardLabel {
-  font-size: 0.85rem;
+  font-size: var(--font-size-medium-1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #7a7a7a;
 }
 
 .cardValue {
-  font-size: 2rem;
+  font-size: var(--font-size-large-1);
   font-weight: 600;
   color: var(--soft-black);
 }
@@ -148,7 +150,7 @@
   background: none;
   border: none;
   padding: 1rem 1.5rem;
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium-1);
   font-weight: 500;
   color: #7a7a7a;
   cursor: pointer;
@@ -177,6 +179,8 @@
   padding: 3rem;
   border: 2px dashed #eae6df;
   border-radius: 8px;
+
+  font-size: var(--font-size-medium-1);  
   text-align: center;
   color: #a19e95;
   background-color: #faf9f6;
@@ -192,14 +196,14 @@
 }
 
 .sectionHeader h2 {
-  font-size: 1.4rem;
-  font-weight: 500;
+  font-size: var(--font-size-medium);
+  font-weight: 700;
   margin: 0 0 0.5rem 0;
 }
 
 .sectionHeader p {
   color: #7a7a7a;
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium-1);
   margin: 0 0 2rem 0;
 }
 
@@ -216,7 +220,7 @@
 }
 
 .formGroup label {
-  font-size: 0.85rem;
+  font-size: var(--font-size-medium-1);
   font-weight: 500;
   color: #4a4a4a;
 }
@@ -225,7 +229,7 @@
   padding: 0.75rem 1rem;
   border: 1px solid #ced4da;
   border-radius: 8px;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium-1);
   color: #2b2b2b;
   background-color: var(--white);
   transition: border-color 0.2s;
@@ -258,6 +262,7 @@
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 8px;
+  font-size: var(--font-size-medium-1);
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
@@ -289,8 +294,8 @@
 }
 
 .locationsHeader h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
+  font-size: var(--font-size-medium);
+  font-weight: 700;
   margin: 0;
 }
 
@@ -301,7 +306,7 @@
   padding: 0.5rem 1.25rem;
   border-radius: 8px;
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium-1);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -325,7 +330,7 @@
   width: 100%;
   border-collapse: collapse;
   text-align: left;
-  font-size: 0.9rem;
+  font-size: var(--font-size-medium-1);
   min-width: 500px; /* Evita que las columnas se aplasten en móvil */
 }
 
@@ -378,7 +383,7 @@
 
 .dataItem p {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: var(--font-size-medium-1);
 }
 
 .statusPending {
@@ -386,7 +391,7 @@
   color: #f59f00;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: var(--font-size-small);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -396,7 +401,7 @@
   color: #0ca678;
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: var(--font-size-small);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -407,8 +412,157 @@
   padding: 2rem 0;
 }
 
+.historyConcept{
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+.historyContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.historyList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.purchaseCard {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.purchaseCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Header de la tarjeta */
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderLabel {
+  font-size: var(--font-size-medium-1);
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.orderNumber {
+  font-size: var(--font-size-medium-1);
+  color: #111827;
+  font-weight: 600;
+}
+
+/* Badges de estado */
+.statusBadge {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.statusBadge.pagado {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.statusBadge.pendiente {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.statusBadge.cancelado {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* Cuerpo con detalles */
+.cardBody {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-small);
+}
+
+.detailItem span {
+  color: #6b7280;
+  font-size: var(--font-size-small);
+}
+
+.detailItem strong {
+  color: #374151;
+  font-weight: 500;
+}
+
+.detailItem small {
+  color: #4b5563;
+}
+
+/* Footer con el precio total */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 0.75rem;
+  font-size: var(--font-size-medium-1);
+  color: #374151;
+}
+
+.totalAmount {
+  font-size: var(--font-size-medium-1);
+  font-weight: 700;
+  color: #059669;
+}
+
+/* Placeholder original */
+.placeholderContent {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: #6b7280;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+}
+
+.pointsEarned{
+  font-size: var(--font-size-small);
+  color: var(--primary-green-dark);
+}
+
+.pointsSpent{
+  font-size: var(--font-size-small);
+  color: var(--primary-red-dark)
+}
+
 .historyTypeLabel {
-  font-size: 0.75rem;
+  font-size: var(--font-size-small-1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: #a19e95;
@@ -431,7 +585,7 @@
   /* El sidebar pasa a ser una barra de navegación superior minimalista */
   .sidebar {
     width: 100%;
-    padding: 1.5rem 1rem 0 1rem;
+    padding: 2.5rem 1.5rem 0 1.5rem;
     border-right: none;
     border-bottom: 1px solid #eae6df;
     gap: 1rem;
@@ -470,11 +624,11 @@
 
   /* Ajustes del contenido principal en móvil */
   .mainContent {
-    padding: 2rem 1rem;
+    padding: 2rem 2rem;
   }
 
   .welcomeText {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
   }
 
   /* Los bloques de puntos se apilan verticalmente */
@@ -527,7 +681,7 @@
   }
 
   .dataItem p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .locationsHeader {
@@ -543,5 +697,214 @@
   .createBtn {
     padding: 0.5rem 1rem;
     font-size: 0.85rem;
+  }
+}
+
+
+/* =========================================
+   2. EL MODAL (Fondo y Contenedor)
+   ========================================= */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(17, 24, 39, 0.6); /* Fondo oscuro semitransparente */
+  backdrop-filter: blur(3px); /* Desenfoque elegante */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 16px; /* Espaciado para que no toque los bordes en móviles */
+}
+
+.modalContainer {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh; /* Máximo 90% del alto de la pantalla */
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  animation: fadeInScale 0.25s ease-out;
+}
+
+.modalHeader {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalHeader h2 {
+  margin: 0;
+  font-size: var(--font-size-medium);
+  color: #111827;
+  font-weight: 600;
+}
+
+.closeModalBtn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.closeModalBtn:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.modalBody {
+  padding: 1rem 2rem; 
+  overflow-y: auto; /* Scroll interno si el formulario es muy largo */
+}
+
+.modalFooter {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-radius: 0 0 12px 12px;
+}
+
+/* =========================================
+   3. ESTILOS DEL FORMULARIO Y GRILLA
+   ========================================= */
+.conditionalAddressFields {
+  margin-top: 8px;
+}
+
+.subtitleForm {
+  font-size: var(--font-size-small);
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 8px;
+}
+
+/* Grilla Responsiva */
+.formGrid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columnas en PC */
+  gap: 16px 20px; /* Separación vertical y horizontal */
+}
+
+/* Para elementos que ocupan toda la fila (Dirección, URL, Referencia) */
+.fullWidthColumn {
+  grid-column: 1 / -1;
+}
+
+/* Grupos de Inputs */
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.formGroup label {
+  font-size: var(--font-size-small);
+  font-weight: 500;
+  color: #4b5563;
+}
+
+.formGroup input,
+.formGroup select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: var(--font-size-small);
+  color: #1f2937;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Estado Focus (Cuando seleccionas el input) */
+.formGroup input:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* Efecto de halo azul */
+}
+
+.formGroup input::placeholder {
+  color: #9ca3af;
+}
+
+/* =========================================
+   4. BOTONES DEL FOOTER (Guardar/Cancelar)
+   ========================================= */
+.cancelBtn {
+  background-color: white;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+/* =========================================
+   5. ANIMACIONES Y MEDIA QUERIES (MÓVILES)
+   ========================================= */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Adaptación para celulares */
+@media (max-width: 640px) {
+  /* La grilla pasa de 2 columnas a 1 sola columna en móviles */
+  .formGrid2 {
+    grid-template-columns: 1fr;
+  }
+  
+  /* El modal ocupa toda la pantalla tipo App */
+  .modalOverlay {
+    padding: 0; 
+  }
+
+  .modalContainer {
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .modalFooter {
+    border-radius: 0;
+    padding-bottom: 24px; /* Un poco más de espacio abajo para el área táctil */
+  }
+
+  /* Los botones en celular ocupan la mitad de la pantalla cada uno */
+  .cancelBtn, .saveBtn {
+    flex: 1;
+    text-align: center;
   }
 }

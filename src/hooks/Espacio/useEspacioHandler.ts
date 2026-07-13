@@ -1,6 +1,7 @@
 import { getSessionCookie } from "@/utils/cookies.utils";
-import { consultarDatosCliente } from "@/services/user.service";
+import { consultarDatosCliente, crearDireccionCliente, modificarCelularCliente, updatePreferentDireccionCliente } from "@/services/user.service";
 import { useEspacioState } from "./useEspacioState";
+import { useRouter } from "next/navigation";
 
 export const useEspacioHandler = (
   state: ReturnType<typeof useEspacioState>
@@ -11,7 +12,11 @@ export const useEspacioHandler = (
     setToken,
     token,
     setLocations,
-    locations
+    locations,
+    celular,
+    setFormData,
+    formData,
+    setIsModalOpen
   } = state;
 
   const handleConsultInformacion = async () => {
@@ -50,6 +55,101 @@ export const useEspacioHandler = (
       window.showAlert(errorMessage, 'ERROR');
     }
   };
+  const onChangeData = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+  const onChangeCellPhone = async () => {
+    try {
+      let currentId = idCliente;
+      let currentToken = token;
+
+      if (!currentId) {
+        const cookieId = await getSessionCookie('amalia_cliente_id');
+        currentId = cookieId || null;
+        setIdCliente(currentId);
+      }
+
+      if (!currentToken) {
+        const cookieToken = await getSessionCookie('amalia_token');
+        currentToken = cookieToken || null;
+        setToken(currentToken);
+      }
+
+      if (!currentToken || !currentId) {
+        console.warn("No se puede consultar la información: Falta token o ID de cliente.");
+        return;
+      }
+      await modificarCelularCliente(currentToken, currentId, celular);
+      window.showAlert('Cambios guardados exitosamente', 'INFO');
+
+    } catch (error: any) {
+      window.showAlert(error.message, 'ERROR');
+    }
+
+
+  }
+
+  const onUpdatePreferentDireccionCliente = async (idDireccion: string) => {
+    try {
+      let currentId = idCliente;
+      let currentToken = token;
+
+      if (!currentId) {
+        const cookieId = await getSessionCookie('amalia_cliente_id');
+        currentId = cookieId || null;
+        setIdCliente(currentId);
+      }
+
+      if (!currentToken) {
+        const cookieToken = await getSessionCookie('amalia_token');
+        currentToken = cookieToken || null;
+        setToken(currentToken);
+      }
+
+      if (!currentToken || !currentId) {
+        console.warn("No se puede consultar la información: Falta token o ID de cliente.");
+        return;
+      }
+      await updatePreferentDireccionCliente(currentToken, idDireccion);
+      window.showAlert('Direccion seleccionada como preferida', 'INFO');
+    } catch (error: any) {
+      window.showAlert(error.message, 'ERROR');
+    }
+
+  }
+  const onCreateDireccionCliente = async () => {
+    try {
+      let currentId = idCliente;
+      let currentToken = token;
+
+      if (!currentId) {
+        const cookieId = await getSessionCookie('amalia_cliente_id');
+        currentId = cookieId || null;
+        setIdCliente(currentId);
+      }
+
+      if (!currentToken) {
+        const cookieToken = await getSessionCookie('amalia_token');
+        currentToken = cookieToken || null;
+        setToken(currentToken);
+      }
+
+      if (!currentToken || !currentId) {
+        console.warn("No se puede consultar la información: Falta token o ID de cliente.");
+        return;
+      }
+      await crearDireccionCliente(currentToken, currentId, formData);
+      window.showAlert('Direccion guardada exitosamente', 'INFO');
+      setIsModalOpen(false);
+      window.location.reload();
+    } catch (error: any) {
+      window.showAlert(error.message, 'ERROR');
+    }
+  }
+
+
+
 
   const formatearFecha = (fechaString: string) => {
     if (!fechaString) return '';
@@ -66,7 +166,7 @@ export const useEspacioHandler = (
       year: 'numeric'
     }).format(fecha);
   };
-  const formatearPuntos = (mov:any) => {
+  const formatearPuntos = (mov: any) => {
     const tipo = mov.tipo?.toUpperCase();
     const puntos = mov.puntos;
     // 1. Caso Traspaso (Muestra el movimiento pero podrías no querer ponerle + o - directamente)
@@ -89,17 +189,23 @@ export const useEspacioHandler = (
   };
 
 
-  const handleSetPreferred = (id: any) => {
+  const handleSetPreferred = async (id: any) => {
     setLocations(locations.map(loc => ({
       ...loc,
       isPreferred: loc.id === id
     })));
-  };  
+
+    await onUpdatePreferentDireccionCliente(id);
+  };
 
   return {
     handleConsultInformacion,
     formatearFecha,
     formatearPuntos,
-    handleSetPreferred
+    handleSetPreferred,
+    onChangeCellPhone,
+    onChangeData,
+    onCreateDireccionCliente,
+    onUpdatePreferentDireccionCliente
   };
 };

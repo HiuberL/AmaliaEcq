@@ -29,7 +29,6 @@ export const usePaymentPageHandler = (
 
     const handleChangeTransfer = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        console.log(name);
         setFormTransfer((prev) => ({ ...prev, [name]: value }));
     };
 
@@ -51,14 +50,12 @@ export const usePaymentPageHandler = (
     const handleSearchClient = async (e: React.FocusEvent<HTMLInputElement>) => {
         const celular = e.target.value;
         const response = await searchPersonByPhone(celular);
-        console.log(response);
         setInfoPerson(response);
         setFormData(response);
 
     }
     const handleConsultMetodoEnvio = async () => {
         const respuesta = await obtenerFormasEnvio();
-        console.log(respuesta);
         setMetodoEnvio(respuesta);
         if (respuesta && respuesta.length > 0) {
             setFormData((prev) => ({

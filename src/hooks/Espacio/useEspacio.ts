@@ -18,6 +18,19 @@ export const useEspacio = () => {
         setActiveTab:state.setActiveTab,
         locations: state.locations, 
         setLocations: state.setLocations,
-        handleSetPreferred: handler.handleSetPreferred
+        handleSetPreferred: handler.handleSetPreferred,
+        setCelular: state.setCelular,
+        celular: state.celular,
+        onChangeCellPhone: handler.onChangeCellPhone,
+        setIsModalOpen: state.setIsModalOpen,
+        isModalOpen: state.isModalOpen,
+        formData: state.formData,
+        setFormData: state.setFormData,
+        onChangeData: handler.onChangeData,
+        provincia: state.provincia,
+        ciudad: state.ciudad,
+        sector: state.sector,
+        onCreateDireccionCliente: handler.onCreateDireccionCliente,
+        onUpdatePreferentDireccionCliente: handler.onUpdatePreferentDireccionCliente
     }
 }

@@ -44,7 +44,6 @@ export const useAgradecimientoHandler = (
                         message: 'En proceso de revisión',
                     }
                 }
-                console.log(response);
                 setPaymentResponse(response);
                 await pagarPedido(pedido.id,response);
             }else{

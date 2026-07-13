@@ -130,7 +130,6 @@ export async function registrarUsuario(formData: any) {
         if (billeteraCreadaId) {
             try {
                 await directusPrivate.request(deleteItem('billetera', billeteraCreadaId));
-                console.log(`✅ Rollback: Billetera ${billeteraCreadaId} eliminada.`);
             } catch (err) {
                 console.error('No se pudo revertir la creación de la billetera:', err);
             }
@@ -140,7 +139,6 @@ export async function registrarUsuario(formData: any) {
         if (usuarioCreadoId) {
             try {
                 await directusPrivate.request(deleteUser(usuarioCreadoId));
-                console.log(`✅ Rollback: Usuario de Directus ${usuarioCreadoId} eliminado.`);
             } catch (err) {
                 console.error('No se pudo revertir la creación del usuario:', err);
             }

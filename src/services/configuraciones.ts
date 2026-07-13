@@ -32,7 +32,6 @@ export const consultaConfiguracionByTabla = async (tabla: string) => {
 }
 
 export const consultaConfiguracionByTablaCondicion = async (tabla: string, condicion:string) => {
-    console.log(condicion);
         const datosTabla = await directusPrivate.request(readItems('detalle_configuracion',{
             filter:{
                 _and: [

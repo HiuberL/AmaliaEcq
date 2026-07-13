@@ -84,7 +84,6 @@ export const useJuegaGanaHandler = (
         setPuntosActuales((prev) => prev - puntosApuesta);
         setIsSpinning(true);
         const response = await handleObtainResponseGame();
-        console.log("Respuesta del juego:", response);
         // 1. Iniciamos un intervalo que cambia los símbolos aleatoriamente cada 100ms
         const intervalo = setInterval(() => {
             setCarretes([

@@ -6,10 +6,13 @@ import { useEspacio } from '@/hooks/Espacio/useEspacio';
 import Loading from '@/app/loading';
 
 export default function ProfilePage() {
-  const { cliente, formatearFecha,formatearPuntos,
-        activeSidebar, setActiveSidebar,
-        activeTab, setActiveTab,
-        locations, handleSetPreferred } = useEspacio();
+  const { cliente, formatearFecha, formatearPuntos,
+    activeSidebar, setActiveSidebar,
+    activeTab, setActiveTab,
+    locations, handleSetPreferred, setCelular, celular,
+    onChangeCellPhone, setIsModalOpen, isModalOpen,
+  formData,onChangeData,provincia,ciudad,sector,onCreateDireccionCliente,
+onUpdatePreferentDireccionCliente} = useEspacio();
 
   if (!cliente) {
     return <Loading />
@@ -129,7 +132,7 @@ export default function ProfilePage() {
                         })
                         .map((mov) => {
                           return (
-                            <div key={mov.id} className={styles.historyItem}>
+                            <div key={mov.id} className={styles.purchaseCard}>
                               <div className={styles.historyMeta}>
                                 <p className={styles.historyConcept}>{mov.detalle || 'Movimiento de puntos'}</p>
                                 <span className={styles.historyTypeLabel}>
@@ -146,9 +149,65 @@ export default function ProfilePage() {
                   )}
                 </div>
               )}
-              {(activeTab === 'historial de compras') && (
-                <div className={styles.placeholderContent}>
-                  Aquí se desplegará el listado correspondiente a tu {activeTab}.
+              {activeTab === 'historial de compras' && (
+                <div className={styles.historyContainer}>
+                  {cliente.pedidos && cliente.pedidos.length > 0 ? (
+                    <div className={styles.historyList}>
+                      {cliente.pedidos
+                        .sort((a: any, b: any) => (new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()))
+                        .map((item: any) => {
+                          // Evaluamos el monto real (si el total es 0, usamos valor_pagado)
+                          const montoFinal = parseFloat(item.total) > 0 ? item.total : item.valor_pagado;
+                          const fechaFormateada = new Date(item.updated_at).toLocaleDateString('es-EC', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          });
+
+                          return (
+                            <div key={item.secuencial} className={styles.purchaseCard}>
+                              <div className={styles.cardHeader}>
+                                <div className={styles.orderInfo}>
+                                  <span className={styles.orderLabel}>Nº Secuencial</span>
+                                  <strong className={styles.orderNumber}>#{item.secuencial}</strong>
+                                </div>
+                                <span className={`${styles.statusBadge} ${styles[item.estado.toLowerCase()]}`}>
+                                  {item.estado}
+                                </span>
+                              </div>
+
+                              <div className={styles.cardBody}>
+                                <div className={styles.detailItem}>
+                                  <span>Método de pago</span>
+                                  <strong>{item.forma_pago}</strong>
+                                </div>
+                                {item.puntos_usados > 0 && (
+                                  <div className={styles.detailItem}>
+                                    <span>Puntos usados</span>
+                                    <strong>{item.puntos_usados} pts</strong>
+                                  </div>
+                                )}
+                                <div className={styles.detailItem}>
+                                  <span>Fecha</span>
+                                  <small>{fechaFormateada}</small>
+                                </div>
+                              </div>
+
+                              <div className={styles.cardFooter}>
+                                <span>Total</span>
+                                <strong className={styles.totalAmount}>${parseFloat(montoFinal).toFixed(2)}</strong>
+                              </div>
+                            </div>
+                          );
+                        })}
+                    </div>
+                  ) : (
+                    <div className={styles.placeholderContent}>
+                      Aquí se desplegará el listado correspondiente a tu {activeTab}.
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -184,11 +243,12 @@ export default function ProfilePage() {
               </div>
               <div className={styles.formGroup}>
                 <label>Celular</label>
-                <input type="tel" defaultValue={cliente.telefono || ''} />
+                <input type="tel" value={celular}
+                  onChange={e => setCelular(e.target.value)} />
               </div>
 
               <div className={styles.formActions}>
-                <button type="submit" className={styles.saveBtn}>Guardar Cambios</button>
+                <button type="submit" className={styles.saveBtn} onClick={onChangeCellPhone}>Guardar Cambios</button>
               </div>
             </form>
 
@@ -197,11 +257,90 @@ export default function ProfilePage() {
             {/* SECCIÓN UBICACIONES PREFERIDAS DESDE DIRECTUS */}
             <div className={styles.locationsSection}>
               <div className={styles.locationsHeader}>
-                <h3>Ubicaciones Preferidas</h3>
-                <button className={styles.createBtn}>
+                <h3>Ubicaciones Registradas</h3>
+                <button className={styles.createBtn} onClick={() => setIsModalOpen(true)}>
                   <span>+</span> Crear nueva
                 </button>
               </div>
+
+              {isModalOpen && (
+                <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+                  {/* stopPropagation evita que el modal se cierre al hacer click dentro del formulario */}
+                  <div className={styles.modalContainer} onClick={(e) => e.stopPropagation()}>
+
+                    <div className={styles.modalHeader}>
+                      <h2>Crear Nueva Ubicación</h2>
+                      <button className={styles.closeModalBtn} onClick={() => setIsModalOpen(false)}>
+                        &times;
+                      </button>
+                    </div>
+
+                    <div className={styles.modalBody}>
+                      {/* Aquí están exactamente tus mismos campos */}
+                      <div className={`${styles.conditionalAddressFields}`}>
+
+                        <div className={styles.formGroup}>
+                          <label>Provincia</label>
+                          <select name="provincia" value={formData.provincia} onChange={onChangeData}>
+                            {provincia.map((p: any) => (
+                              <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                {p.valor}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className={styles.formGroup}>
+                          <label>Ciudad</label>
+                          <select name="ciudad" value={formData.ciudad} onChange={onChangeData}>
+                            {ciudad.map((p: any) => (
+                              <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                {p.valor}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                          <label>Sector</label>
+                          <select name="sector" value={formData.sector} onChange={onChangeData}>
+                            {sector.map((p: any) => (
+                              <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                {p.valor}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                          <label>Dirección Exacta</label>
+                          <input type="text" name="direccion" value={formData.direccion} onChange={onChangeData} placeholder="Calle Principal, numeración y secundaria" />
+                        </div>
+
+                        <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                          <label>Referencia</label>
+                          <input type="text" name="referencia" value={formData.referencia} onChange={onChangeData} placeholder="Ej. Junto a la farmacia" />
+                        </div>
+
+                        <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                          <label>URL del Mapa (Google Maps)</label>
+                          <input type="url" name="urlMapa" value={formData.urlMapa} onChange={onChangeData} placeholder="https://goo.gl/maps/..." />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={styles.modalFooter}>
+                      <button className={styles.cancelBtn} onClick={() => setIsModalOpen(false)}>
+                        Cancelar
+                      </button>
+                      <button className={styles.saveBtn} onClick={() => onCreateDireccionCliente()}>
+                        Guardar Dirección
+                      </button>
+                    </div>
+
+                  </div>
+                </div>
+              )}
 
               <div className={styles.tableWrapper}>
                 <table className={styles.table}>
@@ -210,7 +349,7 @@ export default function ProfilePage() {
                       <th>Ciudad</th>
                       <th>Sector</th>
                       <th>Dirección 1</th>
-                      <th style={{ textAlign: 'center' }}>Preferido</th>
+                      <th style={{ textAlign: 'center' }}>Preferida</th>
                     </tr>
                   </thead>
                   <tbody>

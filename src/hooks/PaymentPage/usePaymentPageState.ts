@@ -32,8 +32,9 @@ export const usePaymentPageState = () => {
 
   const [provincia,setProvincia] = useState<any>(null);
   const [ciudad,setCiudad] = useState<any>(null);
-  const formRef = useRef<HTMLFormElement>(null);
   const [sector,setSector] = useState<any>(null);
+
+  const formRef = useRef<HTMLFormElement>(null);
   const [metodoEnvio, setMetodoEnvio] = useState<any>(null);
   const [metodoPago, setMetodoPago] = useState<any>(null);
   const [payMethodReady, setPayMethodReady] = useState(false);

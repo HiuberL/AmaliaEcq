@@ -48,8 +48,6 @@ export const guardarAnaliticas = async (
 
         // 🔄 Si la visita registrada era anónima, pero ahora ya tenemos un cliente logueado:
         if (!tieneClienteAsignado && clienteId) {
-          console.log(`[Analíticas SDK] Vinculando usuario anónimo con el cliente: ${clienteId}`);
-
           await directusPrivate.request(
             updateItem('analiticas_web', registroActual.id, {
               cliente_id: clienteId
@@ -71,8 +69,6 @@ export const guardarAnaliticas = async (
         cliente_id: clienteId || null 
       })
     );
-
-    console.log(`[Analíticas SDK] Éxito: Registro '${idGuardado}' procesado desde ${location.ciudad}.`);
 
   } catch (error) {
     // ⚠️ Nota: Ten cuidado de no borrar la cookie del carrito en producción por un error de red con Directus

@@ -63,7 +63,6 @@ const convertObjetPersontoForm = (cliente: any, telefono: string = ''): FormData
                     ubicacion_url: s.ubicacion_url
                 }
             });
-            console.log(informacion);
             direccion = informacion?.[0] || {
                 ciudad: "",
                 sector: "",

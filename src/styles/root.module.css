@@ -407,7 +407,6 @@
   background: none;
   border: none;
   font-family: var(--font-inter), sans-serif;
-  /* Tu tipografía secundaria limpia */
   font-size: var(--font-size-small);
   color: var(--hard-strong-gray);
   text-decoration: none;

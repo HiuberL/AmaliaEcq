@@ -14,7 +14,6 @@ const getPoliticaSecure = cache(async (slug: string) => {
   return await consultPoliticasBySlug(slug);
 });
 
-// 🚀 1. METADATOS
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const politica = await getPoliticaSecure(slug);

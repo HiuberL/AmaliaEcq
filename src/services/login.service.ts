@@ -27,8 +27,8 @@ export async function registrarUsuario(formData: any) {
                 createUser({
                     email: email.trim().toLowerCase(),
                     password: password,
-                    first_name: nombres,
-                    last_name: apellidos,
+                    first_name: nombres.toUpperCase(),
+                    last_name: apellidos.toUpperCase(),
                     role: ID_ROL_CLIENTE,
                 })
             );
@@ -58,11 +58,9 @@ export async function registrarUsuario(formData: any) {
             const clientePrevio = clientesExistentes[0];
             const clientePrevioId = clientePrevio.id;
             
-            // 🐛 CORRECCIÓN: Leemos directamente del objeto encontrado
             let billeteraExistente = clientePrevio.billetera_id; 
 
             if (!billeteraExistente) {
-                // Creamos la billetera faltante
                 const nuevaBilletera = await directusPrivate.request(
                     createItem('billetera', {
                         saldo_disponible: 0.00,
@@ -71,12 +69,11 @@ export async function registrarUsuario(formData: any) {
                 );
                 billeteraCreadaId = nuevaBilletera.id; // 📌 Guardamos el ID para rastreo
 
-                // Actualizamos el cliente vinculando todo
                 await directusPrivate.request(
                     updateItem('cliente', clientePrevioId, {
                         usuario_id: usuarioCreadoId, 
-                        nombres: nombres,            
-                        apellidos: apellidos || '',
+                        nombres: nombres.toUpperCase(),            
+                        apellidos: apellidos.toUpperCase() || '',
                         billetera_id: billeteraCreadaId,
                         identificacion: identificacion,
                         telefono: telefono ? telefono.trim() : undefined
@@ -87,8 +84,8 @@ export async function registrarUsuario(formData: any) {
                 await directusPrivate.request(
                     updateItem('cliente', clientePrevioId, {
                         usuario_id: usuarioCreadoId, 
-                        nombres: nombres,            
-                        apellidos: apellidos || '',
+                        nombres: nombres.toUpperCase(),            
+                        apellidos: apellidos.toUpperCase() || '',
                         identificacion: identificacion,
                         billetera_id: billeteraExistente,
                         telefono: telefono ? telefono.trim() : undefined
@@ -108,8 +105,8 @@ export async function registrarUsuario(formData: any) {
             // Creamos la fila en tu tabla 'cliente'
             await directusPrivate.request(
                 createItem('cliente', {
-                    nombres: nombres,
-                    apellidos: apellidos || '',
+                    nombres: nombres.toUpperCase(),
+                    apellidos: apellidos.toUpperCase() || '',
                     telefono: telefono ? telefono.trim() : '',
                     identificacion: identificacion,
                     correo: email.trim().toLowerCase(),

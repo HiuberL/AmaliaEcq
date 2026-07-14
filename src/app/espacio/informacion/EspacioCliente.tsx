@@ -49,7 +49,7 @@ export default function ProfilePage() {
 
         {/* CABECERA DE BIENVENIDA */}
         <header className={styles.header}>
-          <h1 className={styles.welcomeText}>{`Hola, ${cliente.nombres || ''}`}</h1>
+          <h1 className={styles.welcomeText}>{`Hola, ${cliente.nombres || ''} 👋`}</h1>
           <p className={styles.subtitle}>Gestiona tus puntos, citas y preferencias desde un solo lugar.</p>
         </header>
 

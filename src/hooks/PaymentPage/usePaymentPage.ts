@@ -4,11 +4,7 @@ import { usePaymentPageState } from "./usePaymentPageState"
 
 export const usePaymentPage = (id: string, carrito: any) => {
     const state = usePaymentPageState();
-
-
-
     const handler = usePaymentPageHandler(state,carrito);
-
     usePaymentPageEffects(handler, state, id, Number(handler.totalPagar ?? 0));
 
 
@@ -23,7 +19,7 @@ export const usePaymentPage = (id: string, carrito: any) => {
         onFinishForm: handler.onFinishForm,
         setCarrito: state.setCarrito,
         porcentajeProgreso: handler.porcentajeProgreso,
-        metodoSeleccionado: handler.metodoSeleccionado,
+        metodoSeleccionado: state.metodoEnvioSeleccionado,
         esEnvioDomicilio: handler.esEnvioDomicilio,
         puntosDisponibles: handler.puntosDisponibles,
         dineroPuntos: handler.dineroPuntos,
@@ -44,7 +40,11 @@ export const usePaymentPage = (id: string, carrito: any) => {
         onChangeDataTransfer: handler.handleChangeTransfer,
         onChangeImage: handler.handleFileChange,
         nombreArchivo: state.nombreArchivo,
-        onFinishFormTransfer: handler.onFinishFormTransfer
+        direccionesCliente: state.direccionesCliente,
+        onFinishFormTransfer: handler.onFinishFormTransfer,
+        direccionSeleccionadaId: state.direccionSeleccionadaId,
+        seleccionarDireccionGuardada: handler.seleccionarDireccionGuardada,
+        seleccionarOtraDireccion: handler.seleccionarOtraDireccion
     }
 
 }

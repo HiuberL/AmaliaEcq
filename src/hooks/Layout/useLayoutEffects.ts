@@ -19,8 +19,8 @@ export const useLayoutEffects = (
     useEffect(() => {
         // Definimos las condiciones dentro del efecto
         const esPaginaPago = pathname === '/paymentpage' || pathname.startsWith('/paymentpage/');
-        const ocultarFooter = (pathname === '/' || pathname === '/login' || esPaginaPago);
-        const hacerTransparente = pathname === '/';
+        const ocultarFooter = (pathname === '/' || pathname === '/inicio'  || pathname === '/login' || esPaginaPago);
+        const hacerTransparente = pathname === '/' || pathname === '/inicio' ;
         const ocultarHeader = pathname === '/login' || esPaginaPago;
         analiticaCliente('PAGINA', pathname);
         

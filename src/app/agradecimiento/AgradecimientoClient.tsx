@@ -3,6 +3,7 @@
 import Loading from '../loading';
 import { useAgradecimiento } from '@/hooks/Agradecimiento/useAgradecimiento';
 import styles from '@styles/admin/agradecimiento.module.css'
+import { useLayoutContext } from '../layoutContext';
 
 export default function AgradecimientoPage() {
   const {
@@ -11,9 +12,7 @@ export default function AgradecimientoPage() {
     pedido,
     notFound
   } = useAgradecimiento();
-
   if (loading || !paymentResponse) return (<Loading />)
-
     const getStatusConfig = (code: number = 0) => {
       switch (code) {
         case 3:
@@ -194,7 +193,7 @@ export default function AgradecimientoPage() {
 
             <div className={styles.actionWrapper}>
               <button
-                onClick={() => window.location.href = '/catalogo'}
+                onClick={() => window.location.href = '/tienda/perfumes'}
                 className={styles.btnPrimary}
               >
                 Seguir Comprando

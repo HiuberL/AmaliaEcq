@@ -1,9 +1,10 @@
 import { obtenerFormasEnvio } from "@/services/cart.service";
 import { FormDataPay, usePaymentPageState } from "./usePaymentPageState";
-import { guardarPedido, searchPersonByPhone } from "@/services/pedidos.service";
+import { guardarPedido, obtenerPedidoCompleto, pagarPedido, searchPersonByPhone } from "@/services/pedidos.service";
 import { removeSessionCookie } from "@/utils/cookies.utils";
 import { consultarMetodosPago } from "@/services/metodoPago.service";
-import { convertToBase64 } from "@/utils/cryptoInfo.utils";
+import { convertToBase64, uuidToNumberFecha } from "@/utils/cryptoInfo.utils";
+import { useRouter } from "next/navigation";
 
 
 export const usePaymentPageHandler = (
@@ -19,12 +20,28 @@ export const usePaymentPageHandler = (
         carrito,
         setMetodoPago,
         setFormTransfer,
+        metodoEnvio,
         formTransfer,
-        setNombreArchivo
+        setNombreArchivo,
+        provincia,
+        ciudad,
+        sector,
+        setDireccionesCliente,
+        metodoEnvioSeleccionado, setMetodoEnvioSeleccionado, setDireccionSeleccionadaId
     } = state
+
+    const router = useRouter();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+
+        if (name == 'metodoEnvio') {
+            setMetodoEnvioSeleccionado(
+                state.metodoEnvio?.find(
+                    (m: any) => m.id === value
+                ));
+        }
+
     };
 
     const handleChangeTransfer = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -48,10 +65,56 @@ export const usePaymentPageHandler = (
     };
 
     const handleSearchClient = async (e: React.FocusEvent<HTMLInputElement>) => {
-        const celular = e.target.value;
-        const response = await searchPersonByPhone(celular);
-        setInfoPerson(response);
-        setFormData(response);
+        const celular = e.target.value || '';
+
+        if (celular === '') {
+            const data: FormDataPay = {
+                idCliente: '',
+                usarPuntos: false,
+                puntosUsados: 0,
+                nombre: '',
+                apellido: '',
+                correo: '',
+                celular: '',
+                identificacion: '',
+                metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
+                puntosDisponibles: 0,
+                idDireccion: '',
+                provincia: `${provincia[0].codigo}-${provincia[0].valor}`,
+                ciudad: `${ciudad[0].codigo}-${ciudad[0].valor}`,
+                sector: `${sector[0].codigo}-${sector[0].valor}`,
+                direccion: '',
+                referencia: '',
+                urlMapa: '',
+                metodoPago: 'TRANSFERENCIA'
+            }
+            setInfoPerson(data);
+            setFormData(data);
+            setDireccionesCliente([]);
+            setMetodoEnvioSeleccionado(
+                metodoEnvio?.find(
+                    (m: any) => m.id === '71f045a5-36b6-484e-996e-dd3e69e3644b'
+                ));
+
+        } else {
+            const response = await searchPersonByPhone(celular);
+            const responseData = {
+             ...response.form,
+             provincia: response.form.provincia === ''? `${provincia[0].codigo}-${provincia[0].valor}`:response.form.provincia,
+             ciudad: response.form.ciudad === ''? `${ciudad[0].codigo}-${ciudad[0].valor}`:response.form.ciudad,
+             sector: response.form.sector === ''?  `${sector[0].codigo}-${sector[0].valor}`:response.form.sector,
+            };
+            setInfoPerson(responseData);
+            setFormData(responseData);
+            setDireccionesCliente(response.direcciones);
+            setMetodoEnvioSeleccionado(
+                metodoEnvio?.find(
+                    (m: any) => m.id === '71f045a5-36b6-484e-996e-dd3e69e3644b'
+                ));
+            
+
+        }
+
 
     }
     const handleConsultMetodoEnvio = async () => {
@@ -63,6 +126,10 @@ export const usePaymentPageHandler = (
                 metodoEnvio: respuesta[0].id
             }));
         }
+        setMetodoEnvioSeleccionado(
+            respuesta?.find(
+                (m: any) => m.id === '71f045a5-36b6-484e-996e-dd3e69e3644b'
+            ));
     }
 
     const handleConsultMetodoPago = async () => {
@@ -93,10 +160,22 @@ export const usePaymentPageHandler = (
                 window.showAlert('La identificación es requerida para realizar un pedido', 'WARNING')
                 return false
             }
+            if (!body.provincia?.trim()) {
+                window.showAlert('La provincia es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+            if (!body.ciudad?.trim()) {
+                window.showAlert('La ciudad es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+            if (!body.sector?.trim()) {
+                window.showAlert('El sector es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+
             if (!body.direccion?.trim()) {
                 window.showAlert('La dirección es requerida para realizar un pedido', 'WARNING')
                 return false
-
             }
             if (!body.referencia?.trim()) {
                 window.showAlert('La referencia es requerida para realizar un pedido', 'WARNING')
@@ -107,26 +186,65 @@ export const usePaymentPageHandler = (
     }
 
 
+
+    const onFinishFormTransfer = async () => {
+
+        if (formTransfer.secuencia === "") {
+            window.showAlert("La secuencia es necesaria para grabar el comprobante", "WARNING");
+            return;
+        }
+        if (formTransfer.imagen === "") {
+            window.showAlert("La imagen es necesaria para grabar el comprobante", "WARNING");
+            return;
+        }
+        if (formTransfer.cuentaSeleccionada.includes("Selecciona el banco de destino")) {
+            window.showAlert("El banco es necesario para grabar el comprobante", "WARNING");
+            return;
+        }
+        if (formTransfer.monto === 0 || !formTransfer.monto) {
+            window.showAlert("El monto es necesario para grabar el comprobante, debe colocar el valor que transfirió", "WARNING");
+            return;
+        }
+
+        const transactionId = uuidToNumberFecha(carrito);
+        const uuidPedido = transactionId.split("-")[0].trim();
+        const pedido = await obtenerPedidoCompleto(uuidPedido);
+
+        try {
+            const body = {
+                statusCode: 0,
+                provider: formTransfer.cuentaSeleccionada,
+                cardBrand: formTransfer.cuentaSeleccionada,
+                transactionId: transactionId,
+                message: "Pago en espera de verificación",
+                amount: formTransfer.monto
+            }
+            await pagarPedido(pedido.id, body, formTransfer.imagen);
+            router.push(`/agradecimiento?id=${formTransfer.secuencia}&clientTransactionId=${transactionId}`);
+        } catch (e) {
+            console.log(e);
+            window.showAlert("No se pudo grabar el pago, escríbenos a whatsapp para realizar el soporte");
+        }
+    }
+
+
+
     // --- LÓGICA DE CÁLCULO DE PRECIOS Y DESCUENTOS ---
 
     let esEnvioDomicilio;
-    let metodoSeleccionado;
     let costoEnvio;
     let descuentoPuntos;
     let totalPagar;
 
-    metodoSeleccionado =
-        state.metodoEnvio?.find(
-            (m: any) => m.id === state.formData.metodoEnvio
-        );
+
 
     esEnvioDomicilio =
-        metodoSeleccionado
-            ? !metodoSeleccionado.nombre.toLowerCase().includes("retiro")
+        metodoEnvioSeleccionado
+            ? !metodoEnvioSeleccionado.nombre.toLowerCase().includes("retiro")
             : false;
 
-    costoEnvio = metodoSeleccionado
-        ? Number(metodoSeleccionado.valor)
+    costoEnvio = metodoEnvioSeleccionado
+        ? Number(metodoEnvioSeleccionado.valor)
         : 0;
 
 
@@ -157,22 +275,47 @@ export const usePaymentPageHandler = (
 
     totalPagar =
         subtotalCompleto + costoEnvio - descuentoPuntos;
-
-    const onFinishFormTransfer = async() =>{
-
-    }
-
     const onFinishForm = async () => {
-        const respuesta = validarFormulario(formData);
-        if (respuesta) {
-            await guardarPedido(formData, carrito, costoEnvio, subtotalCompleto, totalPagar, formData.puntosUsados);
-            setPayMethodReady(true);
-
-            if (formData.metodoPago === "tarjeta") {
-            } else {
+        try{
+            const respuesta = validarFormulario(formData);
+            if (respuesta) {
+                await guardarPedido(formData, carrito, costoEnvio, subtotalCompleto, totalPagar, formData.puntosUsados);
+                setPayMethodReady(true);
             }
+        }catch (e){
+            window.showAlert('No se pudo registrar el pedido, contacte con la tienda','ERROR');
         }
     }
+    const seleccionarDireccionGuardada = (dir: any) => {
+        setDireccionSeleccionadaId(dir.id);
+        aplicarDireccionEnForm(dir);
+    };
+
+    const seleccionarOtraDireccion = () => {
+        setDireccionSeleccionadaId('otra');
+        const dir = {
+            provincia: formData.provincia,
+            ciudad: formData.ciudad,
+            sector: formData.sector,
+            direccion: '',
+            referencia: '',
+            mapa: ''
+        }
+        aplicarDireccionEnForm(dir);
+    };
+
+    const aplicarDireccionEnForm = (dir: any) => {
+        setFormData((prev: any) => ({
+            ...prev,
+            provincia: dir.provincia,
+            ciudad: dir.ciudad,
+            sector: dir.sector,
+            direccion: dir.direccion || '',
+            referencia: dir.referencia || '',
+            urlMapa: dir.ubicacion_url || ''
+        }));
+    };
+
     return {
         handleChange,
         handleConsultMetodoEnvio,
@@ -180,7 +323,6 @@ export const usePaymentPageHandler = (
         onFinishForm,
         totalPagar,
         porcentajeProgreso,
-        metodoSeleccionado,
         esEnvioDomicilio,
         puntosDisponibles,
         dineroPuntos,
@@ -192,6 +334,9 @@ export const usePaymentPageHandler = (
         handleConsultMetodoPago,
         handleChangeTransfer,
         handleFileChange,
-        onFinishFormTransfer
+        onFinishFormTransfer,
+        seleccionarDireccionGuardada,
+        seleccionarOtraDireccion,
+        aplicarDireccionEnForm
     }
 }

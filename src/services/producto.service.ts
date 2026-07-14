@@ -179,7 +179,7 @@ const consultProducts = async (
         },
         variantes: variantes,
         descuento_general: producto.descuento,
-        etiquetaDescuento: tieneDescuento ? "Producto tiene variantes en descuento" : ""
+        etiquetaDescuento: producto.descuento > 0 || tieneDescuento ? "Producto tiene variantes en descuento" : ""
       };
     }).filter(Boolean);
 

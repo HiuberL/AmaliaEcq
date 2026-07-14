@@ -8,7 +8,7 @@ export const useLayoutHandler = () => {
     const onLogout = async () => {
         try {
             await logoutSoloCookies();
-            router.push('/inicio');
+            router.push('/');
             router.refresh();
         } catch (error: any) {
             window.showAlert(error.message || "No se pudo cerrar la sesión.", 'ERROR');

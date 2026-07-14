@@ -20,7 +20,8 @@ export const usePaymentPageEffects = (
 ) => {
     const {
         handleConsultMetodoEnvio,
-        handleConsultMetodoPago
+        handleConsultMetodoPago,
+        aplicarDireccionEnForm
     } = handler;
 
     const {
@@ -31,7 +32,10 @@ export const usePaymentPageEffects = (
         setInfoPerson,
         setProvincia,
         setCiudad,
-        setSector, infoPerson,carrito
+        setSector, carrito,
+        direccionesCliente,
+        setDireccionesCliente,
+        setDireccionSeleccionadaId,
     } = state;
 
 
@@ -40,17 +44,19 @@ export const usePaymentPageEffects = (
             const idGuardado = await getSessionCookie('amalia_cliente_id');
             await handleConsultMetodoEnvio();
             await handleConsultMetodoPago();
-            if (idGuardado) {
-                const response = await searchPersonById(idGuardado);
-                setInfoPerson(response);
-            }
             const provincias = await consultaConfiguracionByTabla('TL_PROVINCIAS');
             setProvincia(provincias);
             const ciudades = await consultaConfiguracionByTablaCondicion('TL_CIUDADES', provincias[0].codigo);
             setCiudad(ciudades);
             const sector = await consultaConfiguracionByTablaCondicion('TL_PARROQUIAS', ciudades[0].codigo);
             setSector(sector);
-            setFormData(infoPerson);
+
+            if (idGuardado) {
+                const response = await searchPersonById(idGuardado);
+                setInfoPerson(response.form);
+                setFormData(response.form);
+                setDireccionesCliente(response.direcciones);
+            }
 
             setCarrito(id);
         };
@@ -82,7 +88,7 @@ export const usePaymentPageEffects = (
     }, [formData.ciudad]);
 
     useEffect(() => {
-        if (!payMethodReady || formData.metodoPago === 'transferencia') return;
+        if (!payMethodReady || formData.metodoPago === 'TRANSFERENCIA') return;
         if (!window.PPaymentButtonBox) return;
         const generarRender = async () => {
             const config = await bodyPayphonePay(totalPagar, carrito, formData.celular ? `Compra amalia - ${formData.celular}` : `ID pago - ${id}`);
@@ -94,4 +100,20 @@ export const usePaymentPageEffects = (
         }
         generarRender();
     }, [payMethodReady]);
+
+    useEffect(() => {
+        if (direccionesCliente && direccionesCliente.length > 0) {
+            const preferida = direccionesCliente.find((dir: any) => dir.preferencia);
+            const idInicial = preferida ? preferida.id : direccionesCliente[0].id;
+
+            setDireccionSeleccionadaId(idInicial);
+
+            // Opcional: Autocompletar formData con la dirección preferida
+            const dirActiva = preferida || direccionesCliente[0];
+            aplicarDireccionEnForm(dirActiva);
+        } else {
+            setDireccionSeleccionadaId('otra');
+        }
+    }, [direccionesCliente]);
+
 }

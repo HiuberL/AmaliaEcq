@@ -48,14 +48,16 @@ const enmascararTexto = (
     );
 }
 
-const convertObjetPersontoForm = (cliente: any, telefono: string = ''): FormDataPay => {
+const convertObjetPersontoForm = (cliente: any, telefono: string = ''): any => {
     const clientePrimero = cliente[0];
     let direccion;
+    console.log(clientePrimero);
     if (clientePrimero) {
-        if ((clientePrimero.direcciones?.length || 0) > 1) {
+        if ((clientePrimero.direcciones?.length || 0) >= 1) {
             const informacion = clientePrimero.direcciones?.filter((v: any) => v.preferencia == true).map((s: any) => {
                 return {
                     ciudad: s.ciudad,
+                    idDireccion: s.id,
                     sector: s.sector,
                     provincia: s.provincia,
                     direccion: s.direccion,
@@ -66,6 +68,7 @@ const convertObjetPersontoForm = (cliente: any, telefono: string = ''): FormData
             direccion = informacion?.[0] || {
                 ciudad: "",
                 sector: "",
+                idDireccion: "",
                 provincia: "",
                 direccion: "",
                 referencia: "",
@@ -74,6 +77,7 @@ const convertObjetPersontoForm = (cliente: any, telefono: string = ''): FormData
         } else if ((clientePrimero.direcciones?.length || 0) === 1) {
             direccion = {
                 ciudad: clientePrimero.direcciones?.[0].ciudad,
+                idDireccion: clientePrimero.direcciones?.[0].id,
                 sector: clientePrimero.direcciones?.[0].sector,
                 provincia: clientePrimero.direcciones?.[0].provincia,
                 direccion: clientePrimero.direcciones?.[0].direccion,
@@ -85,49 +89,59 @@ const convertObjetPersontoForm = (cliente: any, telefono: string = ''): FormData
                 ciudad: "",
                 sector: "",
                 provincia: "",
+                idDireccion: "",
                 direccion: "",
                 referencia: "",
                 ubicacion_url: ""
             }
         }
         return {
-            apellido: clientePrimero.apellidos || '',
-            nombre: clientePrimero.nombres || '',
-            celular: clientePrimero.telefono || '',
-            correo: clientePrimero.correo || '',
-            idCliente: clientePrimero.id || '',
-            usarPuntos: false,
-            puntosUsados: 0,
-            puntosDisponibles: clientePrimero.billetera_id.saldo_disponible,
-            metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
-            provincia: direccion.provincia || '',
-            ciudad: direccion.ciudad || '',
-            direccion: direccion.direccion || '',
-            identificacion: enmascararTexto(clientePrimero.identificacion) || '',
-            metodoPago: 'transferencia',
-            referencia: direccion.referencia || '',
-            sector: direccion.sector || '',
-            urlMapa: direccion.ubicacion_url || ''
+            direcciones: (clientePrimero.direcciones?.length || 0) >= 1 ? clientePrimero.direcciones : [],
+            form: {
+                apellido: clientePrimero.apellidos || '',
+                nombre: clientePrimero.nombres || '',
+                celular: clientePrimero.telefono || '',
+                correo: clientePrimero.correo || '',
+                idCliente: clientePrimero.id || '',
+                usarPuntos: false,
+                puntosUsados: 0,
+                puntosDisponibles: clientePrimero.billetera_id.saldo_disponible,
+                metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
+                provincia: direccion.provincia || '',
+                idDireccion: direccion.idDireccion || '',
+                ciudad: direccion.ciudad || '',
+                direccion: direccion.direccion || '',
+                identificacion: enmascararTexto(clientePrimero.identificacion) || '',
+                metodoPago: 'TRANSFERENCIA',
+                referencia: direccion.referencia || '',
+                sector: direccion.sector || '',
+                urlMapa: direccion.ubicacion_url || ''
+            }
         }
     }
     return {
-        apellido: '',
-        nombre: '',
-        celular: telefono,
-        correo: '',
-        idCliente: '',
-        usarPuntos: false,
-        puntosUsados: 0,
-        puntosDisponibles: 0,
-        metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
-        provincia: '',
-        ciudad: '',
-        direccion: '',
-        identificacion: '',
-        metodoPago: 'transferencia',
-        referencia: '',
-        sector: '',
-        urlMapa: ''
+
+        direcciones: [],
+        form: {
+            apellido: '',
+            nombre: '',
+            celular: telefono,
+            correo: '',
+            idCliente: '',
+            usarPuntos: false,
+            puntosUsados: 0,
+            puntosDisponibles: 0,
+            idDireccion: '',
+            metodoEnvio: '71f045a5-36b6-484e-996e-dd3e69e3644b',
+            provincia: '',
+            ciudad: '',
+            direccion: '',
+            identificacion: '',
+            metodoPago: 'TRANSFERENCIA',
+            referencia: '',
+            sector: '',
+            urlMapa: ''
+        }
     }
 }
 
@@ -151,6 +165,7 @@ export const searchPersonById = async (idClient: string) => {
                 },
                 {
                     direcciones: [
+                        'id',
                         'preferencia',
                         'ciudad',
                         'sector',
@@ -190,7 +205,9 @@ export const searchPersonByPhone = async (telefono: string) => {
                 },
                 {
                     direcciones: [
+                        'id',
                         'ciudad',
+                        'preferencia',
                         'sector',
                         'provincia',
                         'direccion',
@@ -213,12 +230,32 @@ export const searchPersonByPhone = async (telefono: string) => {
 
 export const guardarPedido = async (body: FormDataPay, idCarrito: string, valorEnvio: number, subtotal: number, total: number, descuento: number) => {
     /* CREAR PEDIDO PARA OBTENER ID DE PEDIDO - SI EL CLIENTE EXISTE CLARAMENTE */
-    let clienteIdDireccion;
+    let clienteIdDireccion = body.idDireccion;
+    let clienteId = body.idCliente;
+    if (clienteId === "") {
+       const cliente =  await crearCliente(body);
+        clienteId = cliente.id;
+    }
+    if (clienteIdDireccion === ""){
+        const direccionCliente = await directusPrivate.request(
+           createItem('cliente_direccion', {
+                preferencia: true,
+                cliente_id: clienteId,
+                ubicacion_url: body.urlMapa,
+                ciudad: body.ciudad,
+                sector: body.sector,
+                provincia: body.provincia,
+                direccion: body.direccion,
+                referencia: body.referencia
+            })
+        );
+        clienteIdDireccion = direccionCliente.id;
+    }
 
     await directusPrivate.request(createItem('pedidos', {
         carrito_id: idCarrito,
         secuencial: uuidToNumber(idCarrito),
-        cliente_id: body.idCliente,
+        cliente_id: clienteId,
         cliente_direccion_id: clienteIdDireccion,
         metodo_envio_id: body.metodoEnvio,
         factura: false,
@@ -233,6 +270,7 @@ export const guardarPedido = async (body: FormDataPay, idCarrito: string, valorE
         descuento: descuento * 0.01,
         total: total
     }));
+
 
 
     return true;
@@ -347,7 +385,34 @@ const simplificarPedido = (pedidoRaw: any) => {
 };
 
 
-export const pagarPedido = async (idPedido: string, body: any) => {
+export const pagarPedido = async (idPedido: string, body: any, image: string = "") => {
+    await directusPrivate.request(createItem('pago', {
+        pedido_id: idPedido,
+        proveedor: body.provider,
+        transaccion_id: body.transactionId,
+        respuesta: body,
+        estado: body.message,
+        monto: body.amount,
+        imagen: image
+    }));
+
+    if (body.statusCode === 3) {
+        await directusPrivate.request(updateItem('pedidos', idPedido, {
+            estado: 'PAGADO'
+        }));
+
+    } else if (body.statusCode === 2) {
+        await directusPrivate.request(updateItem('pedidos', idPedido, {
+            estado: 'CANCELADO'
+        }));
+    } else {
+        await directusPrivate.request(updateItem('pedidos', idPedido, {
+            estado: 'REVISION'
+        }));
+    }
+}
+
+export const grabarPedido = async (idPedido: string, body: any) => {
     await directusPrivate.request(createItem('pago', {
         pedido_id: idPedido,
         proveedor: body.provider,
@@ -374,3 +439,26 @@ export const pagarPedido = async (idPedido: string, body: any) => {
 
 }
 
+
+export const crearCliente = async (body: FormDataPay) => {
+    let billeteraCreadaId;
+    const nuevaBilletera = await directusPrivate.request(
+        createItem('billetera', {
+            saldo_disponible: 0.00,
+            saldo_bloqueado: 0.00,
+        })
+    );
+    billeteraCreadaId = nuevaBilletera.id;
+
+    const cliente = await directusPrivate.request(
+        createItem('cliente', {
+            nombres: body.nombre.toUpperCase(),
+            apellidos: body.apellido.toUpperCase() || '',
+            telefono: body.celular ? body.celular.trim() : '',
+            identificacion: body.identificacion,
+            correo: body.correo.trim().toLowerCase(),
+            billetera_id: billeteraCreadaId
+        })
+    );
+    return cliente;
+}

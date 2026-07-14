@@ -1,7 +1,8 @@
 // @/hooks/Layout/LayoutContext.tsx
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface LayoutContextType {
   cartOpen: boolean;
@@ -12,7 +13,10 @@ const LayoutContext = createContext<LayoutContextType | undefined>(undefined);
 
 export function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [cartOpen, setCartOpen] = useState(false);
-
+  const pathname = usePathname();
+  useEffect(() => {
+    setCartOpen(false);
+  }, [pathname]);
   return (
     <LayoutContext.Provider value={{
       cartOpen, setCartOpen,

@@ -70,7 +70,12 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
     onChangeDataTransfer,
     formTransfer,
     onChangeImage,
-    nombreArchivo
+    nombreArchivo,
+    onFinishFormTransfer,
+    direccionesCliente,
+    direccionSeleccionadaId,
+    seleccionarOtraDireccion,
+    seleccionarDireccionGuardada
   } = usePaymentPage(id, carrito);
 
   if (!metodoEnvio && !provincia && !ciudad && !sector) {
@@ -131,13 +136,12 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
 
                       <div className={styles.formGrid2}>
                         <div className={styles.formGroup}>
-                          <label>Correo Electrónico</label>
-                          <input type="email" name="correo" value={formData.correo} onChange={onChangeData} required />
-                        </div>
-
-                        <div className={styles.formGroup}>
                           <label>Celular</label>
                           <input type="tel" name="celular" value={formData.celular} onChange={onChangeData} onBlur={onLostFocusCell} required />
+                        </div>
+                        <div className={styles.formGroup}>
+                          <label>Correo Electrónico</label>
+                          <input type="email" name="correo" value={formData.correo} onChange={onChangeData} required />
                         </div>
                       </div>
                       <div className={styles.formGrid2}>
@@ -194,56 +198,131 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                       )}
                       {/* Mostrar solo si es Envío a Domicilio */}
                       {esEnvioDomicilio && (
-                        <div className={`${styles.conditionalAddressFields} ${styles.formGrid2}`}>
-                          <div className={`${styles.fullWidthColumn} ${styles.subtitleForm}`}>Dirección de Entrega</div>
+                        <div className={styles.conditionalAddressFields}>
 
-                          <div className={styles.formGroup}>
-                            <label>Provincia</label>
-                            <select name="provincia" value={formData.provincia} onChange={onChangeData}>
-                              {provincia.map((p: any) => (
-                                <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
-                                  {p.valor}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+                          {/* SECCIÓN 1: Tarjetas de direcciones del cliente (solo si existen) */}
+                          {direccionesCliente && direccionesCliente.length > 0 && (
+                            <div className={styles.fullWidthColumn} style={{ marginBottom: '1.5rem' }}>
+                              <div className={styles.subtitleForm}>Mis Direcciones Guardadas</div>
 
-                          <div className={styles.formGroup}>
-                            <label>Ciudad</label>
-                            <select name="ciudad" value={formData.ciudad} onChange={onChangeData}>
-                              {ciudad.map((p: any) => (
-                                <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
-                                  {p.valor}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+                              <div className={styles.addressCardsGrid}>
+                                {direccionesCliente.map((dir: any) => {
+                                  const esSeleccionada = direccionSeleccionadaId === dir.id;
+                                  const ciudadLimpia = dir.ciudad?.split('-')[1] || dir.ciudad;
 
-                          <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
-                            <label>Sector</label>
-                            <select name="sector" value={formData.sector} onChange={onChangeData}>
-                              {sector.map((p: any) => (
-                                <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
-                                  {p.valor}
-                                </option>
-                              ))}
-                            </select>
-                          </div>
+                                  return (
+                                    <div
+                                      key={dir.id}
+                                      className={`${styles.addressCard} ${esSeleccionada ? styles.addressCardSelected : ''}`}
+                                      onClick={() => seleccionarDireccionGuardada(dir)}
+                                    >
+                                      <div className={styles.addressCardHeader}>
+                                        <strong className={styles.addressCity}>{ciudadLimpia}</strong>
+                                        {dir.preferencia && (
+                                          <span className={styles.badgePreferencia}>Preferida</span>
+                                        )}
+                                      </div>
+                                      <p className={styles.addressText}>{dir.direccion}</p>
+                                      {dir.referencia && (
+                                        <p className={styles.addressRef}>
+                                          <small>Ref: {dir.referencia}</small>
+                                        </p>
+                                      )}
+                                    </div>
+                                  );
+                                })}
 
-                          <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
-                            <label>Dirección Exacta</label>
-                            <input type="text" name="direccion" value={formData.direccion} onChange={onChangeData} placeholder="Calle Principal, numeración y secundaria" />
-                          </div>
+                                {/* Tarjeta para ingresar una Nueva Dirección */}
+                                <div
+                                  className={`${styles.addressCard} ${styles.addressCardNew} ${direccionSeleccionadaId === 'otra' ? styles.addressCardSelected : ''}`}
+                                  onClick={seleccionarOtraDireccion}
+                                >
+                                  <strong>➕ Usar otra dirección</strong>
+                                  <p className={styles.addressRef}>
+                                    <small>Ingresar datos manualmente</small>
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
 
-                          <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
-                            <label>Referencia</label>
-                            <input type="text" name="referencia" value={formData.referencia} onChange={onChangeData} placeholder="Ej. Junto a la farmacia" />
-                          </div>
+                          {/* SECCIÓN 2: Formulario de Dirección Exacta (se muestra si eligió "otra" O si no tiene direcciones guardadas) */}
+                          {(direccionSeleccionadaId === 'otra' || !direccionesCliente || direccionesCliente.length === 0) && (
+                            <div className={styles.formGrid2}>
+                              <div className={`${styles.fullWidthColumn} ${styles.subtitleForm}`}>
+                                {direccionesCliente && direccionesCliente.length > 0
+                                  ? 'Detalles de la Nueva Dirección'
+                                  : 'Dirección de Entrega'}
+                              </div>
 
-                          <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
-                            <label>URL del Mapa (Google Maps)</label>
-                            <input type="url" name="urlMapa" value={formData.urlMapa} onChange={onChangeData} placeholder="https://goo.gl/maps/..." />
-                          </div>
+                              <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                                <label>Provincia</label>
+                                <select name="provincia" value={formData.provincia} onChange={onChangeData}>
+                                  {provincia.map((p: any) => (
+                                    <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                      {p.valor}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                                <label>Ciudad</label>
+                                <select name="ciudad" value={formData.ciudad} onChange={onChangeData}>
+                                  {ciudad.map((p: any) => (
+                                    <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                      {p.valor}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                                <label>Sector</label>
+                                <select name="sector" value={formData.sector} onChange={onChangeData}>
+                                  {sector.map((p: any) => (
+                                    <option key={p.codigo} value={`${p.codigo}-${p.valor}`}>
+                                      {p.valor}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+
+                              <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                                <label>Dirección Exacta</label>
+                                <input
+                                  type="text"
+                                  name="direccion"
+                                  value={formData.direccion}
+                                  onChange={onChangeData}
+                                  placeholder="Calle Principal, numeración y secundaria"
+                                />
+                              </div>
+
+                              <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                                <label>Referencia</label>
+                                <input
+                                  type="text"
+                                  name="referencia"
+                                  value={formData.referencia}
+                                  onChange={onChangeData}
+                                  placeholder="Ej. Junto a la farmacia"
+                                />
+                              </div>
+
+                              <div className={`${styles.formGroup} ${styles.fullWidthColumn}`}>
+                                <label>URL del Mapa (Google Maps)</label>
+                                <input
+                                  type="url"
+                                  name="urlMapa"
+                                  value={formData.urlMapa}
+                                  onChange={onChangeData}
+                                  placeholder="https://goo.gl/maps/..."
+                                />
+                              </div>
+                            </div>
+                          )}
+
                         </div>
                       )}
                     </div>
@@ -336,8 +415,8 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                       <div className={styles.radioOptionsList}>
 
                         {/* Opción Tarjeta */}
-                        <label className={`${styles.radioCardOption} ${formData.metodoPago === 'tarjeta' ? styles.selected : ''}`}>
-                          <input type="radio" name="metodoPago" value="tarjeta" checked={formData.metodoPago === 'tarjeta'} onChange={onChangeData} />
+                        <label className={`${styles.radioCardOption} ${formData.metodoPago === 'TARJETA' ? styles.selected : ''}`}>
+                          <input type="radio" name="metodoPago" value="TARJETA" checked={formData.metodoPago === 'TARJETA'} onChange={onChangeData} />
                           <div className={styles.radioTextContent}>
                             <span className={styles.radioTitle}>Tarjeta de Crédito / Débito</span>
                             <span className={styles.radioDescription}>Pago rápido y seguro con tu tarjeta de preferencia</span>
@@ -345,8 +424,8 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                         </label>
 
                         {/* Opción Transferencia */}
-                        <label className={`${styles.radioCardOption} ${formData.metodoPago === 'transferencia' ? styles.selected : ''}`}>
-                          <input type="radio" name="metodoPago" value="transferencia" checked={formData.metodoPago === 'transferencia'} onChange={onChangeData} />
+                        <label className={`${styles.radioCardOption} ${formData.metodoPago === 'TRANSFERENCIA' ? styles.selected : ''}`}>
+                          <input type="radio" name="metodoPago" value="TRANSFERENCIA" checked={formData.metodoPago === 'TRANSFERENCIA'} onChange={onChangeData} />
                           <div className={styles.radioTextContent}>
                             <span className={styles.radioTitle}>Transferencia Bancaria / Depósito</span>
                             <span className={styles.radioDescription}>Te mostraremos los datos bancarios al finalizar</span>
@@ -358,7 +437,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                     </div>
                   )}
                 </form>
-              </> : formData.metodoPago === 'tarjeta' ? (
+              </> : formData.metodoPago === 'TARJETA' ? (
                 <>
                   <div id="pp-button"></div>
                 </>
@@ -374,27 +453,29 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                       </p>
 
                       <div className={styles.listaCuentas}>
-                        {metodoPago.map((banco:any, index:any) => (
+                        {metodoPago.map((banco: any, index: any) => (
                           <div key={index} className={styles.tarjetaBanco}>
                             <div className={styles.tarjetaHeader}>
                               <span className={styles.bancoNombre}>{banco.banco}</span>
                             </div>
 
                             <div className={styles.tarjetaDetalles}>
-                              <div className={styles.detalleItem}>
+                              <div className={styles.detalleItem2}>
                                 <span className={styles.label}>Titular:</span>
                                 <span className={styles.valor}>{banco.informacion.nombre}</span>
                               </div>
-                              <div className={styles.detalleItem}>
-                                <span className={styles.label}>Identificación / RUC:</span>
-                                <span className={styles.valor}>{banco.informacion.identificacion || ''}</span>
-                              </div>
-                              <div className={styles.detalleItem}>
+                              {banco.informacion.identificacion &&
+                                <div className={styles.detalleItem2}>
+                                  <span className={styles.label}>Identificación / RUC:</span>
+                                  <span className={styles.valor}>{banco.informacion.identificacion || ''}</span>
+                                </div>
+                              }
+                              <div className={styles.detalleItem2}>
                                 <span className={styles.label}>Correo electrónico:</span>
                                 <span className={styles.valor}>{banco.informacion.correo}</span>
                               </div>
                               {banco.informacion.cuenta?.includes('https') ? (
-                                <div className={styles.detalleItem}>
+                                <div className={styles.detalleItem2}>
                                   <span className={styles.label}>Enlace de Pago / QR:</span>
                                   <span className={styles.valor}>
                                     <a href={banco.informacion.cuenta} target="_blank" rel="noreferrer" className={styles.enlace}>
@@ -402,8 +483,8 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                                     </a>
                                   </span>
                                 </div>
-                              ):(
-                                <div className={styles.detalleItem}>
+                              ) : (
+                                <div className={styles.detalleItem2}>
                                   <span className={styles.label}>Cuenta:</span>
                                   <span className={styles.valor}>{banco.informacion.cuenta}</span>
                                 </div>
@@ -418,7 +499,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                     <div className={styles.seccionFormulario}>
                       <h4 className={styles.formTitle}>Registra los Datos de tu Transferencia</h4>
 
-                      <form onSubmit={(e) => e.preventDefault()}  className={styles.formulario}>
+                      <form onSubmit={(e) => e.preventDefault()} className={styles.formulario}>
 
                         {/* Combo de Selección (Muestra las mismas cuentas habilitadas) */}
                         <div className={styles.inputGroup}>
@@ -432,7 +513,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                             required
                           >
                             <option value="">-- Selecciona el banco de destino --</option>
-                            {metodoPago.map((banco:any, index:any) => (
+                            {metodoPago.map((banco: any, index: any) => (
                               <option key={banco.banco} value={banco.banco}>
                                 {banco.banco}
                               </option>
@@ -449,6 +530,20 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                             name="secuencia"
                             placeholder="Ej: 00234512"
                             value={formTransfer.secuencia}
+                            onChange={onChangeDataTransfer}
+                            className={styles.input}
+                            required
+                          />
+                        </div>
+
+                        <div className={styles.inputGroup}>
+                          <label htmlFor="secuencia">Monto Transferido *</label>
+                          <input
+                            type="number"
+                            id="monto"
+                            name="monto"
+                            placeholder="Ej: 20.00"
+                            value={formTransfer.monto}
                             onChange={onChangeDataTransfer}
                             className={styles.input}
                             required
@@ -480,7 +575,7 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                           </div>
                         </div>
 
-                        <button type="submit" className={styles.submitBtn}>
+                        <button type="submit" className={styles.submitBtn} onClick={onFinishFormTransfer}>
                           Notificar Pago Realizado
                         </button>
                       </form>
@@ -552,10 +647,11 @@ export default function PaymentCliente({ carrito, id }: CarritoProps) {
                       />
                       <div>
                         <p className={styles.itemName}>{item.variante_id.producto_id.nombre}</p>
+                        <p className={styles.itemSku}>{item.variante_id.sku}</p>
                         <p className={styles.itemQty}>Cant: {item.cantidad}</p>
                         {descuentoEfectivo > 0 && (
                           <p className={styles.itemDiscountTag}>
-                            -{descuentoEfectivo}% {tieneDescuentoProducto ? '(Prod)' : '(Var)'}
+                            -{descuentoEfectivo}%
                           </p>
                         )}
                       </div>

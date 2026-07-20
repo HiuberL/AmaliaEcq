@@ -177,11 +177,9 @@ export default function ProductoDetalleClient({ product }: ProductClientProps) {
                                         <span>{pestanaAbierta === `attr-${idx}` ? '−' : '+'}</span>
                                     </button>
                                     <div className={`${style.accordionBody} ${pestanaAbierta === `attr-${idx}` ? style.bodyOpen : ''}`}>
-                                        <div className={style.accordionContent}>
-                                            <div
+                                            <div className={style.accordionContent}
                                                 dangerouslySetInnerHTML={{ __html: attr.valor }}
                                             />
-                                        </div>
                                     </div>
                                 </div>
                             ))}

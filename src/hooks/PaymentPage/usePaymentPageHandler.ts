@@ -138,52 +138,7 @@ export const usePaymentPageHandler = (
     }
 
 
-    const validarFormulario = (body: FormDataPay) => {
-        if (!body.celular?.trim()) {
-            window.showAlert('El celular es requerido para realizar un pedido', 'WARNING')
-            return false
-        }
-        if (!body.nombre?.trim()) {
-            window.showAlert('Los nombres son requeridos para realizar un pedido', 'WARNING')
-            return false
-        }
-        if (!body.apellido?.trim()) {
-            window.showAlert('Los apellidos son requeridos para realizar un pedido', 'WARNING')
-            return false
-        }
-        if (!body.correo?.trim()) {
-            window.showAlert('El correo es requerido para realizar un pedido', 'WARNING')
-            return false
-        }
-        if (body.metodoEnvio !== "71f045a5-36b6-484e-996e-dd3e69e3644b") {
-            if (!body.identificacion?.trim()) {
-                window.showAlert('La identificación es requerida para realizar un pedido', 'WARNING')
-                return false
-            }
-            if (!body.provincia?.trim()) {
-                window.showAlert('La provincia es requerida para realizar un pedido', 'WARNING')
-                return false
-            }
-            if (!body.ciudad?.trim()) {
-                window.showAlert('La ciudad es requerida para realizar un pedido', 'WARNING')
-                return false
-            }
-            if (!body.sector?.trim()) {
-                window.showAlert('El sector es requerida para realizar un pedido', 'WARNING')
-                return false
-            }
 
-            if (!body.direccion?.trim()) {
-                window.showAlert('La dirección es requerida para realizar un pedido', 'WARNING')
-                return false
-            }
-            if (!body.referencia?.trim()) {
-                window.showAlert('La referencia es requerida para realizar un pedido', 'WARNING')
-                return false
-            }
-        }
-        return true;
-    }
 
 
 
@@ -275,6 +230,61 @@ export const usePaymentPageHandler = (
 
     totalPagar =
         subtotalCompleto + costoEnvio - descuentoPuntos;
+
+    const validarFormulario = (body: FormDataPay) => {
+        if (!body.celular?.trim()) {
+            window.showAlert('El celular es requerido para realizar un pedido', 'WARNING')
+            return false
+        }
+        if (!body.nombre?.trim()) {
+            window.showAlert('Los nombres son requeridos para realizar un pedido', 'WARNING')
+            return false
+        }
+        if (!body.apellido?.trim()) {
+            window.showAlert('Los apellidos son requeridos para realizar un pedido', 'WARNING')
+            return false
+        }
+        if (!body.correo?.trim()) {
+            window.showAlert('El correo es requerido para realizar un pedido', 'WARNING')
+            return false
+        }
+        if (body.puntosUsados > 0) {
+            if ((body.puntosUsados * 0.01) > totalPagar ){
+                window.showAlert('El correo es requerido para realizar un pedido', 'WARNING')
+                return false
+            }
+        }
+
+        if (body.metodoEnvio !== "71f045a5-36b6-484e-996e-dd3e69e3644b") {
+            if (!body.identificacion?.trim()) {
+                window.showAlert('La identificación es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+            if (!body.provincia?.trim()) {
+                window.showAlert('La provincia es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+            if (!body.ciudad?.trim()) {
+                window.showAlert('La ciudad es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+            if (!body.sector?.trim()) {
+                window.showAlert('El sector es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+
+            if (!body.direccion?.trim()) {
+                window.showAlert('La dirección es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+            if (!body.referencia?.trim()) {
+                window.showAlert('La referencia es requerida para realizar un pedido', 'WARNING')
+                return false
+            }
+        }
+        return true;
+    }
+
     const onFinishForm = async () => {
         try{
             const respuesta = validarFormulario(formData);

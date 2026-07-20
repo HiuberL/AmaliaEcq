@@ -398,16 +398,19 @@ export const pagarPedido = async (idPedido: string, body: any, image: string = "
 
     if (body.statusCode === 3) {
         await directusPrivate.request(updateItem('pedidos', idPedido, {
-            estado: 'PAGADO'
+            estado: 'PAGADO',
+            valor_pagado: body.amount
         }));
 
     } else if (body.statusCode === 2) {
         await directusPrivate.request(updateItem('pedidos', idPedido, {
-            estado: 'CANCELADO'
+            estado: 'CANCELADO',
+            valor_pagado: body.amount
         }));
     } else {
         await directusPrivate.request(updateItem('pedidos', idPedido, {
-            estado: 'REVISION'
+            estado: 'REVISION',
+            valor_pagado: body.amount
         }));
     }
 }

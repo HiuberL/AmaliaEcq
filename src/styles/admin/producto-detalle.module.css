@@ -288,14 +288,58 @@
 
 .accordionContent {
   padding-bottom: 1.2rem;
-}
-
-.accordionContent p {
   font-family: var(--font-inter), sans-serif;
-  font-size: var(--font-size-medium) !important;
   color: var(--strong-gray);
   line-height: 1.6;
-  margin: 0;
+}
+
+/* Tipografía general para párrafos y listas */
+.accordionContent p,
+.accordionContent li {
+  font-size: var(--font-size-medium) !important;
+}
+
+/* Párrafos inyectados */
+.accordionContent p {
+  margin: 0 0 1rem 0;
+}
+
+/* Evita espacio sobrante en el último elemento (sea p o ul) */
+.accordionContent > *:last-child,
+.accordionContent p:last-child,
+.accordionContent ul:last-child {
+  margin-bottom: 0;
+}
+
+/* Negritas */
+.accordionContent strong,
+.accordionContent b {
+  font-weight: 700;
+  color: var(--strong-gray); /* Cambia por una variable más oscura si tienes (ej: var(--black)) */
+}
+
+/* Listas (UL y OL) */
+.accordionContent ul,
+.accordionContent ol {
+  margin: 0 0 1rem 0;
+  padding-left: 1.25rem; /* Margen interno para que la viñeta no se corte */
+}
+
+.accordionContent ul {
+  list-style-type: disc;
+}
+
+.accordionContent ol {
+  list-style-type: decimal;
+}
+
+/* Elementos de lista */
+.accordionContent li {
+  margin-bottom: 0.4rem;
+}
+
+.accordionContent li:last-child {
+  margin-bottom: 0;
 }
 
 /* ================= SECCIÓN RESEÑAS ================= */

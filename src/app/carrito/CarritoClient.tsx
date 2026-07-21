@@ -34,7 +34,7 @@ export default function CarritoClient() {
   }, 0);
 
   // Puedes cambiar esto si manejas costos de envío dinámicos
-  const costoEnvio = subtotal > 50 ? 0 : 3.50; 
+  const costoEnvio = 0; 
   const total = subtotal + costoEnvio;
 
   // --- VISTA SI EL CARRITO ESTÁ VACÍO ---

@@ -173,7 +173,7 @@
 }
 
 /* ================= RESPONSIVE (ESCRITORIO) ================= */
-@media (min-width: 768px) {
+@media (min-width: 850px) {
   
   .valueDescription{
     font-size: var(--font-size-small);

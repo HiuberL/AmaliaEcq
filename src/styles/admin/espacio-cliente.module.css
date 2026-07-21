@@ -485,7 +485,7 @@
 }
 /* Badges de estado */
 .statusBadge {
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-small-1);
   font-weight: 600;
   padding: 0.25rem 0.625rem;
   border-radius: 9999px;
@@ -612,7 +612,7 @@
 }
 
 /* --- MEDIA QUERY: DISPOSITIVOS MÓVILES (MÁXIMO 768PX) --- */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
   .container {
     flex-direction: column;
   }
@@ -915,7 +915,7 @@
 }
 
 /* Adaptación para celulares */
-@media (max-width: 640px) {
+@media (max-width: 850px) {
   /* La grilla pasa de 2 columnas a 1 sola columna en móviles */
   .formGrid2 {
     grid-template-columns: 1fr;

@@ -160,6 +160,10 @@ export const usePaymentPageHandler = (
             window.showAlert("El monto es necesario para grabar el comprobante, debe colocar el valor que transfirió", "WARNING");
             return;
         }
+        if (formTransfer.monto < 0) {
+            window.showAlert("El monto debe ser positivo", "WARNING");
+            return;
+        }
 
         const transactionId = uuidToNumberFecha(carrito);
         const uuidPedido = transactionId.split("-")[0].trim();
@@ -248,9 +252,14 @@ export const usePaymentPageHandler = (
             window.showAlert('El correo es requerido para realizar un pedido', 'WARNING')
             return false
         }
+        if(totalPagar === 0 ){
+            window.showAlert('No se puede proceder a un pago en cero, contacte con la tienda para informar su problema', 'WARNING')
+            return false
+        }
+
         if (body.puntosUsados > 0) {
             if ((body.puntosUsados * 0.01) > totalPagar ){
-                window.showAlert('El correo es requerido para realizar un pedido', 'WARNING')
+                window.showAlert('El valor no puede ser negativo, utiliza tus puntos con una cifra menor', 'WARNING')
                 return false
             }
         }

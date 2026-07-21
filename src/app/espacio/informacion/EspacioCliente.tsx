@@ -135,12 +135,16 @@ export default function ProfilePage() {
                     listaCitas.map((cita: any, idx: number) => (
                       <div key={idx} className={styles.purchaseCard}>
                         <div className={styles.cardHeader2}>
-                          <p className={styles.orderLabel}>{cita.tipo}</p>
-                          <span className={styles.dateCita}>
-                            {cita.dia} a las {cita.hora}
-                          </span>
+                          <div className={styles.orderInfo}>
+                            <p className={styles.orderLabel}>{cita.tipo}</p>
+                          </div>
                           <span className={`${styles.statusBadge} ${styles[cita.estado.replace(" ", "").toLowerCase()]}`}>
                             {cita.estado}
+                          </span>
+                        </div>
+                        <div className={styles.cardBody}>
+                          <span className={styles.dateCita}>
+                            {cita.dia} a las {cita.hora}
                           </span>
                         </div>
                       </div>

@@ -48,7 +48,8 @@ export const consultBlogs = async (
                 'cuerpo',
                 'date_created'
             ],
-            filter: filtros
+            filter: filtros,
+            sort: ['-date_created']
         })
     );
     const blogsFiltrados = blogInformacion.filter((blog: any) => {

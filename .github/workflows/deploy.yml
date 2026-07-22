@@ -37,7 +37,7 @@ jobs:
           build-args: |
             NEXT_PUBLIC_SITE_URL=https://amaliaecq.com
             API_PAYPHONE=https://paymentbox.payphonetodoesposible.com
-            DIRECTUS_URL=http://directus:8055
+            DIRECTUS_URL=https://amaliaecq.com/api
 
   # TRABAJO 2: Notificar al VPS para que descargue la nueva imagen y la encienda
   deploy-to-vps:

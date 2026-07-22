@@ -11,8 +11,10 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Solo declaras las variables PÚBLICAS
-ARG NEXT_PUBLIC_SITE_URL
+
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ENV API_PAYPHONE=$API_PAYPHONE
+ENV DIRECTUS_URL=$DIRECTUS_URL
 
 RUN npm run build
 

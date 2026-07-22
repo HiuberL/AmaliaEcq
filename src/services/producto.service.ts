@@ -107,7 +107,7 @@ const consultProducts = async (
           }
         ],
         filter: filtros,
-        sort: ['-updated_at']
+        sort: ['-producto_id.updated_at']
       })
     );
     // 3. Segunda petición: Conteo total dinámico respetando los nuevos filtros

@@ -32,7 +32,7 @@ jobs:
           file: ./Dockerfile
           push: true
           # Forzar nombre en minúsculas para evitar errores en GHCR
-          tags: ghcr.io/${{ github.repository_owner }}/amalia-frontend:latest
+          tags: ghcr.io/hiuberl/amalia-frontend:latest
           # Pasamos los argumentos que necesita tu Dockerfile durante el build
           build-args: |
             NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}

@@ -29,7 +29,7 @@ jobs:
         with:
           # Al estar en la raíz, el contexto y el Dockerfile se apuntan directamente así:
           context: .
-          file: ./Dockerfile
+          file: ./dockerfile
           push: true
           # Forzar nombre en minúsculas para evitar errores en GHCR
           tags: ghcr.io/hiuberl/amalia-frontend:latest

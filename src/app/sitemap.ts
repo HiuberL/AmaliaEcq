@@ -33,8 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 2. Consulta paralela con Promise.allSettled para evitar que un fallo bloquee a los demás
   const [perfumesRes, maquillajesRes, blogsRes] = await Promise.allSettled([
-    consultProducts(0, 'Perfumes', 'Perfumes', '', 1000),
-    consultProducts(0, 'Maquillajes', 'Maquillajes', '', 1000),
+    consultProducts(1, 'Perfumes', 'Perfumes', '', 1000),
+    consultProducts(1, 'Maquillajes', 'Maquillajes', '', 1000),
     consultAllBlogs(),
   ]);
 

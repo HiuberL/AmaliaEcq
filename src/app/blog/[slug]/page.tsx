@@ -26,9 +26,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Blog no encontrado | Ecuador | Amalia Ec' };
   }
 
+  const title = `${info.meta_title || info.titulo} | Ecuador | Amalia Ec`;
+  const description =
+    info.meta_description ||
+    `En Amalia también reseñamos, por esta razón tenemos mucha información para ti.`;
+
+  // 🖼️ URL armada usando el campo 'imagen_principal' (o una por defecto)
+  const imageUrl = info.imagen_principal;
+
   return {
-    title: `${info.meta_title || info.titulo} | Ecuador | Amalia Ec`,
-    description: info.meta_description || `En amalia también reseñamos por esta razón tenemos mucha información para ti`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://www.amaliaecq.com/blog/${slug}`,
+      siteName: 'Amalia Ec',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: info.titulo,
+        },
+      ],
+      locale: 'es_EC',
+      type: 'article', // Cambio clave para contenido de tipo blog/artículo
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 

@@ -24,9 +24,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: 'Producto no encontrado | Ecuador | Amalia Ec' };
   }
 
+  const title = `${info.meta_title || info.nombre} | Ecuador | Amalia Ec`;
+  const description = info.meta_description || `Descubre ${info.nombre} de la marca ${info.marca}.`;
+
+  // 🖼️ URL armada que viene del producto (o una por defecto si viene vacía)
+  const imageUrl = info.imagen;
+
   return {
-    title:  `${info.meta_title || info.nombre} | Ecuador | Amalia Ec`,
-    description: info.meta_description || `Descubre ${info.nombre} de la marca ${info.marca}.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `https://www.amaliaecq.com/productos/${slug}`,
+      siteName: 'Amalia Ec',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: info.nombre,
+        },
+      ],
+      locale: 'es_EC',
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [imageUrl],
+    },
   };
 }
 

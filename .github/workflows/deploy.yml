@@ -35,9 +35,9 @@ jobs:
           tags: ghcr.io/hiuberl/amalia-frontend:latest
           # Pasamos los argumentos que necesita tu Dockerfile durante el build
           build-args: |
-            NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
-            API_PAYPHONE=
-            DIRECTUS_URL=
+            NEXT_PUBLIC_SITE_URL=https://amaliaecq.com
+            API_PAYPHONE=https://paymentbox.payphonetodoesposible.com
+            DIRECTUS_URL=http://directus:8055
 
   # TRABAJO 2: Notificar al VPS para que descargue la nueva imagen y la encienda
   deploy-to-vps:

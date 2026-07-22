@@ -2,146 +2,92 @@ import { consultAllBlogs } from '@/services/blog.service';
 import { consultProducts } from '@/services/producto.service';
 import { MetadataRoute } from 'next';
 
+// 🔄 Revalida el sitemap cada 24 horas (86400 segundos)
+export const revalidate = 86400;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL; 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://amaliaecq.com';
 
-  // 1. Páginas estáticas de tu sitio
-  const paginasEstaticas = [
-    {
-      url: `${baseUrl}`,
-      lastModified: new Date(),
-      changeFrequency: 'daily' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/nosotros`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/citas`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/solicitudes`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/sorteo/juegaygana`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/tienda/perfumes`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/tienda/maquillajes`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/politica/politica-reembolso`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/politica/politica-envio`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/politica/declaracion-accesibilidad`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/politica/terminos-condiciones`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/politica/politica-privacidad`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.5,
-    }
-];
+  // 1. Páginas estáticas principales
+  const paginasEstaticas: MetadataRoute.Sitemap = [
+    '',
+    '/nosotros',
+    '/citas',
+    '/solicitudes',
+    '/blog',
+    '/sorteo/juegaygana',
+    '/tienda/perfumes',
+    '/tienda/maquillajes',
+    '/faq',
+    '/politica/politica-reembolso',
+    '/politica/politica-envio',
+    '/politica/declaracion-accesibilidad',
+    '/politica/terminos-condiciones',
+    '/politica/politica-privacidad',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
+    changeFrequency: route === '' ? 'daily' : 'monthly',
+    priority: route === '' ? 1.0 : route.includes('/tienda') ? 0.8 : 0.5,
+  }));
 
-  // 2. Páginas dinámicas (ej. Productos desde Directus / API)
-  // Puedes hacer un fetch a tus productos para incluir cada uno en el sitemap
-  let paginasProductos: MetadataRoute.Sitemap = [];
+  // 2. Consulta paralela con Promise.allSettled para evitar que un fallo bloquee a los demás
+  const [perfumesRes, maquillajesRes, blogsRes] = await Promise.allSettled([
+    consultProducts(0, 'Perfumes', 'Perfumes', '', 1000),
+    consultProducts(0, 'Maquillajes', 'Maquillajes', '', 1000),
+    consultAllBlogs(),
+  ]);
 
-  try {
-    const res = await consultProducts(0,'Perfumes','Perfumes','',1000);
+  // Map para evitar URLs duplicadas
+  const productosMap = new Map<string, MetadataRoute.Sitemap[number]>();
 
-    paginasProductos = res.productosTransf.map((producto: any) => ({
-      url: `${baseUrl}/productos/${producto.slug}`,
-      lastModified: new Date(producto.updated_at || Date.now()),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }));
-  } catch (error) {
-    console.error('Error generando sitemap para productos:', error);
+  // Procesar Perfumes
+  if (perfumesRes.status === 'fulfilled' && perfumesRes.value?.productosTransf) {
+    perfumesRes.value.productosTransf.forEach((prod: any) => {
+      if (prod.slug) {
+        productosMap.set(prod.slug, {
+          url: `${baseUrl}/productos/${prod.slug}`,
+          lastModified: new Date(prod.updated_at || Date.now()),
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        });
+      }
+    });
   }
 
-  let paginasMaquillajes: MetadataRoute.Sitemap = [];
-
-  try {
-    const res = await consultProducts(0,'Maquillajes','Maquillajes','',1000);
-
-    paginasMaquillajes = res.productosTransf.map((producto: any) => ({
-      url: `${baseUrl}/productos/${producto.slug}`,
-      lastModified: new Date(producto.updated_at || Date.now()),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }));
-  } catch (error) {
-    console.error('Error generando sitemap para productos:', error);
+  // Procesar Maquillajes
+  if (maquillajesRes.status === 'fulfilled' && maquillajesRes.value?.productosTransf) {
+    maquillajesRes.value.productosTransf.forEach((prod: any) => {
+      if (prod.slug) {
+        productosMap.set(prod.slug, {
+          url: `${baseUrl}/productos/${prod.slug}`,
+          lastModified: new Date(prod.updated_at || Date.now()),
+          changeFrequency: 'weekly',
+          priority: 0.8,
+        });
+      }
+    });
   }
 
-
-  let paginasBlogs: MetadataRoute.Sitemap = [];
-
-  try {
-    const res = await consultAllBlogs();
-
-    paginasBlogs = res.map((producto: any) => ({
-      url: `${baseUrl}/blog/${producto.slug}`,
-      lastModified: new Date(producto.date_created || Date.now()),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }));
-  } catch (error) {
-    console.error('Error generando sitemap para productos:', error);
+  // Procesar Blogs
+  const paginasBlogs: MetadataRoute.Sitemap = [];
+  if (blogsRes.status === 'fulfilled' && Array.isArray(blogsRes.value)) {
+    blogsRes.value.forEach((blog: any) => {
+      if (blog.slug) {
+        paginasBlogs.push({
+          url: `${baseUrl}/blog/${blog.slug}`,
+          lastModified: new Date(blog.date_created || blog.date_updated || Date.now()),
+          changeFrequency: 'weekly',
+          priority: 0.7,
+        });
+      }
+    });
   }
 
-  
-
-  return [...paginasEstaticas, ...paginasProductos, ...paginasMaquillajes, ...paginasBlogs];
+  // 3. Unificar todo en una lista limpia
+  return [
+    ...paginasEstaticas,
+    ...Array.from(productosMap.values()),
+    ...paginasBlogs,
+  ];
 }

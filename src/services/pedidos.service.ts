@@ -235,6 +235,11 @@ export const guardarPedido = async (body: FormDataPay, idCarrito: string, valorE
     if (clienteId === "") {
        const cliente =  await crearCliente(body);
         clienteId = cliente.id;
+    }else{
+        await directusPrivate.request(
+             updateItem('cliente', clienteId, {
+                identificacion: body.identificacion
+            }));
     }
     if (clienteIdDireccion === ""){
         const direccionCliente = await directusPrivate.request(

@@ -10,7 +10,10 @@ export async function initializeGuestSession() {
     const pais = headersList.get('cf-ipcountry') || 'Ecuador';
     const userAgent = headersList.get('user-agent') || 'desconocido';
     const vercelRequestId = headersList.get('cf-ray') || 'local';
-    const ciudad = vercelRequestId.split('-')[1]|| 'UNKNOW';
+    let ciudad = headersList.get('cf-ipcity') || 'UNKNOW';
+    if (ciudad === 'UNKNOW'){
+        ciudad = vercelRequestId.split("-")[1] || 'UNKNOW';
+    }
     const guestSessionId = globalThis.crypto.randomUUID();
 
     return {

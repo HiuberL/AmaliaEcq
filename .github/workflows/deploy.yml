@@ -1,0 +1,69 @@
+name: Build Frontend & Deploy to OVHcloud
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # TRABAJO 1: Compilar la imagen Docker usando los servidores de GitHub
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Iniciar sesión en GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Construir y subir imagen Docker
+        uses: docker/build-push-action@v5
+        with:
+          # Al estar en la raíz, el contexto y el Dockerfile se apuntan directamente así:
+          context: .
+          file: ./Dockerfile
+          push: true
+          # Forzar nombre en minúsculas para evitar errores en GHCR
+          tags: ghcr.io/${{ github.repository_owner }}/amalia-frontend:latest
+          # Pasamos los argumentos que necesita tu Dockerfile durante el build
+          build-args: |
+            NEXT_PUBLIC_SITE_URL=${{ secrets.NEXT_PUBLIC_SITE_URL }}
+
+  # TRABAJO 2: Notificar al VPS para que descargue la nueva imagen y la encienda
+  deploy-to-vps:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Desplegar en VPS vía SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT }}
+          script: |
+            cd /home/ubuntu/amalia-app
+            
+            # 1. Traer la última versión del código y docker-compose.yml
+            git pull origin main
+
+            # 2. Autenticar el VPS con el registro de GitHub (necesario para imágenes privadas)
+            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u ${{ secrets.GHCR_USER }} --password-stdin
+
+            # 3. Descargar la imagen recién compilada por GitHub
+            docker compose pull amalia-frontend
+
+            # 4. Reiniciar únicamente el contenedor del frontend de forma limpia
+            docker compose up -d 
+
+            # 5. Limpiar imágenes antiguas no utilizadas para ahorrar espacio NVMe
+            docker image prune -f

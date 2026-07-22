@@ -65,7 +65,7 @@ jobs:
             docker compose pull amalia-frontend
 
             # 4. Reiniciar únicamente el contenedor del frontend de forma limpia
-            docker compose up -d amalia-fronted
+            docker compose up -d
 
             # 5. Limpiar imágenes antiguas no utilizadas para ahorrar espacio NVMe
             docker image prune -f

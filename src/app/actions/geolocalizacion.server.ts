@@ -8,9 +8,9 @@ const BOT_REGEX = /bot|spider|crawl|scraper|lighthouse|gtmetrix|pingdom|facebook
 export async function initializeGuestSession() {
     const headersList = await headers();
     const pais = headersList.get('cf-ipcountry') || 'Ecuador';
-    const ciudad = headersList.get('cf-ipcity') || 'Quito';
     const userAgent = headersList.get('user-agent') || 'desconocido';
     const vercelRequestId = headersList.get('cf-ray') || 'local';
+    const ciudad = vercelRequestId.split('-')[1]|| 'UNKNOW';
     const guestSessionId = globalThis.crypto.randomUUID();
 
     return {

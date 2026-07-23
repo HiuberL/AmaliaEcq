@@ -521,6 +521,76 @@
   background-color: #b7f4cf;
   color: #006018;
 }
+
+.statusBadge.solicitado {
+  background-color: #b29ce6;
+  color: #5527d2;
+}
+
+.statusBadge.parcialpagado {
+  background-color: #9ce6e0;
+  color: #27d28e;
+}
+
+
+.statusBadge.reembolsado {
+  background-color: #e69cab;
+  color: #d22732;
+}
+
+.statusBadge.revision {
+  background-color: #e5e69c;
+  color: #d29327;
+}
+
+
+.clientNotes {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background-color: #f8f9fa;
+  border-left: 3px solid #3b82f6;
+  border-radius: 6px;
+}
+
+.notesLabel {
+  display: block;
+  font-size: var(--font-size-medium-1);
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+/* Estilos para el HTML inyectado (listas, párrafos, etc.) */
+.notesHtmlContent {
+  font-size: var(--font-size-small);
+  color: #374151;
+  line-height: 1.5;
+}
+
+.notesHtmlContent ul,
+.notesHtmlContent ol {
+  margin: 0;
+  padding-left: 20px; /* Asegura que se vean los bullets/números */
+}
+
+.notesHtmlContent li {
+  margin-bottom: 4px;
+}
+
+.notesHtmlContent li:last-child {
+  margin-bottom: 0;
+}
+
+.notesHtmlContent p {
+  margin: 0 0 6px 0;
+}
+
+.notesHtmlContent p:last-child {
+  margin-bottom: 0;
+}
+
 /* Cuerpo con detalles */
 .cardBody {
   display: grid;

@@ -312,6 +312,7 @@ export const obtenerPedidoCompleto = async (secuencial: string) => {
                 },
                 'forma_pago',
                 'subtotal',
+                'nota_cliente',
                 'descuento',
                 'costo_real_envio',
                 'total',
@@ -373,6 +374,7 @@ const simplificarPedido = (pedidoRaw: any) => {
         formaEnvio: pedidoRaw.metodo_envio_id.nombre,
         valorEnvio: `${pedidoRaw.costo_real_envio}`,
         detalleEnvio: pedidoRaw.metodo_envio_id.detalles,
+        nota: pedidoRaw.nota_cliente,
         cliente: pedidoRaw.cliente_id
             ? `${pedidoRaw.cliente_id.nombres} ${pedidoRaw.cliente_id.apellidos}`
             : 'Cliente no registrado',

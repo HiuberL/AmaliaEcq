@@ -230,6 +230,15 @@ export default function ProfilePage() {
                                   <small>{fechaFormateada}</small>
                                 </div>
                               </div>
+                                {item.nota_cliente && (
+                                  <div className={styles.clientNotes}>
+                                    <span className={styles.notesLabel}>Nota:</span>
+                                    <div 
+                                      className={styles.notesHtmlContent}
+                                      dangerouslySetInnerHTML={{ __html: item.nota_cliente }} 
+                                    />
+                                  </div>
+                                )}
 
                               <div className={styles.cardFooter}>
                                 <span>Total</span>

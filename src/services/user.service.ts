@@ -221,6 +221,7 @@ export async function consultarDatosCliente(token: string | null, idCliente: str
                     'puntos_usados',
                     'forma_pago',
                     'total',
+                    'nota_cliente',
                     'valor_pagado',
                     'updated_at'
                 ]

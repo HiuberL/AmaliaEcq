@@ -54,6 +54,9 @@ export default function LoginClient() {
 
   const resetPassword = async () => {
     try {
+      if(!email ||email === ""){
+        window.showAlert('Debe colocar el correo para solicitar el reinicio de contraseña','WARNING');
+      }
       resetPasswordLogin(email);
       window.showAlert('Si el correo está registrado, recibirás un mensaje con instrucciones.','INFO');
     } catch (error) {

@@ -3,8 +3,8 @@ import ResetearPasswordView from './ResetearPasswordClient';
 
 
 export const metadata: Metadata = {    
-    title: `Login | Ecuador | Amalia Ec`,
-    description: `Página de inicio de sesión`,
+    title: `Resetear Password | Ecuador | Amalia Ec`,
+    description: `Página para resetear password`,
     robots:{
       index: false,
       follow: false,

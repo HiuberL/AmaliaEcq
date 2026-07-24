@@ -141,13 +141,13 @@ export default function LoginClient() {
             </div>
 
             <div className={style.inputGroup}>
-              <label>{`Contraseña ${!isLoginTab ? "(Mínimo 8 Caracteres)" : ""} *`}</label>
+              <label>Contraseña *</label>
               <input
                 type="password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder={!isLoginTab ? "Mínimo 8 Caracteres" : "*******"}
               />
             </div>
           {isLoginTab && (

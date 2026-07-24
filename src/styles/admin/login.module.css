@@ -116,3 +116,27 @@
   font-family: var(--font-inter), sans-serif;
   font-size: var(--font-size-medium-1);
 }
+
+.forgotPassword {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: var(--font-size-small);
+  text-decoration: none;
+  transition: opacity 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline; /* Si deseas que mantenga el subrayado de enlace */
+}
+
+.forgotPasswordContainer{
+  color: #946523;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.forgotPassword:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}

@@ -4,8 +4,10 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import style from '@styles/admin/login.module.css'; // Ajusta la ruta a tu CSS
 import BotonRegresar from '@/components/returnButton';
-import { loginUsuario, registrarUsuario } from '@/services/login.service';
+import { loginUsuario, registrarUsuario, resetPasswordLogin } from '@/services/login.service';
 import Loading from '../loading';
+import { directusPublic } from '@/services/directus.config';
+import { passwordRequest } from '@directus/sdk';
 
 export default function LoginClient() {
   const router = useRouter();
@@ -38,7 +40,7 @@ export default function LoginClient() {
       }
     } else {
       // Flujo de Registro
-      const res = await registrarUsuario({ email, password, nombres, apellidos, telefono,identificacion });
+      const res = await registrarUsuario({ email, password, nombres, apellidos, telefono, identificacion });
       if (res.exito) {
         router.push('/');
         router.refresh();
@@ -48,6 +50,16 @@ export default function LoginClient() {
       }
     }
   };
+
+
+  const resetPassword = async () => {
+    try {
+      resetPasswordLogin(email);
+      window.showAlert('Si el correo está registrado, recibirás un mensaje con instrucciones.','INFO');
+    } catch (error) {
+      window.showAlert('Existió un inconveniente al enviar el correo','ERROR');
+    }
+  }
   if (cargando) {
     return <Loading />
   }
@@ -59,13 +71,13 @@ export default function LoginClient() {
         <div className={style.authBox}>
           {/* Selector de Pestañas minimalista */}
           <div className={style.tabHeader}>
-            <button 
+            <button
               className={`${style.tabButton} ${isLoginTab ? style.activeTab : ''}`}
               onClick={() => { setIsLoginTab(true); setErrorMsg(null); }}
             >
               Iniciar Sesión
             </button>
-            <button 
+            <button
               className={`${style.tabButton} ${!isLoginTab ? style.activeTab : ''}`}
               onClick={() => { setIsLoginTab(false); setErrorMsg(null); }}
             >
@@ -78,39 +90,39 @@ export default function LoginClient() {
               <>
                 <div className={style.inputGroup}>
                   <label>Identificación *</label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={identificacion} 
-                    onChange={(e) => setIdentificacion(e.target.value)} 
+                  <input
+                    type="text"
+                    required
+                    value={identificacion}
+                    onChange={(e) => setIdentificacion(e.target.value)}
                     placeholder="Ej: 099999999"
                   />
                 </div>
                 <div className={style.inputGroup}>
                   <label>Nombres *</label>
-                  <input 
-                    type="text" 
-                    required 
-                    value={nombres} 
-                    onChange={(e) => setNombres(e.target.value)} 
+                  <input
+                    type="text"
+                    required
+                    value={nombres}
+                    onChange={(e) => setNombres(e.target.value)}
                     placeholder="Ej: XXXXXX XXXXXX"
                   />
                 </div>
                 <div className={style.inputGroup}>
-                  <label>Apellidos</label>
-                  <input 
-                    type="text" 
-                    value={apellidos} 
-                    onChange={(e) => setApellidos(e.target.value)} 
+                  <label>Apellidos *</label>
+                  <input
+                    type="text"
+                    value={apellidos}
+                    onChange={(e) => setApellidos(e.target.value)}
                     placeholder="Ej: XXXXXX XXXXX"
                   />
                 </div>
                 <div className={style.inputGroup}>
-                  <label>Teléfono / WhatsApp</label>
-                  <input 
-                    type="tel" 
-                    value={telefono} 
-                    onChange={(e) => setTelefono(e.target.value)} 
+                  <label>Teléfono / WhatsApp *</label>
+                  <input
+                    type="tel"
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
                     placeholder="Ej: 0999092702"
                   />
                 </div>
@@ -119,26 +131,36 @@ export default function LoginClient() {
 
             <div className={style.inputGroup}>
               <label>Correo Electrónico *</label>
-              <input 
-                type="email" 
-                required 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="ejemplo@correo.com"
               />
             </div>
 
             <div className={style.inputGroup}>
-              <label>Contraseña *</label>
-              <input 
-                type="password" 
-                required 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
+              <label>{`Contraseña ${!isLoginTab ? "(Mínimo 8 Caracteres)" : ""} *`}</label>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
               />
             </div>
-
+          {isLoginTab && (
+            <div className={style.forgotPasswordContainer}>
+              <button
+                type="button"
+                onClick={resetPassword} // Replace with your function's name
+                className={style.forgotPassword}
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+          )}
             {errorMsg && (
               <div className={style.errorAlert}>
                 {errorMsg}

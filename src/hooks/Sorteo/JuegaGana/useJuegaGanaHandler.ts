@@ -3,7 +3,7 @@ import { useJuegaGanaState } from "./useJuegaGanaState";
 import { getSessionCookie } from "@/utils/cookies.utils";
 import { obtenerRespuestaJuego } from "@/services/billetera.service";
 import { useCart } from "@/hooks/Cart/useCart";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 

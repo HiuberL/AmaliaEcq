@@ -87,7 +87,7 @@ export async function registrarUsuario(formData: any) {
         } catch (error: any) {
             console.error('Error al crear directus_user:', error);
             const info = error.message;
-            if (info.contains("has to be unique")) {
+            if (info.includes("has to be unique")) {
                 return { exito: false, error: 'El correo electrónico ya se encuentra registrado.' };
             }
         }
@@ -225,9 +225,9 @@ export async function loginUsuario(email: string, password: string) {
         }
         // 2. Guardamos los tokens de sesión en cookies httpOnly seguras
         await setSessionCookie('amalia_token', authData.access_token);
-
+        const loginTime = Date.now().toString();
+        await setSessionCookie('amalia_timelapse', loginTime);        
         if (authData.refresh_token) {
-            // 🐛 CORRECCIÓN: Guardamos en su propia cookie de refresco, no sobre 'amalia_token'
             await setSessionCookie('amalia_refresh_token', authData.refresh_token);
         }
 
@@ -265,23 +265,36 @@ export async function loginUsuario(email: string, password: string) {
 
 export async function renovarSesionServidor(): Promise<string | null> {
     const refresh_token = await getSessionCookie('amalia_refresh_token');
-
+    const timelapse = await getSessionCookie('amalia_timelapse');
+    const token = await getSessionCookie('amalia_token');
+    
     if (!refresh_token) {
         console.warn("Amalia Auth: No hay refresh token disponible.");
         return null;
     }
 
+    if (timelapse) {
+        const lastLoginOrRefresh = Number(timelapse);
+        const quinceMinutosEnMs = 15 * 60 * 1000; // 900,000 ms
+        const tiempoTranscurrido = Date.now() - lastLoginOrRefresh;
+
+        if (tiempoTranscurrido < quinceMinutosEnMs) {
+            return token || null;
+        }
+    }
     try {
         const result = await directusAuth.request(refresh({ mode: 'json', refresh_token }));
         if (result.access_token) {
-            await setSessionCookie('amalia_token', result.access_token || '');
+            await setSessionCookie('amalia_token', result.access_token);
+            await setSessionCookie('amalia_timelapse', Date.now().toString());
         }
+        
         if (result.refresh_token) {
             await setSessionCookie('amalia_refresh_token', result.refresh_token);
         }
+
         return result.access_token;
     } catch (error) {
-        console.error("Amalia Auth: El refresh token falló o venció. Limpiando sesión.", error);
         await logoutSoloCookies();
         return null;
     }

@@ -31,7 +31,7 @@ export async function updatePreferentDireccionCliente(token: string | null, idDi
         throw new Error('No existen identificadores de direccion');
     }
     try {
-        await renovarSesionServidor();
+        
         const direccionCliente = await directusAuthUser.request(
             withToken(token, updateItem('cliente_direccion', idDireccion, {
                 preferencia: true,
@@ -42,8 +42,11 @@ export async function updatePreferentDireccionCliente(token: string | null, idDi
         if (error.message?.includes('expired') || error.status === 401) {
 
             // Volvemos a forzar el refresco para asegurar el cambio de cookies
-            await renovarSesionServidor();
+            const response = await renovarSesionServidor();
 
+            if (!response) {
+                throw new Error('EXPIRADO');
+            }
             // Leemos el token fresco que renovarSesionServidor acaba de inyectar en las cookies
             const cookieStore = await cookies();
             const tokenFresco = cookieStore.get('amalia_token')?.value;
@@ -78,8 +81,6 @@ export async function crearDireccionCliente(token: string | null, idCliente: str
         throw new Error('No existen identificadores de cliente');
     }
     try {
-        await renovarSesionServidor();
-
         const direccionCliente = await directusAuthUser.request(
             withToken(token, createItem('cliente_direccion', {
                 preferencia: false,
@@ -97,7 +98,11 @@ export async function crearDireccionCliente(token: string | null, idCliente: str
         if (error.message?.includes('expired') || error.status === 401) {
 
             // Volvemos a forzar el refresco para asegurar el cambio de cookies
-            await renovarSesionServidor();
+            const response = await renovarSesionServidor();
+
+            if (!response) {
+                throw new Error('EXPIRADO');
+            }
 
             // Leemos el token fresco que renovarSesionServidor acaba de inyectar en las cookies
             const cookieStore = await cookies();
@@ -140,7 +145,6 @@ export async function modificarCelularCliente(token: string | null, idCliente: s
         throw new Error('No existen identificadores de cliente');
     }
     try {
-        await renovarSesionServidor();
 
         const clienteRenovado = await directusAuthUser.request(
             withToken(token, updateItem('cliente', idCliente, {
@@ -152,7 +156,11 @@ export async function modificarCelularCliente(token: string | null, idCliente: s
         if (error.message?.includes('expired') || error.status === 401) {
 
             // Volvemos a forzar el refresco para asegurar el cambio de cookies
-            await renovarSesionServidor();
+            const response = await renovarSesionServidor();
+
+            if (!response) {
+                throw new Error('EXPIRADO');
+            }
 
             // Leemos el token fresco que renovarSesionServidor acaba de inyectar en las cookies
             const cookieStore = await cookies();
@@ -195,8 +203,8 @@ export async function consultarDatosCliente(token: string | null, idCliente: str
             "telefono",
             "identificacion",
             "correo",
-            { citas: ["tipo", "dia", "hora","estado"] },
-            { solicitudes: ["atendido", "solicitud","date_created"] },
+            { citas: ["tipo", "dia", "hora", "estado"] },
+            { solicitudes: ["atendido", "solicitud", "date_created"] },
             {
                 billetera_id: ["id", "saldo_disponible", "saldo_bloqueado", {
                     historial_puntos: [
@@ -238,7 +246,6 @@ export async function consultarDatosCliente(token: string | null, idCliente: str
     };
 
     try {
-        await renovarSesionServidor();
 
         const cliente = await directusAuthUser.request(
             withToken(token, readItems('cliente', queryOptions))
@@ -251,7 +258,10 @@ export async function consultarDatosCliente(token: string | null, idCliente: str
         if (error.message?.includes('expired') || error.status === 401) {
 
             // Volvemos a forzar el refresco para asegurar el cambio de cookies
-            await renovarSesionServidor();
+            const responses = await renovarSesionServidor();
+            if (!responses) {
+                throw new Error('EXPIRADO');
+            }
 
             // Leemos el token fresco que renovarSesionServidor acaba de inyectar en las cookies
             const cookieStore = await cookies();

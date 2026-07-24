@@ -19,6 +19,7 @@ export const useEspacioHandler = (
     setIsModalOpen
   } = state;
 
+  const router = useRouter();
   const handleConsultInformacion = async () => {
     // 1. Inicializamos variables locales con lo que ya haya en el estado
     let currentId = idCliente;
@@ -53,6 +54,10 @@ export const useEspacioHandler = (
       const errorMessage = error?.message || "No se pudo consultar la información del cliente.";
       console.error("Error al consultar datos del cliente:", error);
       window.showAlert(errorMessage, 'ERROR');
+      if (error.message?.includes('EXPIRADO')) {
+        router.push('/login');
+      }
+
     }
   };
   const onChangeData = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -85,6 +90,9 @@ export const useEspacioHandler = (
 
     } catch (error: any) {
       window.showAlert(error.message, 'ERROR');
+      if (error.message?.includes('EXPIRADO')) {
+        router.push('/login');
+      }
     }
 
 
@@ -115,6 +123,9 @@ export const useEspacioHandler = (
       window.showAlert('Direccion seleccionada como preferida', 'INFO');
     } catch (error: any) {
       window.showAlert(error.message, 'ERROR');
+      if (error.message?.includes('EXPIRADO')) {
+        router.push('/login');
+      }
     }
 
   }
@@ -145,6 +156,9 @@ export const useEspacioHandler = (
       window.location.reload();
     } catch (error: any) {
       window.showAlert(error.message, 'ERROR');
+      if (error.message?.includes('EXPIRADO')) {
+        router.push('/login');
+      }
     }
   }
 

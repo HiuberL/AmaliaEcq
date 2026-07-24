@@ -3,6 +3,7 @@ import { useJuegaGanaState } from "./useJuegaGanaState";
 import { getSessionCookie } from "@/utils/cookies.utils";
 import { obtenerRespuestaJuego } from "@/services/billetera.service";
 import { useCart } from "@/hooks/Cart/useCart";
+import { Router, useRouter } from "next/router";
 
 
 
@@ -29,7 +30,7 @@ export const useJuegaGanaHandler = (
     const {
         onAddCart
     } = useCart();
-
+    const router = useRouter();
     const handleConsultInformacion = async () => {
         let currentId = idCliente;
         let currentToken = token;
@@ -60,6 +61,9 @@ export const useJuegaGanaHandler = (
             const errorMessage = error?.message || "No se pudo consultar la información del cliente.";
             console.error("Error al consultar datos del cliente:", error);
             window.showAlert(errorMessage, 'ERROR');
+            if(error.message?.includes('EXPIRADO')){
+                router.push('/login');
+            }
         }
     };
 

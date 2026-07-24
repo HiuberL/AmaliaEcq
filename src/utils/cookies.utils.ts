@@ -38,11 +38,10 @@ export async function existsToken(): Promise<boolean> {
 
 export async function logoutSoloCookies() {
   try {
-    const cookieStore = await cookies();
-    cookieStore.delete('amalia_token');
-    cookieStore.delete('amalia_refresh_token');
-    cookieStore.delete('amalia_cliente_id');
-    cookieStore.delete('directus_session_token');
+    await removeSessionCookie('amalia_token');
+    await removeSessionCookie('amalia_refresh_token');
+    await removeSessionCookie('amalia_cliente_id');
+    await removeSessionCookie('amalia_timelapse');
     return { exito: true };
   } catch (error) {
     console.error('Error al destruir las cookies de sesión:', error);

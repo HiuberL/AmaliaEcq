@@ -51,7 +51,6 @@ const enmascararTexto = (
 const convertObjetPersontoForm = (cliente: any, telefono: string = ''): any => {
     const clientePrimero = cliente[0];
     let direccion;
-    console.log(clientePrimero);
     if (clientePrimero) {
         if ((clientePrimero.direcciones?.length || 0) >= 1) {
             const informacion = clientePrimero.direcciones?.filter((v: any) => v.preferencia == true).map((s: any) => {

@@ -181,7 +181,6 @@ export const usePaymentPageHandler = (
             await pagarPedido(pedido.id, body, formTransfer.imagen);
             router.push(`/agradecimiento?id=${formTransfer.secuencia}&clientTransactionId=${transactionId}`);
         } catch (e) {
-            console.log(e);
             window.showAlert("No se pudo grabar el pago, escríbenos a whatsapp para realizar el soporte");
         }
     }

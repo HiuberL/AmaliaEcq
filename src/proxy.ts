@@ -4,6 +4,7 @@ import { analiticaCliente } from './app/actions/geolocalizacion.server';
 import { renovarSesionServidor } from './services/login.service';
 
 export async function proxy(request: NextRequest) {
+  await renovarSesionServidor();
   const token = await getSessionCookie('amalia_token');
   const { pathname } = request.nextUrl;
   await analiticaCliente('VISITA');

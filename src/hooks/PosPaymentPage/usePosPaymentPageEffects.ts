@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { searchPersonById } from "@/services/pedidos.service";
 import { getSessionCookie } from "@/utils/cookies.utils";
 import { consultaConfiguracionByTabla, consultaConfiguracionByTablaCondicion } from "@/services/configuraciones";
-import { bodyPayphonePay } from "@/services/payphone.service";
+import { bodyPayphonePay, bodyPayphonePayNoHash } from "@/services/payphone.service";
 import { usePosPaymentPageHandler } from "./usePosPaymentPageHandler";
 import { usePosPaymentPageState } from "./usePosPaymentPageState";
 
@@ -36,8 +36,7 @@ export const usePosPaymentPageEffects = (
         }
         if (!window.PPaymentButtonBox) return;
         const generarRender = async () => {
-            const config = await bodyPayphonePay(infoPedido.total, infoPedido.id, infoPedido.cliente ? `Compra amalia - ${ infoPedido.cliente}` : `ID pago - ${infoPedido.secuencial}`);
-            console.log(config);
+            const config = await bodyPayphonePayNoHash(infoPedido.total, infoPedido.id, infoPedido.cliente ? `Compra amalia - ${ infoPedido.cliente}` : `ID pago - ${infoPedido.secuencial}`);
             new window.PPaymentButtonBox(
                 config
             ).render("pp-button");

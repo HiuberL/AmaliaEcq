@@ -1,6 +1,6 @@
 'use server'
 
-import { uuidToNumberFecha } from "@/utils/cryptoInfo.utils";
+import { uuidToNumberFecha, uuidToNumberFechaNoHash } from "@/utils/cryptoInfo.utils";
 import { payphoneClient } from "./clientes.api";
 
 const TOKEN_PAYPHONE = process.env.API_PAYPHONE_TOKEN;
@@ -23,6 +23,25 @@ export const bodyPayphonePay = async (totalPagar:number,carrito:string, referenc
             lang: "es",
     }
 }
+
+export const bodyPayphonePayNoHash = async (totalPagar:number,carrito:string, reference:string) => {
+    return {
+            token: TOKEN_PAYPHONE,
+            clientTransactionId: uuidToNumberFechaNoHash(carrito),
+            amount: totalPagar * 100,
+            amountWithoutTax: totalPagar * 100,
+            amountWithTax: 0,
+            tax: 0,
+            service: 0,
+            tip: 0,
+            currency: "USD",
+            storeId: STOREID_PAYPHONE,
+            reference: reference,
+            lang: "es",
+    }
+}
+
+
 
 export const confirmPayment = async (id: string, transaction: string) => {
     try {

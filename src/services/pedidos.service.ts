@@ -381,7 +381,8 @@ export const obtenerPedidoCompleto = async (secuencial: string) => {
                 {
                     metodo_envio_id: [
                         'nombre',
-                        'detalles'
+                        'detalles',
+                        'valor'
                     ]
                 },
                 'forma_pago',

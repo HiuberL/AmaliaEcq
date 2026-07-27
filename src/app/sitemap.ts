@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     perfumesRes.value.productosTransf.forEach((prod: any) => {
       if (prod.slug) {
         productosMap.set(prod.slug, {
-          url: `${baseUrl}/productos/${prod.slug}`,
+          url: `${baseUrl}/producto/${prod.slug}`,
           lastModified: new Date(prod.updated_at || Date.now()),
           changeFrequency: 'weekly',
           priority: 0.8,
@@ -60,7 +60,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     maquillajesRes.value.productosTransf.forEach((prod: any) => {
       if (prod.slug) {
         productosMap.set(prod.slug, {
-          url: `${baseUrl}/productos/${prod.slug}`,
+          url: `${baseUrl}/producto/${prod.slug}`,
           lastModified: new Date(prod.updated_at || Date.now()),
           changeFrequency: 'weekly',
           priority: 0.8,

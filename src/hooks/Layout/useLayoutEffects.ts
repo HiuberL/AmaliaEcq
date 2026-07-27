@@ -25,7 +25,7 @@ export const useLayoutEffects = (
     // 3. El useEffect escucha activamente cada vez que el "pathname" cambia
     useEffect(() => {
         // Definimos las condiciones dentro del efecto
-        const esPaginaPago = pathname === '/paymentpage' || pathname.startsWith('/paymentpage/');
+        const esPaginaPago = pathname === '/paymentpage' || pathname.startsWith('/paymentpage/') || pathname === '/pospaymentpage' || pathname.startsWith('/pospaymentpage/')  ;
         const ocultarFooter = (pathname === '/' || pathname === '/inicio' || pathname === '/login' || esPaginaPago);
         const hacerTransparente = pathname === '/' || pathname === '/inicio';
         const ocultarHeader = pathname === '/login' || esPaginaPago;

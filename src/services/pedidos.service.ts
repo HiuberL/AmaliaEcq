@@ -280,6 +280,81 @@ export const guardarPedido = async (body: FormDataPay, idCarrito: string, valorE
     return true;
 }
 
+export const obtenerPedidoCompletoById = async (id: string) => {
+    try {
+        const pedido = await directusPrivate.request(readItems('pedidos', {
+            filter: {
+                _and:[
+                    {
+                        id: { _eq: id }
+                    },
+                    {
+                        estado: { _eq: "CREADO" }
+                    },                    
+                ]
+            },
+            fields: [
+                'id',
+                'secuencial',
+                {
+                    cliente_id: [
+                        'nombres',
+                        'apellidos'
+                    ]
+                },
+                {
+                    cliente_direccion_id: [
+                        "ciudad",
+                        "sector",
+                        "provincia"
+                    ]
+                },
+                {
+                    metodo_envio_id: [
+                        'nombre',
+                        'detalles',
+                        'valor'
+                    ]
+                },
+                'forma_pago',
+                'subtotal',
+                'nota_cliente',
+                'descuento',
+                'costo_real_envio',
+                'total',
+                'created_at',
+                'estado',
+                {
+                    pagos: [
+                        'respuesta'
+                    ]
+                },
+                {
+                    detalle_pedidos: [
+                        'cantidad',
+                        'subtotal',
+                        {
+                            variant_id: [
+                                'sku',
+                                {
+                                    producto_id: [
+                                        'imagen',
+                                        'nombre'
+                                    ]
+
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+        ));
+        return simplificarPedido(pedido[0]);
+    } catch (e) {
+        throw new Error((e as Error).message);
+    }
+}
 
 export const obtenerPedidoCompleto = async (secuencial: string) => {
     try {
@@ -371,7 +446,7 @@ const simplificarPedido = (pedidoRaw: any) => {
             return acumulado + (isNaN(monto) ? 0 : monto);
         }, 0),
         formaEnvio: pedidoRaw.metodo_envio_id.nombre,
-        valorEnvio: `${pedidoRaw.costo_real_envio}`,
+        valorEnvio: `${pedidoRaw.metodo_envio_id.valor}`,
         detalleEnvio: pedidoRaw.metodo_envio_id.detalles,
         nota: pedidoRaw.nota_cliente,
         cliente: pedidoRaw.cliente_id

@@ -52,6 +52,7 @@ export default function PosPaymentCliente({ pedido, id }: PedidoProps) {
     handleFileChange,
     nombreArchivo,
     setNombreArchivo,
+    setPayMethodReady,
     onFinishFormTransfer
   } = usePosPaymentPage(pedido);
 
@@ -70,7 +71,10 @@ export default function PosPaymentCliente({ pedido, id }: PedidoProps) {
         src="https://cdn.payphonetodoesposible.com/box/v2.0/payphone-payment-box.js"
         type="module"
         strategy="afterInteractive"
-      />
+        onReady={() => {
+          setPayMethodReady(true);
+        }} 
+       />
 
       <div className={styles.checkoutContainer}>
         <div className={styles.checkoutLayout}>

@@ -7,6 +7,7 @@ export const usePosPaymentPageState = (pedido:PedidoMapped) => {
   const [infoPedido, setInfoPedido] = useState<PedidoMapped>(pedido);
   const [nombreArchivo, setNombreArchivo] = useState<any>(null);
   const [metodoPago, setMetodoPago] = useState<any>(null);
+  const [payMethodReady, setPayMethodReady] = useState(false);
 
   const [formTransfer, setFormTransfer] = useState<FormTransfer>({
     cuentaSeleccionada: "",
@@ -19,6 +20,7 @@ export const usePosPaymentPageState = (pedido:PedidoMapped) => {
     metodoPago, setMetodoPago,
     infoPedido, setInfoPedido,
     formTransfer, setFormTransfer,
+    payMethodReady, setPayMethodReady,
     nombreArchivo, setNombreArchivo
   }
 }

@@ -1,0 +1,210 @@
+/* Overlay oscuro de fondo */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Botón de acción dentro del banner */
+.actionButton {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px 22px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--font-size-small);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+  z-index: 6;
+  white-space: nowrap;
+}
+
+.actionButton:hover {
+  background-color: #222222;
+  transform: translateX(-50%) scale(1.04);
+}
+
+/* Contenedor del Modal */
+.modal {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Botón de cierre */
+.closeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.closeButton:hover {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+/* Área de la imagen del banner */
+.slideContainer {
+  position: relative;
+  width: 100%;
+  display: flex;
+  color:var(--white);
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Botones de Navegación (Flechas) */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  z-index: 5;
+  transition: background 0.2s ease;
+}
+
+.navButton:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+/* Indicadores / Puntos del carrusel */
+.dotsContainer {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.activeDot {
+  background: #ffffff;
+  transform: scale(1.2);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================
+   ESTILOS PARA MÓVILES Y PANTALLAS PEQUEÑAS
+   ========================================== */
+@media (max-width: 640px) {
+.actionButton {
+    bottom: 28px;            /* Un poco más pegado al borde inferior */
+    padding: 8px 18px;       /* Tamaño más cómodo para pantallas pequeñas */
+    font-size: var(--font-size-small-1);         /* Texto ligeramente más pequeño */
+    max-width: 80%;          /* Evita que se desborde si el texto es largo */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .overlay {
+    padding: 12px;
+  }
+
+  .modal {
+    max-width: 100%;
+    width: 92vw; /* Deja un pequeño aire a los lados */
+    border-radius: 10px;
+  }
+
+  /* Botón de cerrar más visible y fácil de presionar */
+  .closeButton {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+
+  /* Flechas ajustadas para no tapar la imagen */
+  .navButton {
+    width: 34px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .prev {
+    left: 6px;
+  }
+
+  .next {
+    right: 6px;
+  }
+
+  /* Puntos indicadores más visibles para el dedo */
+  .dotsContainer {
+    bottom: 8px;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}

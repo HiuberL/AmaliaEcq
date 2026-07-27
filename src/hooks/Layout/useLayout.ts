@@ -6,7 +6,7 @@ import { useLayoutState } from "./useLayoutState";
 export const useLayout = () => {
     const state = useLayoutState();
     const handler = useLayoutHandler();
-    const effects = useLayoutEffects(state);
+    const effects = useLayoutEffects(state,handler);
     return{
         menuOpen: state.menuOpen,
         setMenuOpen: state.setMenuOpen,

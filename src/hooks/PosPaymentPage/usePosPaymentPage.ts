@@ -6,12 +6,13 @@ import { usePosPaymentPageEffects } from "./usePosPaymentPageEffects";
 export const usePosPaymentPage = (pedido: PedidoMapped) => {
     const state = usePosPaymentPageState(pedido);
     const handler = usePosPaymentPageHandler(state);
-    usePosPaymentPageEffects(handler, state);
+    const effects = usePosPaymentPageEffects(handler, state);
 
 
     return {
         ... state,
-        ... handler
+        ... handler,
+
     }
 
 }

@@ -235,7 +235,7 @@ export default function PosPaymentCliente({ pedido, id }: PedidoProps) {
             <div className={styles.cartItemsWrapper}>
               {infoPedido.productos.map((item: any) => {
                 return (
-                  <div key={item.sku} className={styles.cartItemSample}>
+                  <div key={item.sku } className={styles.cartItemSample}>
                     <div className={styles.itemInfo}>
                       {/* Renderizamos la imagen del producto real */}
                       <img

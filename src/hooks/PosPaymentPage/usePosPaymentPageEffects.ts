@@ -25,11 +25,13 @@ export const usePosPaymentPageEffects = (
         handleConsultMetodoPago
     }=handler;
     useEffect(() => {
-        const consultarCatalogos = async () => {
-            await handleConsultMetodoPago();
+        if (infoPedido.formaPago === 'TRANSFERENCIA') {
+            const consultarCatalogos = async () => {
+                await handleConsultMetodoPago();
+            }            
+            consultarCatalogos();
+            return;
         }
-        consultarCatalogos();
-        if (infoPedido.formaPago === 'TRANSFERENCIA') return;
         if (!window.PPaymentButtonBox) return;
         const generarRender = async () => {
             const config = await bodyPayphonePay(infoPedido.total, infoPedido.id, infoPedido.cliente ? `Compra amalia - ${ infoPedido.cliente}` : `ID pago - ${infoPedido.secuencial}`);
@@ -38,6 +40,6 @@ export const usePosPaymentPageEffects = (
             ).render("pp-button");
         }
         generarRender();
-    }, []);
+    }, [infoPedido.formaPago]);
 
 }

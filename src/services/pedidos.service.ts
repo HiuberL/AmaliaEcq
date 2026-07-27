@@ -326,7 +326,8 @@ export const obtenerPedidoCompletoById = async (id: string) => {
                 'estado',
                 {
                     pagos: [
-                        'respuesta'
+                        'respuesta',
+                        'imagen'
                     ]
                 },
                 {
@@ -395,7 +396,8 @@ export const obtenerPedidoCompleto = async (secuencial: string) => {
                 'estado',
                 {
                     pagos: [
-                        'respuesta'
+                        'respuesta',
+                        'imagen'
                     ]
                 },
                 {
@@ -440,7 +442,7 @@ const simplificarPedido = (pedidoRaw: any) => {
         total: parseFloat(pedidoRaw.total),
         fecha: new Date(pedidoRaw.created_at),
         pagoUltimo: ultimoPago?.respuesta ?? {},
-
+        pagos: pedidoRaw.pagos,
         // Para el total, acumulamos validando que exista 'respuesta' en cada iteración
         pagoTotal: pagosArray.reduce((acumulado: number, item: any) => {
             const monto = parseFloat(item?.respuesta?.amount || 0);

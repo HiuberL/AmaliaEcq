@@ -1,8 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Loading from '../loading';
 import { useAgradecimiento } from '@/hooks/Agradecimiento/useAgradecimiento';
-import styles from '@styles/admin/agradecimiento.module.css'
+import styles from '@styles/admin/agradecimiento.module.css';
 import { useLayoutContext } from '../layoutContext';
 
 export default function AgradecimientoPage() {
@@ -12,73 +13,99 @@ export default function AgradecimientoPage() {
     pedido,
     notFound
   } = useAgradecimiento();
-  if (loading || !paymentResponse) return (<Loading />)
-    const getStatusConfig = (code: number = 0) => {
-      switch (code) {
-        case 3:
-          return {
-            className: styles.statusApproved,
-            icon: '✓',
-            title: '¡Pedido Recibido Exitosamente!',
-          };
-        case 0:
-          return {
-            className: styles.statusPending,
-            icon: '🕒',
-            title: 'Pedido en Revisión',
-          };
-        case 99:
-          return {
-            className: styles.statusCancelled,
-            icon: '✕',
-            title: 'Pedido no encontrado o eliminado',
-          };          
-        case 2:
-        default:
-          return {
-            className: styles.statusCancelled,
-            icon: '✕',
-            title: 'Pago Cancelado o Rechazado',
-          };
-      }
-    };
 
-    const statusConfig = getStatusConfig(paymentResponse.statusCode ??  0);
+  // Estado para controlar el modal de comprobantes
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImgIndex, setSelectedImgIndex] = useState(0);
 
-    // Formateador de moneda local
-    const formatCurrency = (val: number | string) => {
-      const num = typeof val === 'string' ? parseFloat(val) : val;
-      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
-    };
+  if (loading || !paymentResponse) return (<Loading />);
 
-    // Formateador de fecha
-    const formatDate = (date: Date) => {
-      return new Intl.DateTimeFormat('es-EC', {
-        dateStyle: 'short',
-        timeStyle: 'short',
-      }).format(date);
-    };
+  const getStatusConfig = (code: number = 0) => {
+    switch (code) {
+      case 3:
+        return {
+          className: styles.statusApproved,
+          icon: '✓',
+          title: '¡Pedido Recibido Exitosamente!',
+        };
+      case 0:
+        return {
+          className: styles.statusPending,
+          icon: '🕒',
+          title: 'Pedido en Revisión',
+        };
+      case 99:
+        return {
+          className: styles.statusCancelled,
+          icon: '✕',
+          title: 'Pedido no encontrado o eliminado',
+        };      
+      case 98:
+        return {
+          className: styles.statusPending,
+          icon: '🕒',
+          title: 'Pago total no completado',
+        };             
+      case 2:
+      default:
+        return {
+          className: styles.statusCancelled,
+          icon: '✕',
+          title: 'Pago Cancelado o Rechazado',
+        };
+    }
+  };
 
-  
+  const statusConfig = getStatusConfig(paymentResponse.statusCode ?? 0);
+
+  // Formateador de moneda local
+  const formatCurrency = (val: number | string) => {
+    const num = typeof val === 'string' ? parseFloat(val) : val;
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(num);
+  };
+
+  // Formateador de fecha
+  const formatDate = (date: Date) => {
+    return new Intl.DateTimeFormat('es-EC', {
+      dateStyle: 'short',
+      timeStyle: 'short',
+    }).format(date);
+  };
+
+  // Garantizar el prefijo correcto de base64
+  const formatBase64Image = (imgSrc: string) => {
+    if (!imgSrc) return '/assets/no-photo.webp';
+    return imgSrc.startsWith('data:image/') ? imgSrc : `data:image/jpeg;base64,${imgSrc}`;
+  };
+
   if (notFound) {
     return (
-        <div className={`${styles.statusCard} ${statusConfig.className}`}>
-          <div className={styles.statusIcon}>{statusConfig.icon}</div>
-          <h2 className={styles.statusTitle}>{statusConfig.title}</h2>
-          <p className={styles.statusMessage}>{paymentResponse.message || 'Estamos procesando tu solicitud.'}</p>
+      <div className={`${styles.statusCard} ${statusConfig.className}`}>
+        <div className={styles.statusIcon}>{statusConfig.icon}</div>
+        <h2 className={styles.statusTitle}>{statusConfig.title}</h2>
+        <p className={styles.statusMessage}>{paymentResponse.message || 'Estamos procesando tu solicitud.'}</p>
 
-          <div className={styles.detailsGrid}>
-            <div className={styles.detailItem}>
-              <span className={styles.detailLabel}>Método de Pago</span>
-              <span className={styles.detailValue}>
-                {paymentResponse.cardBrand} {paymentResponse.cardType ? `(${paymentResponse.cardType})` : ''}
-              </span>
-            </div>
+        <div className={styles.detailsGrid}>
+          <div className={styles.detailItem}>
+            <span className={styles.detailLabel}>Método de Pago</span>
+            <span className={styles.detailValue}>
+              {paymentResponse.cardBrand} {paymentResponse.cardType ? `(${paymentResponse.cardType})` : ''}
+            </span>
           </div>
         </div>
-  )
-  }else {
+      </div>
+    );
+  } else {
+    // Filtrar comprobantes con imagen
+    const pagosConImagen = pedido?.pagos?.filter((p: any) => p?.imagen) || [];
 
+    const handlePrevImg = () => {
+      setSelectedImgIndex((prev) => (prev > 0 ? prev - 1 : pagosConImagen.length - 1));
+    };
+
+    const handleNextImg = () => {
+      setSelectedImgIndex((prev) => (prev < pagosConImagen.length - 1 ? prev + 1 : 0));
+    };
 
     return (
       <div className={styles.container}>
@@ -112,7 +139,6 @@ export default function AgradecimientoPage() {
                 <span className={styles.detailValue}>{paymentResponse.amount}</span>
               </div>
             )}
-
           </div>
         </div>
 
@@ -189,6 +215,22 @@ export default function AgradecimientoPage() {
               <br />
               <p><strong>Cliente:</strong> {pedido.cliente}</p>
               <p><strong>Fecha Pedido:</strong> {formatDate(pedido.fecha)}</p>
+
+              {/* Botón para abrir el modal */}
+              {pagosConImagen.length > 0 && (
+                <div className={styles.paymentButtonContainer}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedImgIndex(0);
+                      setIsModalOpen(true);
+                    }}
+                    className={styles.btnViewPayments}
+                  >
+                    📷 Ver Comprobantes de Pago ({pagosConImagen.length})
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className={styles.actionWrapper}>
@@ -202,6 +244,50 @@ export default function AgradecimientoPage() {
           </div>
 
         </div>
+
+        {/* Modal de Comprobantes Base64 */}
+        {isModalOpen && pagosConImagen.length > 0 && (
+          <div
+            className={styles.modalOverlay}
+            onClick={() => setIsModalOpen(false)}
+          >
+            <div
+              className={styles.modalContent}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className={styles.modalCloseBtn}
+              >
+                ✕
+              </button>
+
+              <h3 className={styles.modalTitle}>
+                Comprobante {selectedImgIndex + 1} de {pagosConImagen.length}
+              </h3>
+
+              <div className={styles.modalImageWrapper}>
+                <img
+                  src={formatBase64Image(pagosConImagen[selectedImgIndex].imagen)}
+                  alt={`Comprobante de pago ${selectedImgIndex + 1}`}
+                  className={styles.modalImage}
+                />
+              </div>
+
+              {pagosConImagen.length > 1 && (
+                <div className={styles.modalNavButtons}>
+                  <button onClick={handlePrevImg} className={styles.btnNav}>
+                    ◀ Anterior
+                  </button>
+                  <button onClick={handleNextImg} className={styles.btnNav}>
+                    Siguiente ▶
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
       </div>
     );
   }

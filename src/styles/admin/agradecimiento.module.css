@@ -53,6 +53,114 @@
   color: #b91c1c;
 }
 
+/* Botón para abrir modal */
+.paymentButtonContainer {
+  margin-top: 15px;
+}
+
+.btnViewPayments {
+  padding: 8px 14px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btnViewPayments:hover {
+  background-color: #1d4ed8;
+}
+
+/* Modal Emergente */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modalContent {
+  background-color: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: #6b7280;
+}
+
+.modalCloseBtn:hover {
+  color: #111827;
+}
+
+.modalTitle {
+  margin-bottom: 16px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.modalImageWrapper {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.modalImage {
+  max-width: 100%;
+  max-height: 50vh;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.modalNavButtons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btnNav {
+  padding: 8px 16px;
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btnNav:hover {
+  background-color: #e5e7eb;
+}
+
 .statusIcon {
   width: 40px;
   height: 40px;

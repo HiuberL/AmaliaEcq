@@ -21,7 +21,7 @@ export const useCartHandler = (
             const carrito = await consultarCarritoCompleto();
             return carrito;
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo consultar el carrito.", 'ERROR');
+            window.showAlert("No se pudo consultar el carrito.", 'ERROR');
             return null;
         }
     }
@@ -33,7 +33,7 @@ export const useCartHandler = (
             await agregarAlCarrito(varianteId, cantidad);
             setCartOpen(true);
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo agregar el producto al carrito.", 'ERROR');
+            window.showAlert("No se pudo agregar el producto al carrito.", 'ERROR');
         }
     }
 
@@ -44,14 +44,14 @@ export const useCartHandler = (
             await guardarSolicitudProducto(solicitud,guestCartId||null);
             window.showAlert("Tu solicitud se ha guardar, nos encargaremos de ello.", 'INFO');
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo solicitar el producto.", 'ERROR');
+            window.showAlert("No se pudo solicitar el producto.", 'ERROR');
         }
     }
     const handlerUpdateCarrito = async (detalleId: string, cantidad: number) => {
         try {
             await actualizarCantidadDetalle(detalleId, cantidad);
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo actualizar la cantidad del carrito.", 'ERROR');
+            window.showAlert("No se pudo actualizar la cantidad del carrito.", 'ERROR');
         }
     }
     const cargarInformacion = async () => {
@@ -60,7 +60,7 @@ export const useCartHandler = (
             const data = await handlerConsultCarrito();
             setCarrito(data);
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo cargar la información del carrito.", 'ERROR');
+            window.showAlert("No se pudo cargar la información del carrito.", 'ERROR');
         } finally {
             setLoading(false);
         }
@@ -71,7 +71,7 @@ export const useCartHandler = (
             const guestCartId= await getSessionCookie('guest_cart_id');
             router.push(`/paymentpage/${guestCartId}`); //
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo abrir la página de pago.", 'ERROR');
+            window.showAlert("No se pudo abrir la página de pago.", 'ERROR');
         }
     }
 
@@ -93,7 +93,7 @@ export const useCartHandler = (
             const dataFresca = await handlerConsultCarrito();
             setCarrito(dataFresca);
         } catch (error: any) {
-            window.showAlert(error.message || "No se pudo actualizar la cantidad por falta de stock.", 'ERROR');
+            window.showAlert("No se pudo actualizar la cantidad por falta de stock.", 'ERROR');
             cargarInformacion(); // Si falla, revertimos al estado real en DB
         }
     };

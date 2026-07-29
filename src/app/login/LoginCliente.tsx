@@ -23,6 +23,40 @@ export default function LoginClient() {
   const [telefono, setTelefono] = useState('');
   const [identificacion, setIdentificacion] = useState('');
 
+function validarCedulaEcuador(cedula:string) {
+    // Debe tener exactamente 10 dígitos
+    if (!/^\d{10}$/.test(cedula)) {
+        return false;
+    }
+
+    const provincia = parseInt(cedula.substring(0, 2), 10);
+    const tercerDigito = parseInt(cedula[2], 10);
+
+    // Provincias válidas (01-24) o 30
+    if ((provincia < 1 || provincia > 24) && provincia !== 30) {
+        return false;
+    }
+
+    let suma = 0;
+
+    for (let i = 0; i < 9; i++) {
+        let valor = parseInt(cedula[i], 10);
+
+        if (i % 2 === 0) {
+            valor *= 2;
+            if (valor > 9) {
+                valor -= 9;
+            }
+        }
+
+        suma += valor;
+    }
+
+    const digitoVerificador = (10 - (suma % 10)) % 10;
+
+    return digitoVerificador === parseInt(cedula[9], 10);
+}
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setCargando(true);
@@ -39,7 +73,10 @@ export default function LoginClient() {
         setCargando(false);
       }
     } else {
-      // Flujo de Registro
+      if(!validarCedulaEcuador(identificacion)){
+        setErrorMsg('La cédula no es válida');
+        setCargando(false);
+      }
       const res = await registrarUsuario({ email, password, nombres, apellidos, telefono, identificacion });
       if (res.exito) {
         router.push('/');

@@ -33,7 +33,7 @@ export const useCartHandler = (
             await agregarAlCarrito(varianteId, cantidad);
             setCartOpen(true);
         } catch (error: any) {
-            window.showAlert("No se pudo agregar el producto al carrito.", 'ERROR');
+            window.showAlert("No se pudo agregar el producto al carrito, producto sin stock o sin cantidad solicitada", 'ERROR');
         }
     }
 

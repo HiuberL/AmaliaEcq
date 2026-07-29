@@ -37,6 +37,7 @@ export async function registrarUsuario(formData: any) {
     // Variables para llevar el rastro de lo que creamos en caso de necesitar un rollback
     let usuarioCreadoId: string | null = null;
     let billeteraCreadaId: string | null = null;
+    let clienteCreadoId: string | null = null;
 
     try {
         const { email, password, nombres, apellidos, telefono, identificacion } = formData;
@@ -159,7 +160,7 @@ export async function registrarUsuario(formData: any) {
             billeteraCreadaId = nuevaBilleteraN.id; // 📌 Guardamos el ID para rastreo
 
             // Creamos la fila en tu tabla 'cliente'
-            await directusPrivate.request(
+            const cliente = await directusPrivate.request(
                 createItem('cliente', {
                     nombres: nombres.toUpperCase(),
                     apellidos: apellidos.toUpperCase() || '',
@@ -170,6 +171,7 @@ export async function registrarUsuario(formData: any) {
                     usuario_id: usuarioCreadoId
                 })
             );
+            clienteCreadoId = cliente.id;
         }
 
         // Si el flujo llegó hasta aquí sin caer al catch, todo fue un éxito rotundo.
@@ -194,6 +196,13 @@ export async function registrarUsuario(formData: any) {
                 await directusPrivate.request(deleteUser(usuarioCreadoId));
             } catch (err) {
                 console.error('No se pudo revertir la creación del usuario:', err);
+            }
+        }
+        if (clienteCreadoId) {
+            try {
+                await directusPrivate.request(deleteItem('cliente', clienteCreadoId));
+            } catch (err) {
+                console.error('No se pudo revertir la creación del Cliente:', err);
             }
         }
 

@@ -235,12 +235,14 @@ export const guardarPedido = async (body: FormDataPay, idCarrito: string, valorE
        const cliente =  await crearCliente(body);
         clienteId = cliente.id;
     }else{
-        await directusPrivate.request(
-             updateItem('cliente', clienteId, {
-                identificacion: body.identificacion
-            }));
+        if (!body.identificacion.includes('*')){
+            await directusPrivate.request(
+                updateItem('cliente', clienteId, {
+                    identificacion: body.identificacion
+                }));
+        }
     }
-    if (clienteIdDireccion === ""){
+    if (clienteIdDireccion === "" && body.metodoEnvio != '71f045a5-36b6-484e-996e-dd3e69e3644b' ){
         const direccionCliente = await directusPrivate.request(
            createItem('cliente_direccion', {
                 preferencia: true,
